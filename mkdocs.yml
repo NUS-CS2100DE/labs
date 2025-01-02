@@ -4,19 +4,39 @@ theme:
   name: material
   palette:
     scheme: nus
+  font:
+    text: Merriweather
+  icon:
+    annotation: material/information-variant-circle-outline
 extra_css:
   - stylesheets/extra.css
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - attr_list
+  - md_in_html
+  - pymdownx.blocks.caption
+  - attr_list
+  - md_in_html
+  - pymdownx.superfences
+
+  # - glightbox
 
 nav:
   - Home: index.md
+  - How to use this website: howto.md
+  - Grading: grading.md
+  - Lab Prerequisites: prerequisites.md
   - Lab manuals: 
-    - Lab 1: manuals/01/lab_01.md
-    - Lab 2: manuals/02/lab_02.md
-    - Lab 3: manuals/03/lab_03.md
-    - Lab 4: manuals/04/lab_04.md
-    - Lab 5: manuals/05/lab_05.md
-    - Lab 6: manuals/06/lab_06.md
-    - Lab 7: manuals/07/lab_07.md
-    - Lab 8: manuals/08/lab_08.md
-  - Tool setup guides:
+    - Lab 1 [Week 3]: manuals/01/lab_01.md
+    - Lab 2 [Week 4]: manuals/02/lab_02.md
+    - Lab 3 [Week 5]: manuals/03/lab_03.md
+    - Lab 4 [Week 6]: manuals/04/lab_04.md
+    - Lab 5 [Week 7]: manuals/05/lab_05.md
+    - Lab 6 [Week 8]: manuals/06/lab_06.md
+    - Lab 7 [Week 9]: manuals/07/lab_07.md
+    - Lab 8 [Week 11]: manuals/08/lab_08.md
+  - Guides:
+    - Getting to know your Nexys 4: guides/nexys4.md
     - Installation guide for Vivado (from CG3207): https://nus-cg3207.github.io/labs/Vivado_Installation_and_Getting_Started/vivado_install_guide/
