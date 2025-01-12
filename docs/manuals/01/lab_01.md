@@ -78,7 +78,7 @@ The "Create a New Vivado Project" wizard
 
 ///
 
-Click "Next". The following screen will ask you to give your project a name and location. Choose a descriptive name (eg. `week_03`) and save it somewhere you will remember. 
+Click "Next". The following screen will ask you to give your project a name and location. Choose a descriptive name (e.g. `week_03`) and save it somewhere you will remember. 
 
 !!! tip 
 
@@ -202,7 +202,7 @@ The Project Manager view in Vivado, which should appear after you create a new p
 
 !!! tip
 
-	If you have a smaller or lower resolution screen, it may be difficule to see the different panes in the window clearly, or to see enough content in them. You can double-click on the pane title (eg. "Sources") to expand that panel to fill the whole screen.
+	If you have a smaller or lower resolution screen, it may be difficult to see the different panes in the window clearly, or to see enough content in them. You can double-click on the pane title (e.g. "Sources") to expand that panel to fill the whole screen.
 
 After importing files into the project, Vivado may not have detected which module should be `Top` correctly. In my case, it is using the `Adder` module as the top module. You can see this in the "Sources" pane - the `Adder` module is bold and has a small icon next to it to indicate that this is the top module. 
 
@@ -288,7 +288,7 @@ We can imagine these are wires floating in our simulation world. But, what are w
 Adder uut (in_a, in_b, result, carry); // uut stands for "unit under testing"
 ```
 
-Here, we instantiate the Adder module, just like we did in the `Top` module. Here, we use a shorter form of the syntax we used in `Top`, but these two syntaxes are interchangeable and it's not necessary to use one or another. 
+Here, we instantiate the Adder module, just like we did in the `Top` module. We use a shorter form of the syntax we used in `Top`, but these two syntaxes are interchangeable and it's not necessary to use one or another. 
 
 !!! note
 	There is nothing stopping us from simulating the `Top` module as a whole, instead of just the `Adder` module. However, since the `Top` module only contains very simple, straight connections from the FPGA board's peripherals to the `Adder` module, the `Adder` module is the one with any complexity (and therefore, the one that is likely to be broken). 
@@ -350,7 +350,7 @@ The Vivado "Simulation" view
 
 First of all, we should resize the panels in the waveform window to be able to see the waveform correctly. Then we can zoom out in the waveform until we can see all our test cases clearly. We can use the zoom buttons on the top of the waveform pane to zoom, or use Ctrl-scroll just like in the RTL schematic view. 
 
-Perhaps we want to look at what the wires inside our `Adder` module `uut`. That's possible too - First, select the `uut` module in the "Scope" pane. Then, in the "Object" pane, we will see the wires inside our module. Drag `carry[7:0]` to the waveform to add it in, or right-click it and choose "Add to Wave Window". 
+Perhaps we want to look at what the wires inside our `Adder` module `uut` are doing. That's possible too - First, select the `uut` module in the "Scope" pane. Then, in the "Object" pane, we will see the wires inside our module. Drag `carry[7:0]` to the waveform to add it in, or right-click it and choose "Add to Wave Window". 
 
 The new bus we added to our wave window doesn't actually have a wave corresponding to it. To fix this, we need to restart our simulation. Let us take this opportunity to learn about the controls for our simulation:
 
