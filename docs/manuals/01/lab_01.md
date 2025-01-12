@@ -4,6 +4,8 @@
 
 	This lab includes a graded lab assignment, worth **2 points**. Refer to [the page on grading](../../grading.md) for more information. 
 
+	This assignment includes **4 questions**, clearly demarcated throughout the manual. 
+
 ## Introduction
 
 In this lab, we will learn what an FPGA is, and use our FPGA board to learn how to design digital logic for, and program, an FPGA. We will use an FPGA for the final project for this course, where you will build a simple CPU, so it's important to be very comfortable using this powerful tool. 
@@ -32,14 +34,14 @@ In our lectures, we have already seen how different digital logic structures can
 
 Here is a very quick overview of the steps in creating a design for an FPGA:
 
-1. **Write HDL code** <br>
-This step is self explanatory. We must write HDL code to describe our design that we want to put on our FPGA. 
+1. **Write RTL code in HDL** <br>
+Register-Transfer Level (RTL) code is written in an HDL. It describes the system we want to design in terms of the logic we want it to represent. Of course, the first step in creating a design is to write the RTL code so that we can eventually put it on our FPGA. 
 
-2. **Simulate HDL code** <br>
+2. **Simulate RTL code** <br>
 This is an extremely important step in the FPGA design flow. Unfortunately, it is also one that is super tempting to skip!  As a designer, it is extremely important for us to use the simulator to make sure our design is logically correct before we proceed to the next steps. If we decide to skip simulation and testing, we risk building and uploading a full design that produces the wrong output - with larger designs, this could be hours or days wasted! <br>
 
 3. **Synthesis** <br>
-Synthesis takes our HDL code and turns it into a "netlist" - that is, it converts it into a set of connections between the different components available on our FPGA board. 
+Synthesis takes our RTL code and turns it into a "netlist" - that is, it converts it into a set of connections between the different components available on our FPGA board. 
 
 4. **Implementation**<br>
 Implementation takes our synthesised netlist and decides how the FPGA should be configured to implement that netlist. For example, it will choose the specific components to be used on the board (placement), and the specific wires that should be used to connect these components (routing). 
@@ -198,6 +200,10 @@ The Project Manager view in Vivado, which should appear after you create a new p
 
 ///
 
+!!! tip
+
+	If you have a smaller or lower resolution screen, it may be difficule to see the different panes in the window clearly, or to see enough content in them. You can double-click on the pane title (eg. "Sources") to expand that panel to fill the whole screen.
+
 After importing files into the project, Vivado may not have detected which module should be `Top` correctly. In my case, it is using the `Adder` module as the top module. You can see this in the "Sources" pane - the `Adder` module is bold and has a small icon next to it to indicate that this is the top module. 
 
 To set `Top` as the top module, simply right-click it in the Sources pane, and click on Set as Top. Vivado may take a couple of seconds to update the pane to reflect this. 
@@ -235,26 +241,305 @@ Congratulations! You have created a simple digital circuit design.
 
 ### Elaborating the design
 
+In simple terms, "Elaboration" is a process which takes your RTL code and converts it into a series of logic gates/components and the connections between them. Elaboration is actually a part of the Synthesis step, but it is useful for us to stop the tool after elaboration to find out if the design is actually what we expected. 
+
 On the Flow Navigator pane on the left side of the window, you should see a group of options called "RTL ANALYSIS". Under this section, use the arrow to expand "Open Elaborated Design", then click on "Schematic". If there is a prompt about the current settings potentially slowing down elaboration, just click "OK" to continue with elaboration. After a few seconds, you should see the "Elaborated Design" view in your Vivado window, and the schematic of your design.
+
+!!! tip
+
+	Use your mouse scroll wheel to move up and down in your design. Hold down Ctrl while scrolling to zoom in and out, and hold down Shift to scroll left and right. 
 
 !!! question "Question 1 [0.5 points]"
 
 	Include a screenshot of your RTL design of the Top module. Expand the Adder block to show the components inside it. If your elaborated design is too big to comfortably see in one screenshot, you may take multiple screenshots and include them all in your report. 
 
+Now that we have looked at the RTL design and verified that it (at least mostly) makes sense, we can make sure that it really does (completely) make sense and does what we want it to do, by running the simulations. 
+
 ## Simulation in Vivado
 
-!!! question "Question 2 [0.5 points]"
+We mentioned [above](#the-fpga-design-flow) that simulation is an important step in the FPGA design flow. However, since it bears repeating, we will say it again here: **simulation is a very important step in the FPGA design flow**. Behavioral simulation (the kind we will use) is perhaps the most important for us - it allows us to verify that our logic is all correct. 
 
-	Include a screenshot of your simulation waveform. You should show all four signals `in_a`, `in_b`, `result` and `carry`, over all four included test cases. 
+To simulate the device that we have just created, we need to actually define the simulation by writing code to describe the environment to simulate the device in. The simulation *testbench* is an environment where we connect the device we want to test, to inputs that we can control and to outputs that we can monitor. 
+
+### Writing a testbench
+
+When we write a testbench, we use HDL code to describe how the module we want to test is connected, and then provide stimuli to the inputs and watch the outputs change accordingly. 
+
+!!! note
+
+	All RTL code is written in an HDL, but not all HDL code is RTL code.  In the [previous section](#creating-a-simple-design), we used SystemVerilog, an HDL, to write RTL code that describes the design of a module we want to create. In this section, we use the same HDL to write simulation code. 
+
+For today's lab, we have provided simulation code for you to use. In your Sources panel, navigate to "Simulation Sources" -> "sim_1" -> "Adder_sim". It should be bold with the little green-and-grey icon next to it, indicating that it is the top module for simulation. If this isn't the case, right-click the module name and click on "Set as Top". This will set `Adder_sim` as the top module *only for simulation*. 
+
+Let's take a look at `Adder_sim.sv` and understand what's going on here. 
+
+First, we define the inputs and outputs for our testbench. Since we are only simulating the `Adder` module, we can just include the inputs and outputs to that module. 
+
+```
+logic[7:0] in_a;
+logic[7:0] in_b;
+logic[7:0] result;
+logic carry;
+```
+
+We can imagine these are wires floating in our simulation world. But, what are wires if we have nothing to connect them to?
+
+```
+Adder uut (in_a, in_b, result, carry); // uut stands for "unit under testing"
+```
+
+Here, we instantiate the Adder module, just like we did in the `Top` module. Here, we use a shorter form of the syntax we used in `Top`, but these two syntaxes are interchangeable and it's not necessary to use one or another. 
+
+!!! note
+	There is nothing stopping us from simulating the `Top` module as a whole, instead of just the `Adder` module. However, since the `Top` module only contains very simple, straight connections from the FPGA board's peripherals to the `Adder` module, the `Adder` module is the one with any complexity (and therefore, the one that is likely to be broken). 
+
+	If we want to be very proper with testing, we can simulate every module in our design separately, as well as testing our design as a whole. While this may seem overkill for small designs where it is still relatively possible to find bugs by simulating the design as a whole, it's a good habit for when our designs become more complex. 
+
+Now comes the fun part of simulation. We now need to provide stimuli to the module that we are testing. 
+
+```
+initial begin
+	in_a = 8'b0;
+	in_b = 8'b0;
+	#10;
+	in_a = 8'b1010;
+	in_b = 8'b1010;
+	#10;
+	in_a = 8'b11111111;
+	in_b = 8'b11111111;
+	#10;
+end
+```
+
+The `initial begin [...] end` section denotes code that is to be executed only once at the beginning of the simulation. If you've ever played with Arduino, this is analogous to the `void setup()` function in most Arduino code. 
+
+Inside the `initial` block, we write code to set the values of each of the inputs to the adder. For example:
+
+```
+	in_a = 8'b0;
+	in_b = 8'b0;
+```
+
+This code sets both input a and input b to `0` in binary. The `8'b` part of the number is used to indicate that you are writing an 8-bit number in the binary number system.
+
+Then, we wait for a time period of 10 nanoseconds, by using the line 
+
+```
+	#10;
+```
+
+This code on its own only means that we wait for 10 units of time, but not the unit of time. 
+
+Scroll up to the very top of the code, and look at line 1.
+
+```
+`timescale 1ns / 1ps
+``` 
+
+This sets the unit of time (one nanosecond) and the precision of our simulation (one picosecond). 
+
+Now that we understand the simulation code, let us try to run the simulation by clicking "Run Simulation" and then "Run Behavioral Simulation".
+
+You should see a view like this appear:
+
+![](vivado-sim-home.png)
+
+/// caption
+The Vivado "Simulation" view
+///
+
+First of all, we should resize the panels in the waveform window to be able to see the waveform correctly. Then we can zoom out in the waveform until we can see all our test cases clearly. We can use the zoom buttons on the top of the waveform pane to zoom, or use Ctrl-scroll just like in the RTL schematic view. 
+
+Perhaps we want to look at what the wires inside our `Adder` module `uut`. That's possible too - First, select the `uut` module in the "Scope" pane. Then, in the "Object" pane, we will see the wires inside our module. Drag `carry[7:0]` to the waveform to add it in, or right-click it and choose "Add to Wave Window". 
+
+The new bus we added to our wave window doesn't actually have a wave corresponding to it. To fix this, we need to restart our simulation. Let us take this opportunity to learn about the controls for our simulation:
+
+![](vivado-sim-controls.png)
+
+/// caption
+
+///
+
+From the left, the buttons are:
+
+1. **Restart**: This goes back to the beginning of the simulation (i.e. to time t=0). 
+2. **Run All**: This will run the simulation for the default runtime of 1000 nanoseconds. This can be changed in Vivado's settings. 
+3. **Run for <time\>**: This will run the simulation for the amount of time we specify using the inputs immediately to the right. In this case, I have it set to 30 nanoseconds for three test cases (each 10ns). We can also set it to 10ns, and click the button multiple times to run one test case at a time. 
+4. **Step**: Not useful for this course. It is used in conjunction with breakpoints. 
+5. **Break**: Used to stop the simulation. In this case, it runs very fast and we won't get a chance (or need) to stop it midway. 
+6. **Relaunch Simulation**: This will completely relaunch the simulation by re-reading the simulation code, recompiling it and running it from scratch. Remember to use this whenever we make changes to our simulation code. 
+
+!!! question "Question 2 [0.5 points]"
+	Take the last four digits of your NUSNET ID. Split them into two 2-digit numbers. For example, if your NUSNET ID is e0411018, your two numbers are 10 and 18. Convert these two numbers to binary, and add them as a test case to your testbench code. 
+
+	In your report, include a screenshot of your simulation waveform. You should show all four signals `in_a`, `in_b`, `result` and `carry`, over all three included test cases, plus the one you added yourself. 
+
+Running a simulation is only part of the story. The simulation results need to be correct, and we must be able to understand them to tell if they are. For every test case, look at the inputs provided, and calculate the output that should be produced. The outputs in the waveform (`result`) should correspond to the correct answer. 
+
+!!! tip
+
+	To make the simulation waveform more understandable at a glance, we can change the numbers to decimal numbers. Simply right-click a wave, and select "Radix" -> "Unsigned Decimal". If you are fluent in binary or hexadecimal addition, feel free to use those. 
+
+In this case, we see that our simulation of the `Adder` module produces the following results:
+
+![](vivado-sim-results.png)
+
+/// caption
+The results of simulating our `Adder` module. 
+///
+
+The results indicate that we get:
+
+1. 00 + 00 = 00
+2. 0a + 0a = 04
+3. ff + ff = fe
+
+Clearly, 0a+0a should not be 04, a number smaller than 0a in a case where there is no carry out. 0a is 10 in decimal, so 10+10 should be 20 in decimal or 14 in hex. Something isn't right here!
 
 !!! question "Question 3 [0.5 points]"
 
-	Which bit is incorrect in your result? Which line of SystemVerilog code in `Adder.sv` corresponds to that bit? What is the correct line of code? 
+	Let's investigate what's going wrong. Which bit is incorrect in your result? Which line of SystemVerilog code in `Adder.sv` corresponds to that bit? What is the correct line of code? Correct the code and relaunch the simulation. Verify that the result is correct, and paste a screenshot in your report. 
 
-## Generating and uploading the bitstream
+Congratulations! Our design is now correct, and we can prove that this is the case in simulation. 
+
+## Making our design work
+
+### Setting up constraints
+
+Constraints tell Vivado how the inputs and outputs of our `Top` module should map to inputs and outputs on the FPGA chip itself. The pins on the physical FPGA are connected to the board peripherals like the switches and LEDs. 
+
+Let us explore the constraints file and see how we can set up the constraints for this design. Click on "Project Manager" in the pane on the far left of the window to go back into the Project Manger view. Then, from the "Sources" pane, navigate to "Constraints" -> "constr_1" -> `Nexys-4-Master.xdc` (Remember to use the correct file for your board). Open the file to see its contents. 
+
+We see a file full of commented lines of code. Different parts of the code correspond to different pins, where a different external peripheral is connected. 
+
+Let's take an example: we want to use the switches at the bottom of our Nexys 4 to input numbers into our design. So, we can uncomment the lines corresponding to the switches we want to use. In this design, we use all of them, so we can simply uncomment all of lines 12 through 60. We can do this by deleting the `#` at the beginning of the line. The text will now be in black and purple, like normal functional code. 
+
+!!! tip
+	We can select many lines of code, and use the keyboard shortcut Ctrl+/ to toggle comments on or off for those lines. 
+	
+	Note that some lines are double-commented (i.e. two `#`s). These lines are meant to be actual comments on the code. The double commenting ensures that if we select all the lines and uncomment them all at the same time, the real comments will still remain comments.
+
+Which other peripherals are we using on the board? Uncomment the lines in the Constraints that correspond to those. 
+
+Now, our design is ready for synthesis and implementation. 
+
+### Synthesis
+
+To run synthesis on our design, the first step is to re-verify that we have selected the correct `Top` module. If not, now is the time to change it. 
+
+Running synthesis is as simple as clicking on "Run Synthesis". Vivado will prompt us for the synthesis parameters:
+
+![](vivado-synth-launch-runs.png)
+
+/// caption
+The "Launch Runs" dialog box, prompting us for the launch directory and options
+///
+
+Having more jobs can help to synthesize large designs faster. For this design, it probably doesn't make a difference. Just select the largest possible number and click "OK" to start synthesis. Feel free to check "Don't show this dialog again". 
+
+It might look like nothing is happening, but if you look at the top-right of the window, you will see that Vivado is "Running synth_design":
+
+![](vivado-synth-running.png)
+
+Once synthesis is complete, the following dialog box appears: 
+
+![](vivado-synth-completed.png)
+
+Choose "Open Synthesized Design" and then click "OK". Give Vivado a few seconds to think, and the Synthesized Design view will soon appear. 
+
+![](vivado-synthesized-design.png)
+///caption
+The "Synthesized Design" view in Vivado
+///
+
+For this course, it is not necessary to understand most of what we see here. We can go to "Open Synthesized Design" -> "Schematic" to view the schematic that Vivado synthesized our design to. 
+
+![](vivado-synth-schematics.png)
+
+/// caption
+The synthesized schematic of our design
+///
+
+Notice that it is very different to the RTL schematic we got from the elaborated design. The synthesized schematic uses components that are available inside our specific FPGA chip to implement the logic we specified. 
+
+We can read the various reports such as Utilization, Timing Summary and so on. These contain useful (and interesting) information, but for now, we do not need to understand these. They are useful when our designs are much bigger, more complex, and much (much!) closer to the limits of the capabilities of our FPGA. 
+
+For now, we can move onto the next step, Implementation. 
+
+### Implementation
+
+Just like with synthesis, we can run implementation by clicking "Run Implementation" in the "Flow Navigator" pane on the far left. If the "Launch Runs" dialog appears again, just select the maximum number of jobs possible and click "OK" like we did before. 
+
+The top right of the window will cycle through many stages: Initializing Design, Running place_design, Running route_design and finally, Implementation Complete. When it's done, the "Implementation Completed" dialog box will appear:
+
+![](vivado-impl-completed.png)
+
+Here, we can click "OK" on the default selection of "Open Implemented Design". If we are asked if we want to close "Synthesized Design" before opening "Implemented Design", we can select "Yes". 
+
+We can once again look at the schematic, which should look similar to the synthesized schematic:
+
+![](vivado-impl-schematics.png)
+
+///caption
+The implemented schematic of our design
+///
+
+The reports post-implementation are actually more useful than those from post-synthesis. It provides us the parameters and measurements of the design, as it will really be on the FPGA. For larger designs, the Timing report is particularly useful, but to understand why, we must wait a couple of weeks till the lab on sequential circuits. 
+
+Just one more step, and we will be ready to load our design on the Nexys 4. Yay!
+
+### Generate the bitstream
+
+Finally, we are ready to generate the bitstream we can upload to the Nexys 4 to watch it do something. In the "Flow Navigator", scroll all the way to the bottom and click on "Generate Bitstream". As before, if the dialog box asking for the Run options pops up, select the max number of jobs and click "OK". You should see "Running write_bitstream" in the top right corner. 
+
+![](vivado-bitstream-running.png)
+
+Once the bitstream is generated, you will see the following dialog box:
+
+![](vivado-bitstream-completed.png)
+
+From here, select "Open Hardware Manager" and then "OK". This will open the "Hardware Manager" view where you can upload the bitstream to your Nexys 4. 
+
+![](vivado-hw-manager.png)
+/// caption
+The Vivado Hardware Manager view
+///
+
+!!! tip
+
+	If bitstream generation fails, the most likely cause is a mistake in the constraints file. Unfortunately, after editing the constraints file, you will have to re-run synthesis, implementation and bitstream generation. 
+
+Get your Nexys 4 board ready. Make sure you follow the [Board Handling Guidelines](../../guides/nexys4.md#board-handling-guidelines). Plug the USB cable into your computer, and flick the power switch on the top left corner of the board. Your board will probably have a test bitstream loaded on it, which turns on the RGB LEDs, seven-segment displays, and causes the LEDs to turn on when switches are switched on. 
+
+In the green banner near the top of the window, or in the "Flow Navigator" pane on the left, click on "Open Target", followed by "Auto Connect". 
+
+![](vivado-green-open-target.png)
+
+/// caption
+The "Open Target" menu from the green banner at the top of the window
+///
+
+If you only have one board plugged into your computer, Auto Connect should detect it correctly and connect to it. Finally, the step we've been anticipating all this time: click on Program Device in the green banner or the Flow Navigator. The "Program Device" dialog box will appear. 
+
+![](vivado-program-device.png)
+
+Simply click on "Program" to upload the bitstream to the FPGA. 
+
+Congratulations, your design has now been loaded onto your Nexys 4! Refer back to the [Design Specification](#design-specification), and remember that we have created a system that adds the two numbers input via the switches on the bottom. Verify that the test cases we tried in simulation produce the correct results. 
 
 !!! question "Question 4 [0.5 points]"
 
-	Take the last four digits of your matriculation number. Split them into two 2-digit numbers. For example, if your matriculation number ends in 4864, your two numbers are 48 and 64. Convert these numbers to binary and use the switches to input them into the adder. Take a picture of your board and include it in your report, with the switch positions and LEDs clearly visible. 
+	Take the last four digits of your matriculation number. Split them into two 2-digit numbers. For example, if your matriculation number A0244864X ends in 4864, your two numbers are 48 and 64. Convert these numbers to binary and use the switches to input them into the adder. Take a picture of your board and include it in your report, with the switch positions and LEDs clearly visible. 
+
+## Concluding remarks
+
+Congratulations on finishing the first graded lab assignment for this course! Remember to follow the instructions on the [Grading page](../../grading.md#lab-assignments). 
+
+!!! success "What we should know"
+	* What an FPGA is, and what it is used for. 
+	* The overall flow of designing for an FPGA, from design, to simulation, to synthesis, implementation and bitstream generation. 
+	* How to use Vivado to create a new project, and implement a simple design on a Nexys 4 board. 
+	* How to use the Vivado simulation tools to find any bugs in our code and eliminate them before running synthesis. 
+	* How to synthesize, implement, and generate a bitstream for the Nexys 4 in Vivado. 
 
 

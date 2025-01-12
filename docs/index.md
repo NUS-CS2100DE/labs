@@ -45,19 +45,19 @@ To make the most of the labs, we recommend doing some reading before you come fo
 
 ## Lab Schedule and Outline
 
-| Week  | Lab Date      | Activity                              | Remarks   |
-|-------|---------------|---------------------------------------|-----------|
-| 1     | 17 Jan 2025   | Nil                                   |           |    
-| 2     | 24 Jan 2025   | Nil                                   |           |
-| 3     | 31 Jan 2025   | Getting familiar with FPGA tools      |           |
-| 4     | 07 Feb 2025   | Playing with the 7-segment display    |           |
-| 5     | 14 Feb 2025   | Creating more complex logic           |           |
-| 6     | 21 Feb 2025   | Introduction to RISC-V Assembly       |           |
-| 7     | 07 Mar 2025   | TBD                                   |           |
-| 8     | 14 Mar 2025   | TBD                                   |           |
-| 9     | 21 Mar 2025   | TBD                                   |           |
-| 10    | 28 Mar 2025   | NUS Well-being day - go rest!         |           |
-| 11    | 04 Apr 2025   | TBD                                   |           |
-| 12    | 11 Apr 2025   | TBD                                   |           |
-| 13    | 18 Apr 2025   | TBD                                   |           |
+| Week  | Lab Date      | Activity                                                      | Remarks   |
+|-------|---------------|---------------------------------------------------------------|-----------|
+| 1     | 17 Jan 2025   | Nil                                                           |           |    
+| 2     | 24 Jan 2025   | Nil                                                           |           |
+| 3     | 31 Jan 2025   | [Getting familiar with FPGA tools](manuals/01/lab_01.md)      |           |
+| 4     | 07 Feb 2025   | Playing with the 7-segment display                            |           |
+| 5     | 14 Feb 2025   | Creating more complex logic                                   |           |
+| 6     | 21 Feb 2025   | Introduction to RISC-V Assembly                               |           |
+| 7     | 07 Mar 2025   | TBD                                                           |           |
+| 8     | 14 Mar 2025   | TBD                                                           |           |
+| 9     | 21 Mar 2025   | TBD                                                           |           |
+| 10    | 28 Mar 2025   | NUS Well-being day - go rest!                                 |           |
+| 11    | 04 Apr 2025   | TBD                                                           |           |
+| 12    | 11 Apr 2025   | TBD                                                           |           |
+| 13    | 18 Apr 2025   | TBD                                                           |           |
 
