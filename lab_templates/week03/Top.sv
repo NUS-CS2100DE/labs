@@ -25,6 +25,4 @@ module Top(
     input [15:0] sw
     );
     
-    Adder adder_1 (sw[15:8], sw[7:0], led[7:0], led[8]);
-    
 endmodule
