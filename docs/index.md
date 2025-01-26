@@ -41,7 +41,7 @@ To make the most of the labs, we recommend doing some reading before you come fo
 
 3. You should also read the [grading scheme for lab assignments and projects](grading.md). 
 
-4. Finally, 
+4. Finally, make sure you read [Getting to know your Nexys 4](guides/nexys4.md) and install Vivado on your personal computer as soon as possible. If you do not have access to a Windows or Linux (preferred) PC, you should try your best to get/borrow one for this course. 
 
 ## Lab Schedule and Outline
 
@@ -50,7 +50,7 @@ To make the most of the labs, we recommend doing some reading before you come fo
 | 1     | 17 Jan 2025   | Nil                                                           |           |    
 | 2     | 24 Jan 2025   | Nil                                                           |           |
 | 3     | 31 Jan 2025   | [Getting familiar with FPGA tools](manuals/01/lab_01.md)      |           |
-| 4     | 07 Feb 2025   | Playing with the 7-segment display                            |           |
+| 4     | 07 Feb 2025   | [Playing with the 7-segment display](manuals/02/lab_02.md)    |           |
 | 5     | 14 Feb 2025   | Creating more complex logic                                   |           |
 | 6     | 21 Feb 2025   | Introduction to RISC-V Assembly                               |           |
 | 7     | 07 Mar 2025   | TBD                                                           |           |

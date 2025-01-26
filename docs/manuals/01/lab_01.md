@@ -23,7 +23,7 @@ An FPGA is a device digital designers use to build and/or prototype digital logi
 
 Knowing this, the name Field Programmable Gate Array now makes more sense. "Field Programmable" refers to the fact that we can easily reprogram the chip without needing to take it off the board or doing anything too complicated. "Gate Array" refers to the fact that the chip is made of a large array of digital logic gates, which can be connected in (almost) any way we want. 
 
-!!! note
+??? note "A note on semantics"
 	Strictly speaking, the term FPGA is used to refer to the chip on, say, our Nexys 4 board - the one in the center which says "Artix-7" on it. The Nexys 4 as a whole is an FPGA development board. Sometimes, we may refer to the whole board as an "FPGA" - this is technically incorrect. Similarly, an Arduino is a microcontroller development board, not a microcontroller; the Atmega 328P chip on the Arduino is the microcontroller. 
 	
 	In this website, we have made every effort to *not* be technically incorrect, but if you spot any places we've missed, do let us know!
@@ -49,7 +49,7 @@ Implementation takes our synthesised netlist and decides how the FPGA should be 
 5. **Programming/Uploading** <br>
 After running implementation, we need to generate a bitstream - this is a file we can upload to our FPGA board to program the FPGA and implement our design on it. Then, we upload the bitstream to our FPGA board, and voila: we have a working design on our FPGA!
 
-!!! note
+??? note "Different kinds of simulation"
 	In the steps above, the kind of simulation we cover is "behavioral simulation" - this only tells us if the logic we have designed is logically and mathematically correct. It is also possible to run post-synthesis and post-implmentation simulations. These are useful when we want to verify that our design is not only theoretically correct, but practically achievable on the FPGA board. For this course, we need only know about behavioral simulation. 
 
 ## Creating a new project in Vivado
@@ -210,7 +210,7 @@ To set `Top` as the top module, simply right-click it in the Sources pane, and c
 
 To complete our design, we need to connect our `Adder` module in the `Top` module. To do so, double-click the Top module in the "Sources" pane, and add the following line of code after the last semicolon in the `module Top` declaration, and before the `endmodule` keyword:
 
-```
+``` systemverilog 
 Adder adder_1(
 	.in_a (sw[15:8]),
 	.in_b (sw[7:0]),
@@ -249,7 +249,7 @@ On the Flow Navigator pane on the left side of the window, you should see a grou
 
 	Use your mouse scroll wheel to move up and down in your design. Hold down Ctrl while scrolling to zoom in and out, and hold down Shift to scroll left and right. 
 
-!!! question "Question 1 [0.5 points]"
+!!! question "Question 1: Schematics [0.5 points]"
 
 	Include a screenshot of your RTL design of the Top module. Expand the Adder block to show the components inside it. If your elaborated design is too big to comfortably see in one screenshot, you may take multiple screenshots and include them all in your report. 
 
@@ -265,7 +265,7 @@ To simulate the device that we have just created, we need to actually define the
 
 When we write a testbench, we use HDL code to describe how the module we want to test is connected, and then provide stimuli to the inputs and watch the outputs change accordingly. 
 
-!!! note
+??? note "RTL? HDL? Are they the same?"
 
 	All RTL code is written in an HDL, but not all HDL code is RTL code.  In the [previous section](#creating-a-simple-design), we used SystemVerilog, an HDL, to write RTL code that describes the design of a module we want to create. In this section, we use the same HDL to write simulation code. 
 
@@ -275,7 +275,7 @@ Let's take a look at `Adder_sim.sv` and understand what's going on here.
 
 First, we define the inputs and outputs for our testbench. Since we are only simulating the `Adder` module, we can just include the inputs and outputs to that module. 
 
-```
+``` systemverilog linenums="27"
 logic[7:0] in_a;
 logic[7:0] in_b;
 logic[7:0] result;
@@ -284,20 +284,20 @@ logic carry;
 
 We can imagine these are wires floating in our simulation world. But, what are wires if we have nothing to connect them to?
 
-```
+``` systemverilog linenums="32"
 Adder uut (in_a, in_b, result, carry); // uut stands for "unit under testing"
 ```
 
 Here, we instantiate the Adder module, just like we did in the `Top` module. We use a shorter form of the syntax we used in `Top`, but these two syntaxes are interchangeable and it's not necessary to use one or another. 
 
-!!! note
+??? note "Why simulate only Adder?"
 	There is nothing stopping us from simulating the `Top` module as a whole, instead of just the `Adder` module. However, since the `Top` module only contains very simple, straight connections from the FPGA board's peripherals to the `Adder` module, the `Adder` module is the one with any complexity (and therefore, the one that is likely to be broken). 
 
 	If we want to be very proper with testing, we can simulate every module in our design separately, as well as testing our design as a whole. While this may seem overkill for small designs where it is still relatively possible to find bugs by simulating the design as a whole, it's a good habit for when our designs become more complex. 
 
 Now comes the fun part of simulation. We now need to provide stimuli to the module that we are testing. 
 
-```
+``` systemverilog linenums="34"
 initial begin
 	in_a = 8'b0;
 	in_b = 8'b0;
@@ -315,7 +315,7 @@ The `initial begin [...] end` section denotes code that is to be executed only o
 
 Inside the `initial` block, we write code to set the values of each of the inputs to the adder. For example:
 
-```
+``` systemverilog linenums="30"
 	in_a = 8'b0;
 	in_b = 8'b0;
 ```
@@ -324,7 +324,7 @@ This code sets both input a and input b to `0` in binary. The `8'b` part of the 
 
 Then, we wait for a time period of 10 nanoseconds, by using the line 
 
-```
+``` systemverilog linenums="32"
 	#10;
 ```
 
@@ -332,7 +332,7 @@ This code on its own only means that we wait for 10 units of time, but not the u
 
 Scroll up to the very top of the code, and look at line 1.
 
-```
+``` systemverilog linenums="1"
 `timescale 1ns / 1ps
 ``` 
 
@@ -369,7 +369,7 @@ From the left, the buttons are:
 5. **Break**: Used to stop the simulation. In this case, it runs very fast and we won't get a chance (or need) to stop it midway. 
 6. **Relaunch Simulation**: This will completely relaunch the simulation by re-reading the simulation code, recompiling it and running it from scratch. Remember to use this whenever we make changes to our simulation code. 
 
-!!! question "Question 2 [0.5 points]"
+!!! question "Question 2: Simulation [0.5 points]"
 	Take the last four digits of your NUSNET ID. Split them into two 2-digit numbers. For example, if your NUSNET ID is e0411018, your two numbers are 10 and 18. Convert these two numbers to binary, and add them as a test case to your testbench code. 
 
 	In your report, include a screenshot of your simulation waveform. You should show all four signals `in_a`, `in_b`, `result` and `carry`, over all three included test cases, plus the one you added yourself. 
@@ -396,7 +396,7 @@ The results indicate that we get:
 
 Clearly, 0a+0a should not be 04, a number smaller than 0a in a case where there is no carry out. 0a is 10 in decimal, so 10+10 should be 20 in decimal or 14 in hex. Something isn't right here!
 
-!!! question "Question 3 [0.5 points]"
+!!! question "Question 3: Debugging [0.5 points]"
 
 	Let's investigate what's going wrong. Which bit is incorrect in your result? Which line of SystemVerilog code in `Adder.sv` corresponds to that bit? What is the correct line of code? Correct the code and relaunch the simulation. Verify that the result is correct, and paste a screenshot in your report. 
 
@@ -527,7 +527,7 @@ Simply click on "Program" to upload the bitstream to the FPGA.
 
 Congratulations, your design has now been loaded onto your Nexys 4! Refer back to the [Design Specification](#design-specification), and remember that we have created a system that adds the two numbers input via the switches on the bottom. Verify that the test cases we tried in simulation produce the correct results. 
 
-!!! question "Question 4 [0.5 points]"
+!!! question "Question 4: Hardware [0.5 points]"
 
 	Take the last four digits of your matriculation number. Split them into two 2-digit numbers. For example, if your matriculation number A0244864X ends in 4864, your two numbers are 48 and 64. Convert these numbers to binary and use the switches to input them into the adder. Take a picture of your board and include it in your report, with the switch positions and LEDs clearly visible. 
 

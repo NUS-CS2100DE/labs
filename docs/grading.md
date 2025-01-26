@@ -16,3 +16,5 @@ The weightage of each assignment, as well as that of each question within the as
 Upload your solutions for each of the assignments to Canvas by the end of the lab session at noon. Late submissions will be accepted for 30 minutes, with a penalty of 10% of your score for every 15 minutes you are late. That is, for submitting between 12:00 and 12:15, you will be penalised 10%; for submitting between 12:15 and 12:30, you will be penalised 20%. 
 
 ## Projects
+
+TBD, stay tuned!

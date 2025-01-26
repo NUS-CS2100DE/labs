@@ -20,7 +20,8 @@ markdown_extensions:
   - attr_list
   - md_in_html
   - pymdownx.superfences
-
+  - pymdownx.tabbed:
+      alternate_style: true
   # - glightbox
 copyright:  <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://nus-cs2100de.github.io/labs">NUS CS2100DE Labs</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://github.com/nus-cs2100de">NUS CS2100DE Team</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC-SA 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a></p> 
 
@@ -37,6 +38,9 @@ nav:
   - How to use this website: howto.md
   - Grading: grading.md
   - Lab Prerequisites: prerequisites.md
+  - Preparing for labs:
+    - Getting to know your Nexys 4: guides/nexys4.md
+    - Installation guide for Vivado (from CG3207): https://nus-cg3207.github.io/labs/Vivado_Installation_and_Getting_Started/vivado_install_guide/
   - Lab manuals: 
     - Lab 1 [Week 3]: manuals/01/lab_01.md
     - Lab 2 [Week 4]: manuals/02/lab_02.md
@@ -46,6 +50,4 @@ nav:
     - Lab 6 [Week 8]: manuals/06/lab_06.md
     - Lab 7 [Week 9]: manuals/07/lab_07.md
     - Lab 8 [Week 11]: manuals/08/lab_08.md
-  - Guides:
-    - Getting to know your Nexys 4: guides/nexys4.md
-    - Installation guide for Vivado (from CG3207): https://nus-cg3207.github.io/labs/Vivado_Installation_and_Getting_Started/vivado_install_guide/
+  
