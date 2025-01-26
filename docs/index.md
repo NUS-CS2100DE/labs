@@ -41,7 +41,7 @@ To make the most of the labs, we recommend doing some reading before you come fo
 
 3. You should also read the [grading scheme for lab assignments and projects](grading.md). 
 
-4. Finally, make sure you read [Getting to know your Nexys 4](guides/nexys4.md) and install Vivado on your personal computer as soon as possible. If you do not have access to a Windows or Linux (preferred) PC, you should try your best to get/borrow one for this course. 
+4. Finally, make sure you read [Getting to know your Nexys 4](guides/nexys4.md) and [install Vivado](https://nus-cg3207.github.io/labs/Vivado_Installation_and_Getting_Started/vivado_install_guide/) on your personal computer as soon as possible. If you do not have access to a Windows or Linux (preferred) PC, you should try your best to get/borrow one for this course. 
 
 ## Lab Schedule and Outline
 
