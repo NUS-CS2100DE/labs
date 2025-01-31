@@ -12,6 +12,8 @@ In this lab, we will learn what an FPGA is, and use our FPGA board to learn how 
 
 You should have read the [Getting to know your Nexys 4](../../guides/nexys4.md) page before starting this lab. If you have not done so, please do so now. It is very important for you to know your equipment. 
 
+To download the files you need, visit the [lab_templates](https://github.com/NUS-CS2100DE/labs/tree/main/lab_templates) folder in the GitHub repository. 
+
 ### What is an FPGA?
 
 We've thrown around the term FPGA a lot so far, and even mentioned that it stands for Field Programmable Gate Array. But what exactly does that mean? 
