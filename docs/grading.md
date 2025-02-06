@@ -8,8 +8,12 @@ The lab manuals for some weeks clearly indicate that a lab assignment is include
 
 !!! question "Question 1"
 	This is how the questions in the manuals are presented. 
+	
+	Please note that **EVERY QUESTION** in a green box like this one, **MUST** be answered for credit - they are not rhetorical...
 
 Please use your preferred word processor (Word, Google Docs, Pages, Overleaf, LibreOffice Writer etc.) to create a document, and use headings to separate the answers to each question in the manual. The questions may ask you to include code, screenshots, or written answers. 
+
+The first line of your submission must include your name and student number. If there are any questions that require you to use your student number or NUSNET ID (eg. to derive test cases), you MUST include these in your answer.
 
 Export your report to PDF before uploading it to Canvas. There is no naming scheme you must follow. 
 
