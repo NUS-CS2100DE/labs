@@ -131,6 +131,7 @@ This module should implement the logic derived in [the section above](#deriving-
 
 !!! question "Question 2: Cracking the Code [1 point]"
 	Write the logic for the seven-segment display decoder. The logic for the anodes must be written with **structural** SystemVerilog, while the logic for the cathodes can be written with behavioral SystemVerilog. 
+ 	Paste your code for this module into your report. You may exclude the comment header that Vivado automatically generates. 
 
 Cool! We now have our decoder written. No prizes for guessing what the next step is: it's simulation time. 
 
