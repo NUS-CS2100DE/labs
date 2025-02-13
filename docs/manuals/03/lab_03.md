@@ -133,7 +133,7 @@ In this simulation, we start with `D` and `Q` at `0` and `clk` at `1`.
 
 6. Finally, at 30 nanoseconds, when `clk` goes from `0` to `1`, we see that `D` is `0` and therefore `Q` becomes `0` again. 
 
-7. The code we used for simulation here can be found [here](), but don't worry if you don't understand it. We will go through how to simulate synchronous hardware soon. 
+7. The code we used for simulation here can be found [here](https://github.com/NUS-CS2100DE/labs/tree/2f9e4f3bf2d8cbd39fa70472e234890a963f4d8c/lab_templates/week05), but don't worry if you don't understand it. We will go through how to simulate synchronous hardware soon. 
 
 And on that note, we are ready to tackle our first lab activity, where we will create a counter that can count up. Sounds simple, but you'll see you can learn a lot from it...
 
