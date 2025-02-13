@@ -235,9 +235,11 @@ The design specification is a lot to take in, but it's not as bad as it looks. L
 
 2. We know that the goal of the counter is to increment the value of `count`. So, write a line of code that increases the value of `count` by 1. Hint: assign `count` to the sum of `count` and 1. 
 
-3. The next thing we know is that depending on `up_down`, the counter should count up or down. Use the ternary operator syntax (`assign value = (condition) ? value_if_true ! value_if_false`) to implement this. 
+3. The next thing we know is that depending on `up_down`, the counter should count up or down. Use the ternary operator syntax (`assign value = (condition) ? value_if_true ! value_if_false`) to implement this.
 
-4. Finally, we add the special sauce that makes our code sequential. Encapsulate the code you have written so far in an `always` block, as illustrated below:
+4. Then, add another condition to reset the counter to 0 when the reset signal is low.
+
+5. Finally, we add the special sauce that makes our code sequential. Encapsulate the code you have written so far in an `always` block, as illustrated below:
 
 	```SystemVerilog
 	always @(posedge clk) begin
@@ -245,7 +247,7 @@ The design specification is a lot to take in, but it's not as bad as it looks. L
 	end
 	```
 
-5. At this point, Vivado will probably be complaining, saying "Procedural assignment to a non-register count is not permitted, left-hand side should be reg/integer/time/genvar." There are a couple of changes we need to make. 
+6. At this point, Vivado will probably be complaining, saying "Procedural assignment to a non-register count is not permitted, left-hand side should be reg/integer/time/genvar." There are a couple of changes we need to make. 
 	
 	1. First, we must change the line `output [7:0] count` to `output reg [7:0] count`. At this point, Vivado will not complain anymore, but we must make some more changes. 
 
