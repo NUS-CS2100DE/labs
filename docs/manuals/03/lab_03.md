@@ -403,7 +403,11 @@ Following, in no particular order, are some tips for creating your final design.
 
 !!! question "Question 4: One, two, three, jump [3 points]"
 	
-	Demonstrate the finished product to your nearest member of the teaching team (GA or TA/instructor/lecturer). We will check the functionality and make sure it is as specified. No further action for this part is needed on your end. The points you score will be added to your score for this report later. 
+	Demonstrate the finished product to your nearest member of the teaching team (GA or TA/instructor/lecturer). We will check the functionality and make sure it is as specified. No further action for this part is needed on your end. The points you score will be added to your score for this report later. [1 point]
+
+	You will be asked two questions regarding your understanding of the implemented solution. You may refer to any materials you need to answer these questions. [2 points; each question worth 1 point]
+
+	To be very clear, hardware implementation is **required**. The final product should be running on your Nexys 4 board by next week. 
 
 	This task is due next week, at the start of the lab. Instructions for the demo will be made available on Canvas. 
 
