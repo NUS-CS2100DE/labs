@@ -163,7 +163,7 @@ This code creates a combinational block that performs the logic function a AND b
 ![](complex_logic_dff_module_schematic.png)
 
 /// caption
-	A block of combinational logic behind a D Flip Flop, giving us a sequential circuit
+A block of combinational logic behind a D Flip Flop, giving us a sequential circuit
 ///
 
 Here, instead of the input to the register being just a single wire, we have some complex logic. It will behave just like the register, in that the output `Q` will not update until a positive clock edge. 
@@ -191,7 +191,7 @@ The schematic for this circuit looks almost identical, with the exception that t
 ![](complex_logic_dff_schematic.png)
 
 /// caption
-	The same circuit as above, implemented in a simpler format
+The same circuit as above, implemented in a simpler format
 ///
 
 And on that note, we are ready to tackle our first lab activity, where we will create a counter that can count up. Sounds simple, but you'll see you can learn a lot from it...
