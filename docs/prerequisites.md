@@ -16,6 +16,8 @@ For this course, you will need an FPGA development board. We will provide you a 
 
 	If you are not an official student of this course, and do not have access to a Nexys 4 board to follow along, you can use any other Xilinx/AMD FPGA development board, like the Basys 3 or Arty A7. You may need to make some changes to your code and project files to account for the different FPGA and different available peripherals. You may also be able to use a completely different brand of FPGA, like an Intel or Sipeed board. However, you will not be able to use Vivado, nor our template files. 
 
+The FPGA board comes with a USB type A to USB micro-B cable. You will need a USB type A port on your laptop, and if you do not have one, you must use an adapter. Remember to bring one to class. 
+
 ## Software required
 
 The software you will use to program your FPGA board is [Vivado](https://www.amd.com/en/products/software/adaptive-socs-and-fpgas/vivado.html). Installation instructions can be found [on the CG3207 website](https://nus-cg3207.github.io/labs/Vivado_Installation_and_Getting_Started/vivado_install_guide/). Please install Vivado before coming for your first lab in Week 3. 
