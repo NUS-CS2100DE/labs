@@ -36,7 +36,7 @@ When the clock signal goes from `0` to `1`, we call that a "positive edge". When
 
 A register is a memory element that stores the value of a bit. For the purposes of FPGA designs (for Xilinx FPGAs, anyway), a register is a D-Flip Flop (remember those from last week?). At every positive clock edge, whatever is on the input `D` gets transmitted to the output `Q`, and doesn't change until the next positive clock edge. So, we can see how the register has "memory" - while a combinational circuit will change as soon as any of the inputs change, a register will retain the same output until it receives a clock signal. 
 
-To make this a bit more concrete, here is some Verilog code to create a D flip flop:
+To make this a bit more concrete, here is some SystemVerilog code to create a D flip flop:
 
 ```systemverilog linenums="1"
 	module DFF (
@@ -134,6 +134,65 @@ In this simulation, we start with `D` and `Q` at `0` and `clk` at `1`.
 6. Finally, at 30 nanoseconds, when `clk` goes from `0` to `1`, we see that `D` is `0` and therefore `Q` becomes `0` again. 
 
 7. The code we used for simulation here can be found [here](https://github.com/NUS-CS2100DE/labs/tree/2f9e4f3bf2d8cbd39fa70472e234890a963f4d8c/lab_templates/week05), but don't worry if you don't understand it. We will go through how to simulate synchronous hardware soon. 
+
+### Sequential logic
+
+Sequential logic, or sequential circuits, are essentially a block of combinational logic that is placed behind a register (in our case, a D Flip Flop). 
+
+Consider the following code:
+
+```systemverilog
+module LogicWithDFF(
+    input a,
+    input b,
+    input c,
+    input d,
+    input clk,
+    output Q
+    );
+    
+    logic ff_in;
+    DFF ff_1(clk, ff_in, Q);
+    
+    assign ff_in = a & b & (c | d); 
+endmodule
+```
+
+This code creates a combinational block that performs the logic function a AND b AND (c OR d). Then, it connects the output of the combinational logic to the input of the D Flip Flop we just created. The schematic produced looks like this:
+
+![](complex_logic_dff_module_schematic.png)
+
+/// caption
+	A block of combinational logic behind a D Flip Flop, giving us a sequential circuit
+///
+
+Here, instead of the input to the register being just a single wire, we have some complex logic. It will behave just like the register, in that the output `Q` will not update until a positive clock edge. 
+
+We do not need to explicitly define registers when writing SystemVerilog code. Instead, we can infer them as below:
+
+```systemverilog
+module DFFWithLogic(
+    input clk,
+    input a,
+    input b,
+    input c,
+    input d,
+    output reg Q
+    );
+    
+    always @(posedge clk) begin
+        Q <= a & b & (c | d);
+    end
+endmodule
+```
+
+The schematic for this circuit looks almost identical, with the exception that the flip flop is not inside a module:
+
+![](complex_logic_dff_schematic.png)
+
+/// caption
+	The same circuit as above, implemented in a simpler format
+///
 
 And on that note, we are ready to tackle our first lab activity, where we will create a counter that can count up. Sounds simple, but you'll see you can learn a lot from it...
 
