@@ -235,7 +235,7 @@ The design specification is a lot to take in, but it's not as bad as it looks. L
 
 2. We know that the goal of the counter is to increment the value of `count`. So, write a line of code that increases the value of `count` by 1. Hint: assign `count` to the sum of `count` and 1. 
 
-3. The next thing we know is that depending on `up_down`, the counter should count up or down. Use the ternary operator syntax (`assign value = (condition) ? value_if_true ! value_if_false`) to implement this.
+3. The next thing we know is that depending on `up_down`, the counter should count up or down. Use the ternary operator syntax (`assign value = (condition) ? value_if_true : value_if_false`) to implement this.
 
 4. Then, add another condition to reset the counter to 0 when the reset signal is low.
 
