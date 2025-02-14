@@ -333,7 +333,7 @@ You may want to try implementing the above by yourself. If you need a hint, see 
 
 	5. Using the ternary (`?` and `:` syntax) operator, add a condition so that when `clk_cnt` is equal to `N_COUNTS`, it is reset to 0, and otherwise, it is incremented. 
 
-	6. Finally, in the line that increments `count`, add the condition that `count` should only be incremented 
+	6. Finally, in the line that increments `count`, add the condition that `count` should only be incremented when `clk_cnt` is 0. 
 
 !!! question "Question 3: Reduce Speed Now [1 point]"
 
