@@ -317,7 +317,7 @@ Our counter can now count up and down correctly. However, there's a problem: it'
 
 Like we mentioned above, the FPGA's built-in clock runs at 100 MHz, or a hundred million clock edges per second. We can count up to 255 in just over 2 microseconds - that's way too fast for us to appreciate. Let's slow down the counter a bit so we can see it. 
 
-We will create a second counter, that increments at every clock edge. It will be reset to zero after a certain number of counts - say, 10 million. Then, we will increment `count` every time this new counter is equal to zero. In this example, every 10 million clock edges, the new counter will be reset to zero. This means that `count` will be incremented every 4 million clock edges, or at 4 Hz. 
+We will create a second counter, that increments at every clock edge. It will be reset to zero after a certain number of counts - say, 10 million. Then, we will increment `count` every time this new counter is equal to zero. In this example, every 10 million clock edges, the new counter will be reset to zero. This means that `count` will be incremented every 25 million clock edges, or at 4 Hz. 
 
 You may want to try implementing the above by yourself. If you need a hint, see the section below:
 
