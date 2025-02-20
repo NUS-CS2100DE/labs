@@ -310,9 +310,9 @@ The next instruction is:
 	lw s1, 0(s0)			# Loads the content at the address stored in s0, into s1
 ```
 
-This will load the value stored at `0x2000` into the register `s1`. Observe the memory address `0x2000`. We use line 18 of the code to set it to `406`:
+This will load the value stored at `0x2000` into the register `s1`. Observe the memory address `0x2000`. We use line 20 of the code to set it to `406`:
 
-```asm linenums="18"
+```asm linenums="20"
 	A: .word 406 			# Address: 0x2000
 ```
 
