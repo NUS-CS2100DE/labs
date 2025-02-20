@@ -45,10 +45,11 @@ nav:
     - Lab 1 [Week 3]: manuals/01/lab_01.md
     - Lab 2 [Week 4]: manuals/02/lab_02.md
     - Lab 3 [Week 5]: manuals/03/lab_03.md
-    # - Lab 4 [Week 6]: manuals/04/lab_04.md
+    - Lab 4 [Week 6]: manuals/04/lab_04.md
     # - Lab 5 [Week 7]: manuals/05/lab_05.md
     # - Lab 6 [Week 8]: manuals/06/lab_06.md
     # - Lab 7 [Week 9]: manuals/07/lab_07.md
     # - Lab 8 [Week 11]: manuals/08/lab_08.md
 plugins:
-  - mkdocs-video
+  - mkdocs-video:
+      is_video: True
