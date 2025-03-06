@@ -22,7 +22,7 @@
 
 module Extend(
     input [31:7] instr_imm,
-    input [2:0] imm_src,
+    input imm_src,
     output reg [31:0] ext_imm
     );
     
