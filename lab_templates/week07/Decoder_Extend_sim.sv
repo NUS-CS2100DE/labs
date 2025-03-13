@@ -1,17 +1,17 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
+// Company: National University of Singapore
+// Engineer: Neil Banerjee
 // 
 // Create Date: 06.03.2025 23:18:08
-// Design Name: 
+// Design Name: RISCV-MMC
 // Module Name: Decoder_Extend_sim
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
+// Project Name: CS2100DE Labs
+// Target Devices: Nexys4/Nexys 4 DDR
+// Tool Versions: Vivado 2023.2
+// Description: Simulating the decoder and immediate extender
 // 
-// Dependencies: 
+// Dependencies: Nil
 // 
 // Revision:
 // Revision 0.01 - File Created

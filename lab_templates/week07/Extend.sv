@@ -1,17 +1,17 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
+// Company: National University of Singapore
+// Engineer: Neil Banerjee
 // 
 // Create Date: 05.03.2025 23:43:42
-// Design Name: 
+// Design Name: RISCV-MMC
 // Module Name: Extend
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
+// Project Name: CS2100DE Labs
+// Target Devices: Nexys 4/Nexys 4 DDR
+// Tool Versions: Vivado 2023.2
+// Description: Module for extending immediates
 // 
-// Dependencies: 
+// Dependencies: Nil
 // 
 // Revision:
 // Revision 0.01 - File Created
