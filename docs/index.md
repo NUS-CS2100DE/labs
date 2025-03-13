@@ -54,10 +54,10 @@ To make the most of the labs, we recommend doing some reading before you come fo
 | 5     | 14 Feb 2025   | [Creating more complex logic](manuals/03/lab_03.md)           |           |
 | 6     | 21 Feb 2025   | [Introduction to RISC-V Assembly](manuals/04/lab_04.md)       |           |
 | 7     | 07 Mar 2025   | [Decoding RISC-V Instructions](manuals/05/lab_05.md)          |           |
-| 8     | 14 Mar 2025   | TBD                                                           |           |
+| 8     | 14 Mar 2025   | [Designing our ALU](manuals/06/lab_06.md)                     |           |
 | 9     | 21 Mar 2025   | TBD                                                           |           |
 | 10    | 28 Mar 2025   | NUS Well-being day - go rest!                                 |           |
 | 11    | 04 Apr 2025   | TBD                                                           |           |
 | 12    | 11 Apr 2025   | Project demonstration                                         |           |
-| 13    | 18 Apr 2025   | Nil - be free :3                                              |           |
+| 13    | 18 Apr 2025   | Good Friday - be free :3                                      |           |
 
