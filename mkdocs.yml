@@ -48,7 +48,7 @@ nav:
     - Lab 4 [Week 6]: manuals/04/lab_04.md
     - Lab 5 [Week 7]: manuals/05/lab_05.md
     - Lab 6 [Week 8]: manuals/06/lab_06.md
-    # - Lab 7 [Week 9]: manuals/07/lab_07.md
+    - Lab 7 [Week 9]: manuals/07/lab_07.md
     # - Lab 8 [Week 11]: manuals/08/lab_08.md
 plugins:
   - mkdocs-video:
