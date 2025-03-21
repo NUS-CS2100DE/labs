@@ -66,7 +66,9 @@ As usual, here is an unordered collection of tips for writing the code:
 
 * Remember to use the correct bit width for each wire. This is a common issue, and it causes us many headaches that are completely avoidable. 
 
-* Ensure that all the inputs and outputs of each module are connected, and accounted for. Use the RTL Schematic to verify this. In particular, verify that `alu_result`, which is used by two components, is correctly connected. 
+* Ensure that all the inputs and outputs of each module are connected, and accounted for. Use the RTL Schematic to verify this. In particular, verify that `alu_result`, which is used by two components, is correctly connected.
+
+* Remember, multiplexers can easily be instantiated in your CPU itself using the ternary operator `assign some_wire = (condition) ? value_if_true : value_if_false;`
 
 ## Concluding Remarks
 
