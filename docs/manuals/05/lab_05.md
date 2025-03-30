@@ -151,7 +151,7 @@ We recommend following these steps to complete the `Decoder` module:
 
 ### Activity 3: Simulation
 
-Yes, you know it; it's time for simulation tests. For this time, we will have a skeleton file to use: [`Decoder_Extend_sim.sv`]https://github.com/NUS-CS2100DE/labs/blob/main/lab_templates/week07/Decoder_Extend_sim.sv). Download and import this simulation source into the Vivado project. 
+Yes, you know it; it's time for simulation tests. For this time, we will have a skeleton file to use: [`Decoder_Extend_sim.sv`](https://github.com/NUS-CS2100DE/labs/blob/main/lab_templates/week07/Decoder_Extend_sim.sv). Download and import this simulation source into the Vivado project. 
 
 Change the widths of the different signals to match those that we used in the `Decoder` and `Extend` modules. 
 
