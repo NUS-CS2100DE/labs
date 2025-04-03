@@ -1,7 +1,7 @@
 .text
-	lui s0, 2				# Sets s0 to 2 << 12, or 0x2000
+	lui s0, 2			# Sets s0 to 2 << 12, or 0x2000
 	lw s1, 0(s0)			# Loads the content at the address stored in s0, into s1
-	lw s2, B				# We can use a label to load the value stored at the address where the label B is applied
+	lw s2, B			# We can use a label to load the value stored at the address where the label B is applied
 	lw s3, 8(s0)			# We can use an offset (e.g. 8) to load the value stored at the address stored in s0, plus an offset of 8 (i.e. 0x2408) 
 	la s4, ARRAY			# We can use the pseudoinstruction la to load the address of the data with label ARRAY. 
 	

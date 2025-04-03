@@ -57,7 +57,7 @@ To make the most of the labs, we recommend doing some reading before you come fo
 | 8     | 14 Mar 2025   | [Designing our ALU](manuals/06/lab_06.md)                     |           |
 | 9     | 21 Mar 2025   | [The data path](manuals/07/lab_07.md)                         |           |
 | 10    | 28 Mar 2025   | NUS Well-being day - go rest!                                 |           |
-| 11    | 04 Apr 2025   | Running programs on our CPU                                   |           |
+| 11    | 04 Apr 2025   | [The Finale](manuals/08/lab_08.md)                            |           |
 | 12    | 11 Apr 2025   | Project demonstration                                         |           |
 | 13    | 18 Apr 2025   | Good Friday - be free :3                                      |           |
 
