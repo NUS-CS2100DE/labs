@@ -53,7 +53,7 @@ module Top_Test(
     
     initial begin
         clk = 0;
-        btnCpuReset = 1;
+        btnCpuReset = 0;
         btnC = 0;
         btnU = 0;
         btnL = 0;
@@ -61,7 +61,7 @@ module Top_Test(
         btnD = 0;
         sw = 16'hAA;
         #2;
-        btnCpuReset = 0;
+        btnCpuReset = 1;
         #208;
         sw = 16'h55;
     end
