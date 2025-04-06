@@ -32,14 +32,14 @@ module RegFile(
     );
     
     logic [31:0] reg_bank [0:31];
-    
-    always @(*) begin
-        RD1 <= reg_bank[rs1];
-        RD2 <= reg_bank[rs2];
+
+    always_comb begin
+        RD1 <= (rs1 == 0) ? 32'b0 : reg_bank[rs1];
+        RD2 <= (rs2 == 0) ? 32'b0 : reg_bank[rs2];
     end
     
     always @(posedge clk) begin
-        if (rd != 5'b0) begin
+        if (rd != 5'b0 && we) begin
             reg_bank[rd] <= WD;
         end
     end
