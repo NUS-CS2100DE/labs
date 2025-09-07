@@ -340,7 +340,9 @@ Scroll up to the very top of the code, and look at line 1.
 
 This sets the unit of time (one nanosecond) and the precision of our simulation (one picosecond). 
 
-Now that we understand the simulation code, let us try to run the simulation by clicking "Run Simulation" and then "Run Behavioral Simulation".
+### Running Simulation
+
+Now that we understand the simulation code, let us try to run the simulation by clicking "Run Simulation" and then "Run Behavioral Simulation". This will run the simulation for the default runtime of 1000 nanoseconds, but can be changed in Vivado's settings. 
 
 You should see a view like this appear:
 
@@ -365,9 +367,9 @@ The new bus we added to our wave window doesn't actually have a wave correspondi
 From the left, the buttons are:
 
 1. **Restart**: This goes back to the beginning of the simulation (i.e. to time t=0). 
-2. **Run All**: This will run the simulation for the default runtime of 1000 nanoseconds. This can be changed in Vivado's settings. 
+2. **Run All**: This will run the simulation until it hits a breakpoint or another condition that causes the simulation to pause/stop, such as `$stop`, `$finish`, and possibly `$error`.
 3. **Run for <time\>**: This will run the simulation for the amount of time we specify using the inputs immediately to the right. In this case, I have it set to 30 nanoseconds for three test cases (each 10ns). We can also set it to 10ns, and click the button multiple times to run one test case at a time. 
-4. **Step**: Not useful for this course. It is used in conjunction with breakpoints. 
+4. **Step**: Single stepping, but works in a manner similar to software single-stepping only within procedural blocks (assign/always) and with blocking assignments. 
 5. **Break**: Used to stop the simulation. In this case, it runs very fast and we won't get a chance (or need) to stop it midway. 
 6. **Relaunch Simulation**: This will completely relaunch the simulation by re-reading the simulation code, recompiling it and running it from scratch. Remember to use this whenever we make changes to our simulation code. 
 
