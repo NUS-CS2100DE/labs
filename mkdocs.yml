@@ -36,9 +36,9 @@ extra:
 nav:
   - Home: index.md
   - How to use this website: howto.md
-  - Lab Prerequisites: prerequisites.md
   - Grading: grading.md
   - Preparing for labs:
+    - Lab Prerequisites: guides/prerequisites.md
     - Getting to know your Nexys 4: guides/nexys4.md
     - Installation guide for Vivado (from CG3207): https://nus-cg3207.github.io/labs/getting_started/vivado_install_guide/
   - Lab manuals: 

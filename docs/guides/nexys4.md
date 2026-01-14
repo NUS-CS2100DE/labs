@@ -16,6 +16,10 @@ The Nexys 4 boards come with a wide array of peripherals you can use to do all s
 
 The Nexys 4 uses a micro USB connector on the top left of the board, for power, programming, and USB UART interfacing. The kits include a black cable to connect the board to your computer. It also includes a variety of other ports and connectors such as an RJ45 Ethernet jack, a VGA port and a USB port for peripherals like keyboards. 
 
+### Connecting your board and powering it on
+
+To connect your Nexys 4 to your computer, plug the micro-USB connector (the small one) of the provided cable to the port on the top left corner of the board, labelled "PROG UART". Then, plug the USB-A connector (the big one) into your computer. 
+
 !!! tip
 	If you own a computer with only USB-C ports, then you will need an adapter. Remember to bring one with you to the labs. 
 
@@ -29,7 +33,8 @@ Here are some tips to take good care of your board:
 
 * **Do not touch the PCB tracks, or the components on the board**. Static discharge can damage or destroy electronic components, and these boards can be particularly susceptible.
 * **Use the nice plastic box with foam lining to transport your FPGA board**. Do not use a plastic bag or other plastic container to carry your boards, and most certainly don't put it bare in your backpack/tote/briefcase/whatever you bring to class.
-* When using the board, **keep it on a stable, flat surface**. Do NOT have it hanging off the USB cable, or hanging off the edge of a table, or on your lap, or anywhere that isn't a suitable, solid surface.
+* When using the board, **keep it on a stable, flat surface**. Do NOT have it hanging off the USB cable, or hanging off the edge of a table, or on your lap, or anywhere that isn't a suitable, solid surface. 
+* **Do not use the board while it's inside the box, in the foam**. Anti-static foam is conductive. However, you can keep the board on top of the closed box as a stable, solid, nonconductive surface. 
 * Absolutely **DO NOT DROP your board**. When moving it around, **hold the board by the edges** and **make sure the USB cable is unplugged** so as to minimize strain on the port and to avoid it getting caught on something.
 * **Avoid plugging and unplugging the micro-USB cable** more than necessary. To reset the board, you can use the power switch on the top left of the board, or unplug the USB-A connector from your computer if really necessary. Micro USB is a notoriously fragile connector, and it's best to avoid putting more strain on it than necessary. USB-A is much sturdier so that end of the cable is not as much of a concern.
 * Apply common sense and standard practices for taking care of electronics: don't eat or drink near your board in case you get crumbs (or worse, a spill) on the board. Don't throw the board around. Plug and unplug accessories with care. Be gentle when using the switches and buttons.

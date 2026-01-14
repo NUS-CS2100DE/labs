@@ -1,5 +1,9 @@
 # Prerequisites for lab work
 
+!!! info
+
+	This page is required reading before you start CS2100DE labs. Please read it carefully, and be prepared accordingly. 
+
 ## Knowledge and skills expected
 
 This course is designed for students with all sorts of background, and we do not expect almost any prior knowledge. The same holds true for the labs. 
@@ -17,6 +21,8 @@ For this course, you will need an FPGA development board. We will provide you a 
 	If you are not an official student of this course, and do not have access to a Nexys 4 board to follow along, you can use any other Xilinx/AMD FPGA development board, like the Basys 3 or Arty A7. You may need to make some changes to your code and project files to account for the different FPGA and different available peripherals. You may also be able to use a completely different brand of FPGA, like an Intel or Sipeed board. However, you will not be able to use Vivado, nor our template files. 
 
 The FPGA board comes with a USB type A to USB micro-B cable. You will need a USB type A port on your laptop, and if you do not have one, you must use an adapter. Remember to bring one to class. 
+
+On the subject of hardware required, your feet also need some hardware - the laboratory rules state that you MUST wear closed shoes. Sandals, slippers, crocs etc. are not acceptable. Don't think you can get away with it either - students can be and have been ejected from the lab for inappropriate footwear. 
 
 ## Software required
 
