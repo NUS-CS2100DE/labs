@@ -4,7 +4,7 @@
 
 	This lab includes a graded lab assignment, worth **2 points**. Refer to [the page on grading](../../grading.md) for more information. 
 
-	This assignment includes **4 questions**, clearly demarcated throughout the manual. 
+	This assignment includes **6 questions**, clearly demarcated throughout the manual. 
 
 ## Introduction
 
@@ -18,10 +18,9 @@ To download the files you need, visit the [lab_templates](https://github.com/NUS
 
 We've thrown around the term FPGA a lot so far, and even mentioned that it stands for Field Programmable Gate Array. But what exactly does that mean? 
 
-An FPGA is a device digital designers use to build and/or prototype digital logic circuits. As mind-blowing as it sounds, when we make a design on an FPGA, we actually change the internal structure of the chip to produce the logic that we want(1). It's kind of like a Lego set - we can connect different types of bricks (digital logic components) in different ways to build all sorts of structures (digital circuits). 
-{.annotate}
+An FPGA is a device digital designers use to build and/or prototype digital logic circuits. As mind-blowing as it sounds, when we make a design on an FPGA, we actually change the internal structure of the chip to produce the logic that we want(1). It's kind of like a Lego set - we can connect different types of bricks (digital logic components) in different ways to build all sorts of structures (digital circuits). [^1]
 
-1. This is a simplification of what really happens when we program an FPGA. In reality, FPGAs are like any other chip, with a fixed number of components which can't change. However, using a configurable network of interconnects, the connections between these components can be set to our liking, allowing us to build logic devices and circuits. To learn more about the weird and wonderful world of FPGAs, you can take [EE4218](https://nusmods.com/courses/EE4218/embedded-hardware-system-design) and learn more. 
+[^1]: This is a simplification of what really happens when we program an FPGA. In reality, FPGAs are like any other chip, with a fixed number of components which can't change. However, using a configurable network of interconnects, the connections between these components can be set to our liking, allowing us to build logic devices and circuits. To learn more about the weird and wonderful world of FPGAs, you can take [EE4218](https://nusmods.com/courses/EE4218/embedded-hardware-system-design) and learn more. 
 
 Knowing this, the name Field Programmable Gate Array now makes more sense. "Field Programmable" refers to the fact that we can easily reprogram the chip without needing to take it off the board or doing anything too complicated. "Gate Array" refers to the fact that the chip is made of a large array of digital logic gates, which can be connected in (almost) any way we want. 
 
@@ -56,7 +55,7 @@ After running implementation, we need to generate a bitstream - this is a file w
 
 ## Creating a new project in Vivado
 
-You should have Vivado installed on your own computer, as explained in the [prerequisites](../../prerequisites.md). However, if you did not/could not complete those steps yet, you can use the lab PCs for now. However, we very strongly recommend installing Vivado on your own computer as soon as possible so you can practice at home, and work on your projects after class. 
+You should have Vivado installed on your own computer, as explained in the [prerequisites](../../guides/prerequisites.md). However, if you did not/could not complete those steps yet, you can use the lab PCs for now. However, we very strongly recommend installing Vivado on your own computer as soon as possible so you can practice at home, and work on your projects after class. 
 
 Launch Vivado from the Start menu or desktop on Windows. If you are using Linux, the installer may or may not have made a shortcut for you. If it has, use that. If it hasn't, run Vivado from the command line: `source /tools/Xilinx/Vivado/2023.2/settings64.sh` followed by `vivado &`. 
 
@@ -251,7 +250,7 @@ On the Flow Navigator pane on the left side of the window, you should see a grou
 
 	Use your mouse scroll wheel to move up and down in your design. Hold down Ctrl while scrolling to zoom in and out, and hold down Shift to scroll left and right. 
 
-!!! question "Question 1: Schematics [0.5 points]"
+!!! question "Question 1: A Picture Is Worth A Thousand Words [0.25 points]"
 
 	Include a screenshot of your RTL design of the Top module. Expand the Adder block to show the components inside it. If your elaborated design is too big to comfortably see in one screenshot, you may take multiple screenshots and include them all in your report. 
 
@@ -262,6 +261,10 @@ Now that we have looked at the RTL design and verified that it (at least mostly)
 We mentioned [above](#the-fpga-design-flow) that simulation is an important step in the FPGA design flow. However, since it bears repeating, we will say it again here: **simulation is a very important step in the FPGA design flow**. Behavioral simulation (the kind we will use) is perhaps the most important for us - it allows us to verify that our logic is all correct. 
 
 To simulate the device that we have just created, we need to actually define the simulation by writing code to describe the environment to simulate the device in. The simulation *testbench* is an environment where we connect the device we want to test, to inputs that we can control and to outputs that we can monitor. 
+
+!!! question "Question 2: The importance of simulation [0.25 points]"
+
+	Simulation is a very important part of design and engineering. Write a few sentences explaining how simulations are used in the discipline of your first major (i.e. electrical engineering, mechanical engineering, biomedical engineering etc.), and why they are important. 
 
 ### Writing a testbench
 
@@ -373,10 +376,10 @@ From the left, the buttons are:
 5. **Break**: Used to stop the simulation. In this case, it runs very fast and we won't get a chance (or need) to stop it midway. 
 6. **Relaunch Simulation**: This will completely relaunch the simulation by re-reading the simulation code, recompiling it and running it from scratch. Remember to use this whenever we make changes to our simulation code. 
 
-!!! question "Question 2: Simulation [0.5 points]"
+!!! question "Question 3: Simulation [0.25 points]"
 	Take the last four digits of your NUSNET ID. Split them into two 2-digit numbers. For example, if your NUSNET ID is e0411018, your two numbers are 10 and 18. Convert these two numbers to binary, and add them as a test case to your testbench code. 
 
-	In your report, include a screenshot of your simulation waveform. You should show all four signals `in_a`, `in_b`, `result` and `carry`, over all three included test cases, plus the one you added yourself. 
+	In your report, include a screenshot of your simulation waveform. You should show all five signals `in_a`, `in_b`, `result`, `carry` and `carry[7:0]`, over all three included test cases, plus the one you added yourself. Follow the format of the screenshot below. 
 
 Running a simulation is only part of the story. The simulation results need to be correct, and we must be able to understand them to tell if they are. For every test case, look at the inputs provided, and calculate the output that should be produced. The outputs in the waveform (`result`) should correspond to the correct answer. 
 
@@ -400,9 +403,9 @@ The results indicate that we get:
 
 Clearly, 0a+0a should not be 04, a number smaller than 0a in a case where there is no carry out. 0a is 10 in decimal, so 10+10 should be 20 in decimal or 14 in hex. Something isn't right here!
 
-!!! question "Question 3: Debugging [0.5 points]"
+!!! question "Question 4: Pest Control [0.25 points]"
 
-	Let's investigate what's going wrong. Which bit is incorrect in your result? Which line of SystemVerilog code in `Adder.sv` corresponds to that bit? What is the correct line of code? Correct the code and relaunch the simulation. Verify that the result is correct, and paste a screenshot in your report. 
+	We appear to have a bug in our code, so let's investigate what's going wrong. Which bit is incorrect in our result? Which line of SystemVerilog code in `Adder.sv` corresponds to that bit? What is the correct line of code? Correct the code and relaunch the simulation. Verify that the result is correct, and paste a screenshot of the correct simulation results in your report. 
 
 Congratulations! Our design is now correct, and we can prove that this is the case in simulation. 
 
@@ -531,9 +534,15 @@ Simply click on "Program" to upload the bitstream to the FPGA.
 
 Congratulations, your design has now been loaded onto your Nexys 4! Refer back to the [Design Specification](#design-specification), and remember that we have created a system that adds the two numbers input via the switches on the bottom. Verify that the test cases we tried in simulation produce the correct results. 
 
-!!! question "Question 4: Hardware [0.5 points]"
+!!! question "Question 5: Hardware [0.5 points]"
 
 	Take the last four digits of your matriculation number. Split them into two 2-digit numbers. For example, if your matriculation number A0244864X ends in 4864, your two numbers are 48 and 64. Convert these numbers to binary and use the switches to input them into the adder. Take a picture of your board and include it in your report, with the switch positions and LEDs clearly visible. 
+
+!!! question "Question 6: Pop Quiz [0.5 points]"
+
+	Once you have finished your work, approach a GA near you. They will ask you a question about your design. We will be very lenient with your answers, so don't worry if you don't know the answer right away. We will give you a hint if you ask for it.
+	
+	You do not need to add anything to your report for this question. We will record your score and add it to your final grade. 
 
 ## Concluding remarks
 

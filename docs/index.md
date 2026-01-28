@@ -37,7 +37,7 @@ To make the most of the labs, we recommend doing some reading before you come fo
 
 1. First, the page on [how to use this website](howto.md). Pay special attention to the section on "How to get help", as it is very important. 
 
-2. Next, the [prerequisites for the lab](prerequisites.md). If you have any concerns with these prerequisites, please approach the teaching team as early as possible. 
+2. Next, the [prerequisites for the lab](guides/prerequisites.md). If you have any concerns with these prerequisites, please approach the teaching team as early as possible. 
 
 3. You should also read the [grading scheme for lab assignments and projects](grading.md). 
 
