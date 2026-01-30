@@ -252,7 +252,7 @@ On the Flow Navigator pane on the left side of the window, you should see a grou
 
 	Use your mouse scroll wheel to move up and down in your design. Hold down Ctrl while scrolling to zoom in and out, and hold down Shift to scroll left and right. 
 
-!!! question "Question 1: A Picture Is Worth A Thousand Words [0.25 points]"
+!!! question "Question 1: A Picture Is Worth A Thousand Words [0.3 points]"
 
 	Include a screenshot of your RTL design of the Top module. Expand the Adder block to show the components inside it. If your elaborated design is too big to comfortably see in one screenshot, you may take multiple screenshots and include them all in your report. 
 
@@ -264,7 +264,7 @@ We mentioned [above](#the-fpga-design-flow) that simulation is an important step
 
 To simulate the device that we have just created, we need to actually define the simulation by writing code to describe the environment to simulate the device in. The simulation *testbench* is an environment where we connect the device we want to test, to inputs that we can control and to outputs that we can monitor. 
 
-!!! question "Question 2: The importance of simulation [0.25 points]"
+!!! question "Question 2: The importance of simulation [0.2 points]"
 
 	Simulation is a very important part of design and engineering. Write a few sentences explaining how simulations are used in the discipline of your first major (i.e. electrical engineering, mechanical engineering, biomedical engineering etc.), and why they are important. 
 
@@ -378,7 +378,7 @@ From the left, the buttons are:
 5. **Break**: Used to stop the simulation. In this case, it runs very fast and we won't get a chance (or need) to stop it midway. 
 6. **Relaunch Simulation**: This will completely relaunch the simulation by re-reading the simulation code, recompiling it and running it from scratch. Remember to use this whenever we make changes to our simulation code. 
 
-!!! question "Question 3: Simulation [0.25 points]"
+!!! question "Question 3: Simulation [0.2 points]"
 	Take the last four digits of your NUSNET ID. Split them into two 2-digit numbers. For example, if your NUSNET ID is e0411018, your two numbers are 10 and 18. Convert these two numbers to binary, and add them as a test case to your testbench code. 
 
 	In your report, include a screenshot of your simulation waveform. You should show all five signals `in_a`, `in_b`, `result`, `carry` and `carry[7:0]`, over all three included test cases, plus the one you added yourself. Follow the format of the screenshot below. 
@@ -405,7 +405,7 @@ The results indicate that we get:
 
 Clearly, 0a+0a should not be 04, a number smaller than 0a in a case where there is no carry out. 0a is 10 in decimal, so 10+10 should be 20 in decimal or 14 in hex. Something isn't right here!
 
-!!! question "Question 4: Pest Control [0.25 points]"
+!!! question "Question 4: Pest Control [0.3 points]"
 
 	We appear to have a bug in our code, so let's investigate what's going wrong. Which bit is incorrect in our result? Which line of SystemVerilog code in `Adder.sv` corresponds to that bit? What is the correct line of code? Correct the code and relaunch the simulation. Verify that the result is correct, and paste a screenshot of the correct simulation results in your report. 
 
