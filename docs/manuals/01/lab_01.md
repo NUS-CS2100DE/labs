@@ -175,7 +175,7 @@ For our first lab, we will be building a very simple circuit on our FPGA. The en
 
 For example, suppose you want to add 48 and 64. 48 in binary is `00110000` while 64 is `01000000`. Enter `00110000 01000000` on the switches, where `0` indicates a switch in the "down" position and `1` indicates a switch in the "up" position. The sum of 48 and 64 is 112, or `01110000` in binary. Then, the 8 LEDs on the right should show this value, with `0` meaning the LED isn't lit up, and `1` meaning it is. The image below shows this test case:
 
-![Adder Example](adder_example.png)
+![Adder Example](adder_example.jpg)
 
 ### Modules in HDL
 
