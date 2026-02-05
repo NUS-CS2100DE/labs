@@ -1,0 +1,1005 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://nus-cs2100de.github.io/labs/manuals/08/lab_08/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Lab 8 : The Finale - Running Programs on our CPU - CS2100DE Labs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12.3%207.29c.2-.18.44-.29.7-.29.27%200%20.5.11.71.29.19.21.29.45.29.71%200%20.27-.1.5-.29.71-.21.19-.44.29-.71.29-.26%200-.5-.1-.7-.29-.19-.21-.3-.44-.3-.71%200-.26.11-.5.3-.71m-2.5%204.68s2.17-1.72%202.96-1.79c.74-.06.59.79.52%201.23l-.01.06c-.14.53-.31%201.17-.48%201.78-.38%201.39-.75%202.75-.66%203%20.1.34.72-.09%201.17-.39.06-.04.11-.08.16-.11%200%200%20.08-.08.16.03.02.03.04.06.06.08.09.14.14.19.02.27l-.04.02c-.22.15-1.16.81-1.54%201.05-.41.27-1.98%201.17-1.74-.58.21-1.23.49-2.29.71-3.12.41-1.5.59-2.18-.33-1.59-.37.22-.59.36-.72.45-.11.08-.12.08-.19-.05l-.03-.06-.05-.08c-.07-.1-.07-.11.03-.2M22%2012c0%205.5-4.5%2010-10%2010S2%2017.5%202%2012%206.5%202%2012%202s10%204.5%2010%2010m-2%200c0-4.42-3.58-8-8-8s-8%203.58-8%208%203.58%208%208%208%208-3.58%208-8%22/%3E%3C/svg%3E');}</style>
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Merriweather";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-8-the-finale-running-programs-on-our-cpu" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="CS2100DE Labs" class="md-header__button md-logo" aria-label="CS2100DE Labs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CS2100DE Labs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 8 : The Finale - Running Programs on our CPU
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_2">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="CS2100DE Labs" class="md-nav__button md-logo" aria-label="CS2100DE Labs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CS2100DE Labs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../howto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to use this website
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../grading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Grading
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparing for labs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Preparing for labs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Prerequisites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/nexys4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting to know your Nexys 4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://nus-cg3207.github.io/labs/getting_started/vivado_install_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation guide for Vivado (from CG3207)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab manuals
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lab manuals
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01/lab_01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1 [Week 3]
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02/lab_02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 [Week 4]
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03/lab_03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3 [Week 5]
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04/lab_04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4 [Week 6]
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-overall-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Overall Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-mapped-io-or-mmio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory-Mapped IO, or MMIO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-the-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setting up the project
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#activity-1-simulating-our-cpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Activity 1: Simulating our CPU
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#activity-2-the-grand-finale-running-our-cpu-on-the-fpga" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Activity 2: The Grand Finale: Running our CPU on the FPGA
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#activity-3-writing-our-own-programs-for-the-cpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Activity 3: Writing our own programs for the CPU
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concluding-remarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concluding Remarks
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<div><h1 id="lab-8-the-finale-running-programs-on-our-cpu">Lab 8 : The Finale - Running Programs on our CPU</h1>
+<p>Welcome to the final lab for CS2100DE! We're finally there, the promised land - our CPU is ready to run real programs! Now, we just need to debug any issues remaining, and we will be good to go. </p>
+<div class="admonition info">
+<p class="admonition-title">Project Work</p>
+<p>This manual is part of the final project. You do not need to write a report for this. You should work in your project groups. </p>
+</div>
+<h2 id="introduction">Introduction</h2>
+<h3 id="the-overall-architecture">The Overall Architecture</h3>
+<p>The figure below shows the architecture of our final CPU project:</p>
+<p><img alt="" src="../schematic.png"></p>
+<p><code>Top_MMC.sv</code> is where our CPU, <code>RISCV_MMC</code> is instantiated. In the Top module, we have the following elements:</p>
+<ol>
+<li>
+<p>Our instruction and data memories, <code>instruction_rom</code> and <code>data_memory</code>. These are loaded from <code>.mem</code> files that we can generate right from RARS. </p>
+</li>
+<li>
+<p>A clock divider. This slows down the clock speed of our CPU, as we haven't pipelined the design and therefore can't run at 100 MHz. </p>
+</li>
+<li>
+<p>The Seven-Segment display decoder <code>ss_decoder</code> , to be able to use the 7-segment displays in our programs. </p>
+</li>
+<li>
+<p>Our CPU, aptly named just <code>cpu</code> :D</p>
+</li>
+</ol>
+<h3 id="memory-mapped-io-or-mmio">Memory-Mapped IO, or MMIO</h3>
+<p>To be able to do something interesting with our CPU, we need to be able to communicate with peripherals outside of the CPU. For us, these are the ones on the board that we have already interacted with - the LEDs, DIP switches, 7-segment displays and push buttons. They're simple, but they can be used for a lot of interesting things!</p>
+<p>The following table shows the memory map of our RISC-V CPU:</p>
+<table>
+<thead>
+<tr>
+<th>Address range</th>
+<th>Read/Write</th>
+<th>Purpose</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x0000</code>-<code>0x00FF</code></td>
+<td>Read only</td>
+<td>Instruction memory</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x2000</code>-<code>0x20FF</code></td>
+<td>Read/Write</td>
+<td>Data memory</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x2400</code></td>
+<td>Write only</td>
+<td>LEDs</td>
+<td><code>led[15:0]</code> stored in lower 16 bits</td>
+</tr>
+<tr>
+<td><code>0x2404</code></td>
+<td>Read only</td>
+<td>DIP switches</td>
+<td><code>sw[15:0]</code> stored in lower 16 bits</td>
+</tr>
+<tr>
+<td><code>0x2408</code></td>
+<td>Read only</td>
+<td>Push Buttons</td>
+<td><code>{btnC, btnU, btnL, btnR, btnD}</code> stored in lower 5 bits</td>
+</tr>
+<tr>
+<td><code>0x2418</code></td>
+<td>Write only</td>
+<td>Seven Segment Display</td>
+<td>Hex representation of this value is displayed</td>
+</tr>
+</tbody>
+</table>
+<p>MMIO works by allowing us to write data to, or read data from, memory addresses to control peripherals. For example, suppose we store the value <code>0xF0F0</code> at memory address <code>0x2400</code>. Then, the LEDs on the board will light up in the pattern <code>1111000011110000</code> (where <code>1</code> represents a lit LED and <code>0</code> represents an unlit one). </p>
+<p>For the seven-segment display, we do not need to do any decoding; we have built a module for that already. We may simply write a value to memory address <code>0x2418</code> and it will be displayed in hexadecimal format on the displays. Magic!</p>
+<h3 id="setting-up-the-project">Setting up the project</h3>
+<p>Download the files <a href="https://github.com/NUS-CS2100DE/labs/blob/main/lab_templates/week11/Top_MMC.sv"><code>Top_MMC.sv</code></a> and <a href="https://github.com/NUS-CS2100DE/labs/blob/main/lab_templates/week11/SevenSegDecoder.sv"><code>SevenSegDecoder.sv</code></a> Add them to the project. </p>
+<p>Download the file <a href="https://github.com/NUS-CS2100DE/labs/blob/main/lab_templates/week11/Nexys-4-Master-2100.xdc"><code>Nexys-4-Master-2100.xdc</code></a> from the repository too. Import it into the project as well. Do not use the same constraints file as we did before. </p>
+<p>To import <a href="https://github.com/NUS-CS2100DE/labs/blob/main/lab_templates/week11/AA_IROM.mem"><code>AA_IROM.mem</code></a> and <a href="https://github.com/NUS-CS2100DE/labs/blob/main/lab_templates/week11/AA_DMEM.mem"><code>AA_DMEM.mem</code></a>, we need to use "Add Design Sources" and change "Files of type" from "Design Source Files" to "Memory Initialization Files", so that they appear in the browser for us to select. </p>
+<p>Take a look at lines 56 through 64 of <code>Top_MMC.sv</code>. </p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="w">    </span><span class="c1">// ONLY FOR SIMULATION - COMMENT OUT FOR HARDWARE IMPLEMENTATION!!!</span>
+<span class="c1">//    assign clk_cpu = clk; </span>
+
+<span class="w">    </span><span class="c1">// ONLY FOR HARDWARE IMPLEMENTATION - COMMENT OUT FOR SIMULATION!!!</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">clk_cpu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">counter</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+
+<span class="w">    </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">        </span><span class="n">counter</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">end</span>
+</code></pre></div></td></tr></table></div>
+<p>To run simulation for our CPU, we must <em>uncomment</em> line 57 and <em>comment</em> lines 60-64. To run synthesis and implementation, we must do the opposite: <em>comment</em> line 57 and <em>uncomment</em> lines 60-64.</p>
+<p>For our CPU, the critical path is too long to use the 100 MHz clock speed. (How can we fix that?) So, we need to slow the clock down using a clock divider. We use a 4-bit counter, so our clock runs at 100 MHz / 16 = 6.25 MHz. </p>
+<p>For the simulation, if we leave the clock divider in, we can still see what we need to see, but the simulation will be 16 times longer than it needs to be. So, we simply bypass the clock divider to run the CPU with the <code>clk</code> signal itself. In behavioural simulation, we don't have any concept of a critical path, so we can use as fast or as slow a clock as we please. </p>
+<h2 id="activity-1-simulating-our-cpu">Activity 1: Simulating our CPU</h2>
+<p>Download <a href="https://github.com/NUS-CS2100DE/labs/blob/main/lab_templates/week11/Top_Test.sv"><code>Top_Test.sv</code></a> from the repository and import it into your project as a simulation source. In a refreshing change of pace, the simulation is, this time, completely ready-made for us - how convenient!</p>
+<p>Remember to set <code>Top_Test</code> as the Top module for simulation, before running Behavioural Simulation. </p>
+<p>And now, we are ready to run Behavioural Simulation. When we do that, we will get a scary looking, massive waveform like the one shown below:</p>
+<p><img alt="" src="../sim_og.png"></p>
+<p>Don't panic! This is a lot of information, to be sure, but we don't need to look at all of it all the time. To verify that our CPU is working correctly, we can observe just the registers on the CPU, and validate that they produce the same values as the RARS simulator. </p>
+<p>Open <a href="https://github.com/NUS-CS2100DE/labs/blob/main/lab_templates/week11/riscv_assembly_demo.asm"><code>riscv_assembly_demo.asm</code></a> in RARS and simulate it to observe the registers. Make sure that the behaviour is as expected. </p>
+<p>Then, come back to Vivado. In the Simulation view, open the "Scope" pane. Expand the <code>Top_Test</code> -&gt; <code>dut</code> -&gt; <code>cpu</code> -&gt; <code>register_file</code> module. From there, we can see the <code>reg_bank</code> - drag this into the waveform. While we are here, we should also drop the <code>instr</code> from the <code>dut</code> module. The rest of the waveforms can be added later when needed for debugging, or we can add them now. The screenshots below will only show the ones mentioned. </p>
+<p>We can expand the register bank to see the content of each register:</p>
+<p><img alt="" src="../regbank.png"></p>
+<p>The registers may display <code>XXXXXXXX</code> as the value - that's fine! Until the running program writes something to the register, its value is undefined by design, so the <code>X</code>s are normal and expected. </p>
+<p>Now, click the button to restart the simulation from time 0. Remember, this is not the "Relaunch" button - that's not what we want now. </p>
+<p><img alt="" src="../sim_0.png"></p>
+<p>Set the step length on the top to 10 nanoseconds:</p>
+<p>Now, use the Run for 10 ns button to run exactly one clock cycle. The first cycle may not show any useful data because we are still resetting the CPU. </p>
+<p>We should see that <code>instr</code> contains the first instruction from our program, which, for the demo, is <code>32'h00200493</code>. This corresponds to <code>addi x9, x0, 2</code>. So, we should be storing the value <code>32'h2</code> inside <code>x9</code>. </p>
+<p><img alt="" src="../sim_1.png"></p>
+<p>Run another 10 nanoseconds, and we now observe that <code>reg_bank[9]</code> contains the number <code>2</code>. </p>
+<p><img alt="" src="../sim_2.png"></p>
+<p>The next instruction is <code>32'h00C49493</code>, corresponding to <code>slli x9, x9, 12</code>. We expect to see that <code>reg_bank[9]</code> contains the value <code>32'h2000</code> now. Skipping forward another step, we see that this is indeed the case. </p>
+<p><img alt="" src="../sim_3.png"></p>
+<p>Continue observing the waveform. If something is amiss, start debugging. </p>
+<p>Remember, the program reads from the switches, and writes to leds. This is the behaviour we expect to see in the simulation. We see that we set <code>sw &lt;= 32'hAA</code> initially. So, we expect to see this word being written to the LEDs after cycle 6, and to the seven-segment display after cycle 7, as follows:</p>
+<p><img alt="" src="../sim_9.png"></p>
+<p>If the CPU can run the full simulation as expected, congratulations! We're ready to put the CPU on our FPGA and watch it go. The labour of our past 7 labs will finally bear fruits, and we will see our very own CPU running our very own program!</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If, as is highly likely, the CPU doesn't work as expected first try, breathe - this is normal. </p>
+<p>First, check what instruction it is failing to execute. Think about the data path for that instruction type, and then, add all the relevant signals to the waveform to debug. For example, for an I type instruction, we may want to look at <code>ext_imm</code> to check if it is being properly constructed. If not, we can figure out which modules need tweaking. </p>
+</div>
+<h2 id="activity-2-the-grand-finale-running-our-cpu-on-the-fpga">Activity 2: The Grand Finale: Running our CPU on the FPGA</h2>
+<p>This is it - this is the moment we've been waiting for! The steps are the same as we've done a dozen times already - run Synthesis, Implementation, and finally, generate the bitstream and upload it to the FPGA. </p>
+<p>The included program is very simple; it simply takes the binary value input using the DIP switches, and displays it as a binary number on the LEDs, and as a hexadecimal number on the 7-segment displays. If it works correctly, congratulations! We have finished the project. </p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If the design works correctly in simulation but not on hardware, this is unusual but not unprecedented. The teaching team themselves have spent many an hour debugging such issues. </p>
+<p>The best thing to do here is to check all the warnings generated by Vivado, for each stage (synthesis, implementation, bitstream generation). These usually hold the key to solving the problem. </p>
+</div>
+<h2 id="activity-3-writing-our-own-programs-for-the-cpu">Activity 3: Writing our own programs for the CPU</h2>
+<div class="admonition info">
+<p class="admonition-title">Optional Activity</p>
+<p>This activity is not necessary for the final demo. Rather, it is for your own exploration and learning. However, being able to follow this section may help you understand the CPU better, and in turn, help you in the Q&amp;A part of the demo session. </p>
+</div>
+<p>We can also write our own programs for the CPU, using RARS to write RISC-V assembly, converting the program to hexadecimal text, and dropping that text into the <code>AA_IROM.mem</code> and <code>AA_DMEM.mem</code> files. In theory, it is also possible to use assembly files generated by a compiler, which takes C (or some other compiled language) and converts it to RISC-V assembly. We simply need to convert them to hex format and paste their contents in the two aforementioned files. </p>
+<div class="admonition warning">
+<p class="admonition-title">Not all instructions will work!</p>
+<p>Our CPU implements a lot of instructions, but skips a few fairly important ones:</p>
+<ol>
+<li>
+<p><code>jal</code> and <code>jalr</code> - <code>jal</code> works but it doesn't save a return address. <code>jalr</code> is not implemented at all. This means that our CPU cannot execute any code with these instructions, and therefore cannot execute functions. </p>
+</li>
+<li>
+<p><code>auipc</code> and <code>lui</code> - these allow us to load larger numbers than 12-bit very easily into registers - useful for addresses (eg. for MMIO). In their absence, compiled code may not work, but we can always use a combination of <code>addi</code> and <code>slli</code> to achieve a similar effect. </p>
+</li>
+<li>
+<p>Multiplication and division - these are not part of the RV32I instruction set. We would need to implement a multiplier to have these functions. </p>
+</li>
+</ol>
+<p>All of these are implemented in CG3207, so do return for that course if you're interested in these!</p>
+</div>
+<p>Here are the steps to put our RISC-V assembly code from RARS on to the board:</p>
+<ol>
+<li>
+<p>Create or open an assembly file with a program in it, in RARS. Make sure to set the Memory Configuration in Settings -&gt; Memory Configuration, to "Compact, Text Address at 0". </p>
+</li>
+<li>
+<p>Click the button to assemble the program. We should see the "Execute" tab. </p>
+</li>
+<li>
+<p>Click the "Dump Memory" button to dump the instruction and data memory to files. The following dialog box should appear:</p>
+<p>Here, we select the text section first, and set the output to "Hexadecimal Text". Then, click "Dump to File...", and select a location and filename. </p>
+<p>Repeat this step for the data section. </p>
+</li>
+<li>
+<p>Open the instruction memory and data memory dump files created in Notepad or some other text editor. Copy the content of the instruction memory file, and paste it into <code>AA_IROM.mem</code> in Vivado. Do the same for the data memory file, and paste it in <code>AA_DMEM.mem</code>. </p>
+</li>
+<li>
+<p>Relaunch synthesis, implementation and bitstream generation. </p>
+</li>
+</ol>
+<div class="admonition question">
+<p class="admonition-title">Question 1: Run it back [0 points]</p>
+<p>Write RISC-V assembly programs to replicate the functions performed by Lab 1 and Lab 3. </p>
+<ol>
+<li>
+<p>The first program should take the input from the switches, and add up the value input by the left 8 and right 8 switches. Display the sum on the LEDs as a binary value. As an additional exercise, display the difference (subtraction) on the 7-segment displays. </p>
+</li>
+<li>
+<p>The second program should run 3 independent counters, at a rate that is visible to the naked eye. The buttons and switches should be used to reset and change the direction of the counters as it was done in Lab 3. This is a very tricky exercise, for sure - it might be quite a few lines of code!</p>
+</li>
+</ol>
+<p>You may use these programs to demonstrate your CPU next week. However, it is strictly not necessary, and the simple demo provided is sufficient. </p>
+</div>
+<h2 id="concluding-remarks">Concluding Remarks</h2>
+<p>Congratulations on completing the labs for CS2100DE! No, really, congratulations - we have successfully built a full, working CPU running on our FPGA, which can run RISC-V programs! This is no small feat, and genuinely worthy of high commendation. The only thing remaining now is to come to the demo next week and show the teaching team what you know. All the best for that, and for finals!</p>
+<div class="admonition success">
+<p class="admonition-title">What we should know</p>
+<ul>
+<li>How to debug a reasonably complex design on an FPGA.</li>
+<li>How MMIO is used to communicate with peripherals.</li>
+<li>How to build and run a complete, working CPU on an FPGA.</li>
+</ul>
+</div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://nus-cs2100de.github.io/labs">NUS CS2100DE Labs</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://github.com/nus-cs2100de">NUS CS2100DE Team</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC-SA 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a>. Template designed by <a href="mailto:neil@neilbaner.net">Neil Banerjee</a>. </p>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/nus-cs2100de" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:neil@nus.edu.sg" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

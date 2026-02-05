@@ -1,0 +1,1565 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://nus-cs2100de.github.io/labs/manuals/04/lab_04/">
+      
+      
+        <link rel="prev" href="../../03/lab_03/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Lab 4 [Week 6] - CS2100DE Labs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12.3%207.29c.2-.18.44-.29.7-.29.27%200%20.5.11.71.29.19.21.29.45.29.71%200%20.27-.1.5-.29.71-.21.19-.44.29-.71.29-.26%200-.5-.1-.7-.29-.19-.21-.3-.44-.3-.71%200-.26.11-.5.3-.71m-2.5%204.68s2.17-1.72%202.96-1.79c.74-.06.59.79.52%201.23l-.01.06c-.14.53-.31%201.17-.48%201.78-.38%201.39-.75%202.75-.66%203%20.1.34.72-.09%201.17-.39.06-.04.11-.08.16-.11%200%200%20.08-.08.16.03.02.03.04.06.06.08.09.14.14.19.02.27l-.04.02c-.22.15-1.16.81-1.54%201.05-.41.27-1.98%201.17-1.74-.58.21-1.23.49-2.29.71-3.12.41-1.5.59-2.18-.33-1.59-.37.22-.59.36-.72.45-.11.08-.12.08-.19-.05l-.03-.06-.05-.08c-.07-.1-.07-.11.03-.2M22%2012c0%205.5-4.5%2010-10%2010S2%2017.5%202%2012%206.5%202%2012%202s10%204.5%2010%2010m-2%200c0-4.42-3.58-8-8-8s-8%203.58-8%208%203.58%208%208%208%208-3.58%208-8%22/%3E%3C/svg%3E');}</style>
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Merriweather";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-4-introduction-to-risc-v-assembly" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="CS2100DE Labs" class="md-header__button md-logo" aria-label="CS2100DE Labs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CS2100DE Labs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 4 [Week 6]
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_2">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="CS2100DE Labs" class="md-nav__button md-logo" aria-label="CS2100DE Labs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CS2100DE Labs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../howto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to use this website
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../grading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Grading
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparing for labs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Preparing for labs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Prerequisites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/nexys4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting to know your Nexys 4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://nus-cg3207.github.io/labs/getting_started/vivado_install_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation guide for Vivado (from CG3207)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab manuals
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lab manuals
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01/lab_01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1 [Week 3]
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02/lab_02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 [Week 4]
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03/lab_03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3 [Week 5]
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4 [Week 6]
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4 [Week 6]
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-an-isa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is an ISA?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whats-risc-v" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's RISC-V?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Registers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#risc-v-assembly-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RISC-V assembly language
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RISC-V assembly language">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logical-and-arithmetic-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logical and Arithmetic Instructions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory Instructions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#branching-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Branching Instructions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started-with-rars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting started with RARS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting started with RARS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opening-and-assembling-an-asm-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opening and assembling an asm file
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#executing-the-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Executing the code
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warm-up-activity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Warm-up activity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#main-assignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main Assignment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concluding-remarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concluding remarks
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-an-isa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is an ISA?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whats-risc-v" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's RISC-V?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Registers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#risc-v-assembly-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RISC-V assembly language
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RISC-V assembly language">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logical-and-arithmetic-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logical and Arithmetic Instructions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory Instructions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#branching-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Branching Instructions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started-with-rars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting started with RARS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting started with RARS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opening-and-assembling-an-asm-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opening and assembling an asm file
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#executing-the-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Executing the code
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warm-up-activity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Warm-up activity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#main-assignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main Assignment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concluding-remarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concluding remarks
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<div><h1 id="lab-4-introduction-to-risc-v-assembly">Lab 4: Introduction to RISC-V Assembly</h1>
+<div class="admonition info">
+<p class="admonition-title">Take-Home Assignment</p>
+<p>This manual includes a take-home assignment, worth <strong>8 points</strong>. For each question, you will produce a separate <code>.asm</code> file. Zip up all the files into one <code>.zip</code> archive and upload it to Canvas. </p>
+</div>
+<h2 id="introduction">Introduction</h2>
+<p>Welcome back to CS2100DE! This week, we are going to give Vivado a rest, and take up something new and different: RISC-V assembly language programming. Now that we have the background knowledge of logic and design that we need, we can talk about the meat and potatoes of this course: computer organization and architecture. </p>
+<h3 id="what-is-an-isa">What is an ISA?</h3>
+<p>We talked about the definition of an ISA in the lectures - it's a layer of abstraction between the programs we write and the hardware that they run on. </p>
+<p>CPUs are complicated devices, and having to think about how to use every single component inside them individually would be a nightmare. Instead, each CPU has an associated Instruction Set Architecture, or ISA. It defines how instruction words are to be interpreted by the CPU, and what each instruction should do. </p>
+<p>Importantly, an ISA does <em>not</em> define or describe the underlying hardware that performs the instructions. That is the microarchitecture. The ISA only defines the instructions and what the results should be. </p>
+<p>For example, the device you're reading this on is probably using either the AMD64 (or x86_64) ISA, or the ARMv8-A ISA. The former is used by Intel and AMD CPUs like you might be using on your laptop or desktop, while the latter is used by Apple, Qualcomm and others to build system-on-chips like the M-series (seen in newer MacBooks) or the Snapdragon series (seen in many phones and some new laptops). A program written for an Intel Core i7-12700 will run on an AMD Ryzen 9 3950X, because they share the base ISA of AMD64. </p>
+<details class="note">
+<summary>A note on ISA extensions</summary>
+<p>While CPUs using the same ISA are mostly cross compatible with each other, the story becomes slightly complicated when considering ISA extensions. As the name implies, an ISA extension is an optional, additional set of instructions that can be implemented on a CPU if the manufacturer desired. Different CPUs with the same base ISA can implement different ISA extensions, which can make cross-compatibility less straightforward. </p>
+<p>A contemporary example is the <a href="https://www.intel.com/content/www/us/en/products/docs/accelerator-engines/what-is-intel-avx-512.html">AVX-512 extension for x86_64</a>. Programs compiled to use the AVX-512 extension can use extra instructions, which are not available on CPUs that do not implement this extension and therefore won't run on such CPUs. <a href="https://stockfishchess.org/download/windows/">The Stockfish chess engine</a>, for example, has different versions depending on which ISA extensions your particular CPU implements. </p>
+<p>Strictly speaking, AMD64/x86_64 is also an ISA extension to x86. Code written for AMD64 ("64-bit programs") will not run on x86 CPUs. However, code written for x86 will run on CPUs with the AMD64 extension.</p>
+</details>
+<h3 id="whats-risc-v">What's RISC-V?</h3>
+<p>RISC-V is a new, modern CPU architecture designed from the ground up for today's needs. Existing ISAs such as x86_64 and ARM are proprietary, and are prohibitively expensive and tedious to use in your own products. If, for example, we want to build a new chip with an ARM CPU, we would need to pay licensing fees and royalties to ARM. This makes the process of designing a new chip prohibitive for companies or organizations without huge pockets, such as us :)</p>
+<p>RISC-V was developed by UC Berkeley, and released under the <a href="https://en.wikipedia.org/wiki/BSD_licenses">BSD License</a>, making it <a href="https://www.gnu.org/philosophy/free-sw.html">free (as in "free speech")</a>. This means that a small startup, or a hobbyist, or a student, can use the RISC-V ISA  in any way they please, including modifying and redistributing it. Thus, we can use the RISC-V ISA to develop our own CPU on our Nexys 4: which, believe it or not, is what we're going to achieve at the end of this course. </p>
+<details class="note">
+<summary>RISC-V Extensions</summary>
+<p><a href="https://en.wikichip.org/wiki/risc-v/standard_extensions">RISC-V also has a few extensions available</a>, such as Multiply, Floating-Point, Atomic and Vector. In this course, we will implement the base integer RISC-V ISA, or RV32I for short.</p>
+</details>
+<p>As the name implies, RISC-V is a Reduced Instruction Set Computing (RISC) architecture. Today, the lines between RISC and CISC (Complex Instruction Set Architecture) are blurred, but the biggest differentiator is that CISC architectures typically have fewer general-purpose registers, and allow instructions to perform logical operations on values in memory. </p>
+<h3 id="memory">Memory</h3>
+<p>We just talked about CISC architectures being able to perform operations on values in memory. But what exactly is the "memory"?</p>
+<p>When we talk about memory in this course, we typically mean the system memory, or main memory. This is usually the RAM (and ROM) on a computer. Memory is used to store programs and variables. </p>
+<p>We may have many bytes (in modern computers, probably billions of bytes) of memory. Each byte of memory has an address, which is simply a number. In 32-bit architectures, the addresses are 32 bit numbers. Thus, we can address a maximum of 4 gibibytes of memory uniquely. You can think of the memory as a long list of numbers, and the indices of each number is the address</p>
+<details class="note">
+<summary>When there is a will, there is a way</summary>
+<p>There are clever ways that people used to access more than 4 gibibytes of memory on a 32-bit system. One popular one is <a href="https://en.wikipedia.org/wiki/Physical_Address_Extension">Physical Address Extension</a>. And, since our memory is not byte or half-word addressable anyway, and the two least significant bits of the address are ignored, we could potentially have 4 gibiwords of memory, or 16 gibibytes, by using all 32 bits and simply assuming there are two additional zeroes at the end of every address. </p>
+</details>
+<p>By the way, "gibibyte" is not a typo: a "gigabyte" is a billion bytes, or 1*10^9 bytes. A gibibyte is 1*2^20 bytes. Gigabyte is shortened to GB, while Gibibyte is shortened to GiB. Most people always use Gigabyte, and in fact macOS uses "Gigabyte" to refer to gibibytes. But, that's technically incorrect. </p>
+<h3 id="registers">Registers</h3>
+<p>In last week's lab, we talked about how registers are implemented with D Flip Flops on our Xilinx FPGAs. However, at an architecture level, a "register" isn't necessarily a flip-flop, it is just a memory element that can be accessed directly from the CPU. This is in contrast to system memory, where the CPU must use addresses to access areas of memory. The RISC-V ISA specifies 32 registers that programs can use, numbered <code>x0</code> through <code>x31</code>. </p>
+<p><code>x0</code> is a special register as it is read-only, and always contains the value <code>0</code>. We discussed in the lectures that this allows us to perform move operations without a separate instruction. </p>
+<p><code>x1</code> through <code>x31</code> can be used to store any 32-bit number. Remember that "data types" are merely a software construct, which do not exist at the architecture level, and certainly not at the hardware level. The instructions must be chosen correctly depending on what we've stored in the registers. At the end of the day, a number is a number, at the architecture level. </p>
+<p>All the registers have a name that describes the function they should be used for. The functions are described in the <a href="https://lists.riscv.org/g/tech-psabi/attachment/61/0/riscv-abi.pdf">RISC-V Application Binary Interface (ABI) specification</a>. The ABI describes how an operating system, such as Linux, running on a RISC-V CPU should use the registers. Here is a table showing what each register is used for:</p>
+<details class="note">
+<summary>Table of RISC-V registers (uncollapse this box)</summary>
+<table>
+<thead>
+<tr>
+<th><code>Register Number</code></th>
+<th><code>Register Name</code></th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>x0</code></td>
+<td><code>zero</code></td>
+<td>Always zero</td>
+</tr>
+<tr>
+<td><code>x1</code></td>
+<td><code>ra</code></td>
+<td>Return address</td>
+</tr>
+<tr>
+<td><code>x2</code></td>
+<td><code>sp</code></td>
+<td>Stack pointer</td>
+</tr>
+<tr>
+<td><code>x3</code></td>
+<td><code>gp</code></td>
+<td>Global pointer</td>
+</tr>
+<tr>
+<td><code>x4</code></td>
+<td><code>tp</code></td>
+<td>Thread pointer</td>
+</tr>
+<tr>
+<td><code>x5</code></td>
+<td><code>t0</code></td>
+<td>Temporary register 0</td>
+</tr>
+<tr>
+<td><code>x6</code></td>
+<td><code>t1</code></td>
+<td>Temporary register 1</td>
+</tr>
+<tr>
+<td><code>x7</code></td>
+<td><code>t2</code></td>
+<td>Temporary register 2</td>
+</tr>
+<tr>
+<td><code>x8</code></td>
+<td><code>s0/fp</code></td>
+<td>Saved register 0 / Frame pointer</td>
+</tr>
+<tr>
+<td><code>x9</code></td>
+<td><code>s1</code></td>
+<td>Saved register 1</td>
+</tr>
+<tr>
+<td><code>x10</code></td>
+<td><code>a0</code></td>
+<td>Function argument 0 / Return value</td>
+</tr>
+<tr>
+<td><code>x11</code></td>
+<td><code>a1</code></td>
+<td>Function argument 1 / Return value</td>
+</tr>
+<tr>
+<td><code>x12</code></td>
+<td><code>a2</code></td>
+<td>Function argument 2</td>
+</tr>
+<tr>
+<td><code>x13</code></td>
+<td><code>a3</code></td>
+<td>Function argument 3</td>
+</tr>
+<tr>
+<td><code>x14</code></td>
+<td><code>a4</code></td>
+<td>Function argument 4</td>
+</tr>
+<tr>
+<td><code>x15</code></td>
+<td><code>a5</code></td>
+<td>Function argument 5</td>
+</tr>
+<tr>
+<td><code>x16</code></td>
+<td><code>a6</code></td>
+<td>Function argument 6</td>
+</tr>
+<tr>
+<td><code>x17</code></td>
+<td><code>a7</code></td>
+<td>Function argument 7</td>
+</tr>
+<tr>
+<td><code>x18</code></td>
+<td><code>s2</code></td>
+<td>Saved register 2</td>
+</tr>
+<tr>
+<td><code>x19</code></td>
+<td><code>s3</code></td>
+<td>Saved register 3</td>
+</tr>
+<tr>
+<td><code>x20</code></td>
+<td><code>s4</code></td>
+<td>Saved register 4</td>
+</tr>
+<tr>
+<td><code>x21</code></td>
+<td><code>s5</code></td>
+<td>Saved register 5</td>
+</tr>
+<tr>
+<td><code>x22</code></td>
+<td><code>s6</code></td>
+<td>Saved register 6</td>
+</tr>
+<tr>
+<td><code>x23</code></td>
+<td><code>s7</code></td>
+<td>Saved register 7</td>
+</tr>
+<tr>
+<td><code>x24</code></td>
+<td><code>s8</code></td>
+<td>Saved register 8</td>
+</tr>
+<tr>
+<td><code>x25</code></td>
+<td><code>s9</code></td>
+<td>Saved register 9</td>
+</tr>
+<tr>
+<td><code>x26</code></td>
+<td><code>s10</code></td>
+<td>Saved register 10</td>
+</tr>
+<tr>
+<td><code>x27</code></td>
+<td><code>s11</code></td>
+<td>Saved register 11</td>
+</tr>
+<tr>
+<td><code>x28</code></td>
+<td><code>t3</code></td>
+<td>Temporary register 3</td>
+</tr>
+<tr>
+<td><code>x29</code></td>
+<td><code>t4</code></td>
+<td>Temporary register 4</td>
+</tr>
+<tr>
+<td><code>x30</code></td>
+<td><code>t5</code></td>
+<td>Temporary register 5</td>
+</tr>
+<tr>
+<td><code>x31</code></td>
+<td><code>t6</code></td>
+<td>Temporary register 6</td>
+</tr>
+</tbody>
+</table>
+</details>
+<h3 id="risc-v-assembly-language">RISC-V assembly language</h3>
+<p>Assembly language is not a single language. Every ISA has its own assembly language, which is just a human-readable, text-based version of the machine code that the CPU will run later. So, RISC-V has its own assembly language, and so does ARMv8-A, x86-64, IA-64, MIPS, Z80...</p>
+<p>In assembly language, every line has a one-to-one mapping to a set of one or many machine language instructions. That is, one line of assembly may map to 3 lines of machine code, but it will always map to all three of those lines. </p>
+<p>RISC-V assembly language has three main types of instructions: Logical (or Data Processing), Memory, and Branch. Let's look at each of these types in more detail. Note that we will not go through every instruction; this is merely meant to refresh our memory. The lecture notes are much more detailed, and <a href="../RISCVGreenCardv8-20151013.pdf">this document</a>, courtesy of <a href="https://www.cl.cam.ac.uk/teaching/1617/ECAD+Arch/files/docs/RISCVGreenCardv8-20151013.pdf">University of Cambridge</a> contains a very extensive reference. </p>
+<h4 id="logical-and-arithmetic-instructions">Logical and Arithmetic Instructions</h4>
+<p>Logical and arithmetic instructions perform some logical and arithmetic operation, respectively, on its operands. </p>
+<p>An example of an arithmetic instruction is: </p>
+<div class="highlight"><pre><span></span><code><span class="nf">add</span><span class="w"> </span><span class="no">x10</span><span class="p">,</span><span class="w"> </span><span class="no">x11</span><span class="p">,</span><span class="w"> </span><span class="no">x12</span><span class="w"> </span><span class="c1"># equivalently: add a0, a1, a2</span>
+</code></pre></div>
+<p>This instruction takes three operands: a destination register, and two source registers to be added. It stores the sum of the numbers stored in <code>x11</code> and <code>x12</code>, to the register <code>x10</code>. The operands are separated with commas in RISC-V assembly. </p>
+<p>For instructions ending with the letter suffix <code>i</code>, the third operand isn't a register, but an "immediate" (constant) value. For example:</p>
+<div class="highlight"><pre><span></span><code><span class="nf">addi</span><span class="w"> </span><span class="no">x10</span><span class="p">,</span><span class="w"> </span><span class="no">x11</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span>
+</code></pre></div>
+<p>This instruction adds 4 to the content of <code>x11</code> and stores it in <code>x10</code>. </p>
+<p>The destination and source register can be the same, somewhat like the <code>+=</code> operation in many programming languages:</p>
+<div class="highlight"><pre><span></span><code><span class="nf">addi</span><span class="w"> </span><span class="no">x10</span><span class="p">,</span><span class="w"> </span><span class="no">x10</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="c1"># somewhat like writing x += 4 in Python</span>
+</code></pre></div>
+<p>This instruction simply adds 4 to the content of register <code>x10</code>.</p>
+<p>The <code>x0</code> or <code>zero</code> register can be used to load immediate values into a register:</p>
+<div class="highlight"><pre><span></span><code><span class="nf">addi</span><span class="w"> </span><span class="no">x10</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="w"> </span>
+</code></pre></div>
+<p>This instruction loads 0+25=25 into <code>x10</code>. </p>
+<p>Most arithmetic and logic instructions need three operands: a destination and two sources. However, there are two exceptions:</p>
+<div class="highlight"><pre><span></span><code><span class="nf">neg</span><span class="w"> </span><span class="no">x10</span><span class="p">,</span><span class="w"> </span><span class="no">x11</span><span class="w"> </span><span class="c1"># x10 will be set to -x11</span>
+<span class="nf">not</span><span class="w"> </span><span class="no">x10</span><span class="p">,</span><span class="w"> </span><span class="no">x11</span><span class="w"> </span><span class="c1"># x10 will be set to the bitwise negation of x11</span>
+</code></pre></div>
+<p><code>neg</code> is the arithmetic negation function and performs a two's complement negation. <code>not</code> is the binary negation function and flips every bit (i.e. performs a one's complement negation). </p>
+<h4 id="memory-instructions">Memory Instructions</h4>
+<p>Memory instructions load or store data from and to memory. </p>
+<p>We can load and store data at a memory address given by a register:</p>
+<div class="highlight"><pre><span></span><code><span class="nf">lw</span><span class="w"> </span><span class="no">x10</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">(</span><span class="no">x11</span><span class="p">)</span><span class="w"> </span><span class="c1"># Loads data from memory address stored in x11</span>
+<span class="nf">sw</span><span class="w"> </span><span class="no">x10</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">(</span><span class="no">x11</span><span class="p">)</span><span class="w"> </span><span class="c1"># Stores data to (memory address stored in x11) + 4</span>
+</code></pre></div>
+<p>There also exist <code>lh</code> (load half-word), <code>lb</code> (load byte), <code>sh</code> (store half-word) and <code>sb</code> (store byte), to load/store the least significant 16 (half-word) or 8 (byte) bits. </p>
+<p>We also have some special loading instructions:</p>
+<div class="highlight"><pre><span></span><code><span class="nf">lui</span><span class="w"> </span><span class="no">x10</span><span class="p">,</span><span class="w"> </span><span class="mi">1234</span><span class="w">       </span><span class="c1"># Used to load 1234 into the upper 20 bits of x10</span>
+<span class="nf">auipc</span><span class="w"> </span><span class="no">x10</span><span class="p">,</span><span class="w"> </span><span class="mi">1234</span><span class="w">     </span><span class="c1"># Used to load 1234 into the upper 20 bits of x10, then add the value of the Program Counter</span>
+</code></pre></div>
+<p>Don't worry if <code>auipc</code> in particular doesn't make sense yet. We will get to it later. </p>
+<h4 id="branching-instructions">Branching Instructions</h4>
+<p>There are two types of branching instruction in RISC-V assembly: conditional, and unconditional. As the names imply, conditional branches check a condition, and only branch if that condition is satisfied. Unconditional branches always run. </p>
+<p>Conditional branches are used as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="nf">beq</span><span class="w"> </span><span class="no">x10</span><span class="p">,</span><span class="w"> </span><span class="no">x11</span><span class="p">,</span><span class="w"> </span><span class="no">label</span><span class="w"> </span><span class="c1"># if the content of x10 is equal to the content of x11, jump to the label specified. </span>
+</code></pre></div>
+<p>Here, the condition is <code>eq</code>, meaning "equal". There are many more conditions, such as <code>ne</code> (not equal), <code>gt</code> (greater than) and more. </p>
+<details class="note">
+<summary>A note on labels</summary>
+<p>Labels do not actually exist in machine language, and are a feature the assembler provides for us. Our programs are stored in memory, and labels are simply human-readable ways to refer to the location of specific instructions. In reality, this syntax for branching is a pseudoinstruction, and the assembler will calculate an immediate offset to be added to our program counter instead. Don't worry if this doesn't make sense either; we will get to it later. We promise. </p>
+</details>
+<p>Unconditional branches are used as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="nf">j</span><span class="w"> </span><span class="no">label</span><span class="w"> </span><span class="c1"># jump to the label specified</span>
+</code></pre></div>
+<p><code>jal</code> and <code>jalr</code> will not be covered yet. We will learn what they do later in the labs. </p>
+<details class="note">
+<summary>But I want to learn what <code>jal</code> and <code>jalr</code> do anyway!</summary>
+<p>When we perform a function call in, say, Python, we know that we temporarily go to a different part of the program, run the code there, and come back. However, we need to remember where to come back to. </p>
+<p><code>jal</code> stands for "Jump and Link", and the syntax is <code>jal x1, label</code>. This will jump to the label, but it will store the current program counter in <code>x1</code>. Fun fact: <code>j</code> is actually a pseudoinstruction. <code>j label</code> is translated to <code>jal x0, label</code> by the assembler. </p>
+<p><code>jalr</code> stands for "Jump and Link Register", and it is used to jump to the address specified by the sum of a register and an immediate offset. </p>
+<p>To return from a function, we can use <code>jalr x0, x1, 0</code>, or the pseudoinstruction <code>ret</code> which is equivalent.  </p>
+</details>
+<h2 id="getting-started-with-rars">Getting started with RARS</h2>
+<p>For these activities, we need to download <a href="https://github.com/TheThirdOne/rars">RARS</a>. Happily enough, it doesn't need to be installed, but it does need you to have Java 8 or newer installed. If you have Vivado installed on your computer, you already have Java installed. (Mac users rejoice: 3 billion devices, including your shiny new MacBook, run Java :P)</p>
+<p>On Windows and macOS, you can start RARS by simply double-clicking the downloaded <code>.jar</code> file. On Linux, you may not be able to run it like this, but simply open a terminal and run <code>java -jar filename.jar</code> where <code>filename</code> is the name of the jar file you just downloaded. RARS should open to a window like this:</p>
+<figure>
+<p><img alt="" src="../rars_home.png"></p>
+<figcaption>
+<p>The RARS home screen</p>
+</figcaption>
+</figure>
+<h3 id="opening-and-assembling-an-asm-file">Opening and assembling an <code>asm</code> file</h3>
+<p>From the RARS home screen, click File -&gt; Open, and browse to the location where you have downloaded <a href="https://github.com/NUS-CS2100DE/labs/blob/main/lab_templates/week06/riscv_asm_sample.asm"><code>riscv_asm_sample.asm</code></a></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The file browser in RARS is rather tedious to use. We recommend creating a blank folder, in an easy-to-navigate location, for just your asm files. If you keep your asm files in a folder with other files, we recommend starting their names with <code>asm</code>, to make them appear higher up alphabetically. </p>
+</div>
+<p>Once the file is open, we see that some buttons become highlighted and clickable:</p>
+<figure>
+<p><img alt="" src="../rars_file.png"></p>
+<figcaption>
+<p>The sample file opened in RARS</p>
+</figcaption>
+</figure>
+<p>From here, we need to make some changes to our settings for the purposes of this course. Select "Settings" -&gt; "Memory Configuration". The following window will pop up:</p>
+<figure>
+<p><img alt="" src="../rars_memoryconfig.png" width="360px"></p>
+<figcaption>
+<p>The RARS "Memory Configuration" popup</p>
+</figcaption>
+</figure>
+<p>Here, choose "Compact, Text at Address 0", and click "Apply and Close". This means that the <code>.text</code> segment, where our code goes, should live at memory address <code>0x0</code>. The <code>.data</code> segment, where our variables live, will then be starting at address <code>0x2000</code>. When we select the "Compact, Text at Address 0" layout, the popup shows us the detailed memory map explaining this:</p>
+<figure>
+<p><img alt="" src="../rars_memoryconfig_text0.png"></p>
+<figcaption>
+<p>The memory map we have selected, indicating that <code>.text</code> starts at <code>0x0</code> and ends at <code>0xffc</code>. It also shows that <code>.data</code> starts from <code>0x2000</code>. </p>
+</figcaption>
+</figure>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Setting up the memory configuration correctly is <strong>very important</strong>. It will make our life much simpler when it comes time to finally implement our CPU. If we do not select this correctly, our program will not run on the CPU at all. </p>
+</div>
+<p>To run the program in the simulator, we must first assemble it. Click on the "Assemble" button:</p>
+<figure>
+<p><img alt="" src="../rars_assemble.png"></p>
+<figcaption>
+<p>The "assemble" button in RARS</p>
+</figcaption>
+</figure>
+<p>Once the file is assembled and ready to execute, we will see the "Execute" tab open automatically:</p>
+<figure>
+<p><img alt="" src="../rars_execute.png"></p>
+<figcaption>
+<p>The assembled program in the "Execute" tab.</p>
+</figcaption>
+</figure>
+<p>The important parts of the window are:</p>
+<ol>
+<li>
+<p>The "Text Segment" - this is the code that we have written, which we can execute all at once, or line by line. It also contains the machine code equivalent of each line of assembly (this should be familiar from this week's lecture). We will dive more into machine code in Week 7. The line highlighted in yellow indicates the line that will be executed next. </p>
+</li>
+<li>
+<p>The "Data Segment" - this is where our variables and memory can be monitored. We can see the contents of the entire memory in a tabular form. </p>
+</li>
+<li>
+<p>The "Registers" - this is a live view of the contents of each register. </p>
+</li>
+</ol>
+<h3 id="executing-the-code">Executing the code</h3>
+<p>We can run the code all at once using the "Run" button. However, in this case, it'll be much more useful to run the code line by line. We can use the "Run one step at a time" button to do this:</p>
+<figure>
+<p><img alt="" src="../rars_runoneline.png"></p>
+<figcaption>
+<p>The "Run one step at a time" button</p>
+</figcaption>
+</figure>
+<p>Let us run the first line of our code: </p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="w">    </span><span class="nf">lui</span><span class="w"> </span><span class="no">s0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="w">           </span><span class="c1"># Sets s0 to 2 &lt;&lt; 12, or 0x2000</span>
+</code></pre></div></td></tr></table></div>
+<p>To observe the effect of this instruction, we must direct our attention to the "Registers" tab:</p>
+<figure>
+<p><img alt="" src="../rars_instr1_s0.png"></p>
+<figcaption>
+<p>Register <code>s0</code> loaded with <code>0x2000</code>. </p>
+</figcaption>
+</figure>
+<p>The next instruction is:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="w">    </span><span class="nf">lw</span><span class="w"> </span><span class="no">s1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">(</span><span class="no">s0</span><span class="p">)</span><span class="w">            </span><span class="c1"># Loads the content at the address stored in s0, into s1</span>
+</code></pre></div></td></tr></table></div>
+<p>This will load the value stored at <code>0x2000</code> into the register <code>s1</code>. Observe the memory address <code>0x2000</code>. We use line 20 of the code to set it to <code>406</code>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="w">    </span><span class="nl">A:</span><span class="w"> </span><span class="na">.word</span><span class="w"> </span><span class="mi">406</span><span class="w">            </span><span class="c1"># Address: 0x2000</span>
+</code></pre></div></td></tr></table></div>
+<p>Indeed, the "Data Segment" tab shows this:</p>
+<figure>
+<p><img alt="" src="../rars_instr1_mem.png"></p>
+<figcaption>
+<p>The value 406 stored at memory address <code>0x2000</code></p>
+</figcaption>
+</figure>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Untick (or tick) the "Hexadecimal Values" checkbox at the bottom of the "Data Segment" tab to switch the values in the "Data Segment" and "Registers" tabs between hexadecimal and decimal. Decimal may be useful for readability. 
+<img alt="" src="../rars_hexvalues.png"></p>
+</div>
+<p>So, once we execute line 2, we see that <code>s1</code> is updated as follows:</p>
+<figure>
+<p><img alt="" src="../rars_instr2_s1.png"></p>
+<figcaption>
+<p>Register <code>s1</code> loaded with the content of the memory at address <code>0x2000</code>.</p>
+</figcaption>
+</figure>
+<p>Execute the next few lines of load instructions and observe the changes in the registers. We shall take the liberty of skipping forward to line 9, where we can observe a store instruction. </p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nf">sw</span><span class="w"> </span><span class="no">s5</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">(</span><span class="no">s0</span><span class="p">)</span><span class="w">            </span><span class="c1"># Take the value of s5, store at the address specified in s0</span>
+</code></pre></div>
+<p>At this point, the value stored in <code>s5</code> is <code>1181</code>:</p>
+<p><img alt="" src="../rars_instr_s5.png"></p>
+<p>So, once the store instruction is completed, we expect memory address <code>0x2000</code> (the address stored in <code>s0</code>) to be updated to <code>1181</code>. Indeed, this is the case:</p>
+<p><img alt="" src="../rars_memory_updated.png"></p>
+<p>Continue to execute the program line by line. Try to predict the outcome of the lines 11 through 14, and then execute it to see if your understanding is correct. Observe as the branch instruction branches back to the label <code>loop</code> if the condition is met. </p>
+<h2 id="warm-up-activity">Warm-up activity</h2>
+<p>In <a href="https://github.com/NUS-CS2100DE/labs/blob/main/lab_templates/week06/loop.asm"><code>loop.asm</code></a>, we have two memory addresses defined: <code>N</code> and <code>ARRAY</code>. Starting with memory address <code>ARRAY</code>, increment the value of <code>N</code> consecutive memory addresses by 2, 4, 6, ... That is, the address <code>ARRAY</code> should be incremented by <code>2</code>. <code>ARRAY+4</code> should be incremented by <code>4</code> and so on. This should be repeated <code>N</code> times. </p>
+<p>To help you, we have included two lines of code at the top, to load in <code>N</code> and the address of the first element in <code>ARRAY</code>, into <code>s0</code> and <code>s1</code> respectively:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="w">    </span><span class="nf">lw</span><span class="w"> </span><span class="no">s0</span><span class="p">,</span><span class="w"> </span><span class="no">N</span>
+<span class="w">    </span><span class="nf">la</span><span class="w"> </span><span class="no">s1</span><span class="p">,</span><span class="w"> </span><span class="no">A</span>
+</code></pre></div></td></tr></table></div>
+<p>As the file name implies, you should use a loop to solve this question. By the end of execution, your data segment should look like this:</p>
+<figure>
+<p><img alt="" src="../warmup_expected_output.png"></p>
+<figcaption>
+<p>The expected result of your code, in the memory (data segment).</p>
+</figcaption>
+</figure>
+<div class="admonition question">
+<p class="admonition-title">Question 1: Froot Loops 2.0 [2 points]</p>
+<p>Finish the code in <code>loop.asm</code>. </p>
+</div>
+<h2 id="main-assignment">Main Assignment</h2>
+<p>In <a href="https://github.com/NUS-CS2100DE/labs/blob/main/lab_templates/week06/assignment4_2420.asm"><code>assignment4_2420.asm</code></a>, we have defined two values: <code>N</code>, and <code>ARRAY</code>. <code>ARRAY</code> is an array of <code>N</code> items. Your task is to sort <code>ARRAY</code> in place, using a <strong>bubble sort</strong>. Other sorting algorithms will <strong>not</strong> be accepted. The sorted array should replace the original array in memory. </p>
+<p>If you have taken CS2040DE, you should be familiar with a bubble sort. If not, the absolutely legendary Dr. Steven Halim from SoC has a great tutorial on sorting algorithms available on <a href="https://visualgo.net/en/sorting?slide=7">visualgo.net</a>. </p>
+<p>When your program reaches the <code>jal halt</code> line, it should be finished. At that point, we will check the memory corresponding to the label <code>ARRAY</code>. It should contain the same elements as the original array, but sorted in <strong>ascending order</strong>. </p>
+<p>The expected outcome of the test case provided is the following:</p>
+<figure>
+<p><img alt="" src="../assignment_expected_output.png"></p>
+<figcaption>
+<p>The expected outcome from the test case we provided in <code>assignment4_2420.asm</code></p>
+</figcaption>
+</figure>
+<p>We will test this program with different test cases. Make sure your program can work on a variety of different inputs. </p>
+<div class="admonition question">
+<p class="admonition-title">Question 2: The Sorting Hat [6 points]</p>
+<p>Complete your code in <code>assignment4_2420.asm</code>. </p>
+</div>
+<p>Here are some hints for you: </p>
+<ol>
+<li>Start by loading the value <code>N</code>, and <em>the address of</em> <code>ARRAY</code> into two registers. </li>
+<li>Set up the variables you will need, e.g. counters, in the saved registers. Write comments to remind yourself what each of the variables is supposed to do. </li>
+<li>Use a label to be able to branch back when you need to repeat an operation. </li>
+</ol>
+<h2 id="concluding-remarks">Concluding remarks</h2>
+<p>Congratulations on completing Lab 4! Remember to upload your solutions to Canvas before the deadline. If you need help, the <a href="https://github.com/NUS-CS2100DE/labs/discussions">Discussions page</a> is the place to go. </p>
+<p>That's the last of the graded labs. In the second half of the semesters, the labs will be used for working on the project. </p>
+<div class="admonition success">
+<p class="admonition-title">What we should know</p>
+<ul>
+<li>What an ISA is, and why the RISC-V ISA is particularly cool.</li>
+<li>How and why assembly languages are used, and what makes them different to other languages like C or Python or JavaScript.</li>
+<li>The different types of instructions we can use in RISC-V architecture.</li>
+<li>How to use RARS to run our RISC-V assembly programs.</li>
+<li>How to develop a full, somewhat useful, program with just RISC-V assembly.</li>
+</ul>
+</div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://nus-cs2100de.github.io/labs">NUS CS2100DE Labs</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://github.com/nus-cs2100de">NUS CS2100DE Team</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC-SA 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a>. Template designed by <a href="mailto:neil@neilbaner.net">Neil Banerjee</a>. </p>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/nus-cs2100de" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:neil@nus.edu.sg" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

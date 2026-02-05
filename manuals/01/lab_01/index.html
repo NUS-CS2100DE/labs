@@ -1,0 +1,1617 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://nus-cs2100de.github.io/labs/manuals/01/lab_01/">
+      
+      
+        <link rel="prev" href="../../../guides/nexys4/">
+      
+      
+        <link rel="next" href="../../02/lab_02/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Lab 1 [Week 3] - CS2100DE Labs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12.3%207.29c.2-.18.44-.29.7-.29.27%200%20.5.11.71.29.19.21.29.45.29.71%200%20.27-.1.5-.29.71-.21.19-.44.29-.71.29-.26%200-.5-.1-.7-.29-.19-.21-.3-.44-.3-.71%200-.26.11-.5.3-.71m-2.5%204.68s2.17-1.72%202.96-1.79c.74-.06.59.79.52%201.23l-.01.06c-.14.53-.31%201.17-.48%201.78-.38%201.39-.75%202.75-.66%203%20.1.34.72-.09%201.17-.39.06-.04.11-.08.16-.11%200%200%20.08-.08.16.03.02.03.04.06.06.08.09.14.14.19.02.27l-.04.02c-.22.15-1.16.81-1.54%201.05-.41.27-1.98%201.17-1.74-.58.21-1.23.49-2.29.71-3.12.41-1.5.59-2.18-.33-1.59-.37.22-.59.36-.72.45-.11.08-.12.08-.19-.05l-.03-.06-.05-.08c-.07-.1-.07-.11.03-.2M22%2012c0%205.5-4.5%2010-10%2010S2%2017.5%202%2012%206.5%202%2012%202s10%204.5%2010%2010m-2%200c0-4.42-3.58-8-8-8s-8%203.58-8%208%203.58%208%208%208%208-3.58%208-8%22/%3E%3C/svg%3E');}</style>
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Merriweather";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-1-getting-familiar-with-fpga-tools" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="CS2100DE Labs" class="md-header__button md-logo" aria-label="CS2100DE Labs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CS2100DE Labs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 1 [Week 3]
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_2">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="CS2100DE Labs" class="md-nav__button md-logo" aria-label="CS2100DE Labs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CS2100DE Labs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../howto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to use this website
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../grading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Grading
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparing for labs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Preparing for labs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Prerequisites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/nexys4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting to know your Nexys 4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://nus-cg3207.github.io/labs/getting_started/vivado_install_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation guide for Vivado (from CG3207)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab manuals
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lab manuals
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1 [Week 3]
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1 [Week 3]
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-an-fpga" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is an FPGA?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-fpga-design-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The FPGA design flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-new-project-in-vivado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating a new project in Vivado
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-simple-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating a simple design
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating a simple design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#design-specification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design specification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modules-in-hdl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modules in HDL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elaborating-the-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Elaborating the design
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simulation-in-vivado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simulation in Vivado
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Simulation in Vivado">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#writing-a-testbench" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writing a testbench
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Simulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#making-our-design-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Making our design work
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Making our design work">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setting up constraints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#synthesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synthesis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-the-bitstream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generate the bitstream
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concluding-remarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concluding remarks
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02/lab_02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 [Week 4]
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03/lab_03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3 [Week 5]
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04/lab_04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4 [Week 6]
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-an-fpga" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is an FPGA?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-fpga-design-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The FPGA design flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-new-project-in-vivado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating a new project in Vivado
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-simple-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating a simple design
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating a simple design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#design-specification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design specification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modules-in-hdl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modules in HDL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elaborating-the-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Elaborating the design
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simulation-in-vivado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simulation in Vivado
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Simulation in Vivado">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#writing-a-testbench" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writing a testbench
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Simulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#making-our-design-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Making our design work
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Making our design work">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setting up constraints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#synthesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synthesis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-the-bitstream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generate the bitstream
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concluding-remarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concluding remarks
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<div><h1 id="lab-1-getting-familiar-with-fpga-tools">Lab 1 : Getting familiar with FPGA tools</h1>
+<div class="admonition info">
+<p class="admonition-title">Graded Lab Assignment</p>
+<p>This lab includes a graded lab assignment, worth <strong>2 points</strong>. Refer to <a href="../../../grading/">the page on grading</a> for more information. </p>
+<p>This assignment includes <strong>6 questions</strong>, clearly demarcated throughout the manual. </p>
+</div>
+<h2 id="introduction">Introduction</h2>
+<p>In this lab, we will learn what an FPGA is, and use our FPGA board to learn how to design digital logic for, and program, an FPGA. We will use an FPGA for the final project for this course, where you will build a simple CPU, so it's important to be very comfortable using this powerful tool. </p>
+<p>You should have read the <a href="../../../guides/nexys4/">Getting to know your Nexys 4</a> page before starting this lab. If you have not done so, please do so now. It is very important for you to know your equipment. </p>
+<p>To download the files you need, visit the <a href="https://github.com/NUS-CS2100DE/labs/tree/main/lab_templates">lab_templates</a> folder in the GitHub repository. </p>
+<h3 id="what-is-an-fpga">What is an FPGA?</h3>
+<p>We've thrown around the term FPGA a lot so far, and even mentioned that it stands for Field Programmable Gate Array. But what exactly does that mean? </p>
+<p>An FPGA is a device digital designers use to build and/or prototype digital logic circuits. As mind-blowing as it sounds, when we make a design on an FPGA, we actually change the internal structure of the chip to produce the logic that we want(1). It's kind of like a Lego set - we can connect different types of bricks (digital logic components) in different ways to build all sorts of structures (digital circuits). <sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
+<p>Knowing this, the name Field Programmable Gate Array now makes more sense. "Field Programmable" refers to the fact that we can easily reprogram the chip without needing to take it off the board or doing anything too complicated. "Gate Array" refers to the fact that the chip is made of a large array of digital logic gates, which can be connected in (almost) any way we want. </p>
+<details class="note">
+<summary>A note on semantics</summary>
+<p>Strictly speaking, the term FPGA is used to refer to the chip on, say, our Nexys 4 board - the one in the center which says "Artix-7" on it. The Nexys 4 as a whole is an FPGA development board. Sometimes, we may refer to the whole board as an "FPGA" - this is technically incorrect. Similarly, an Arduino is a microcontroller development board, not a microcontroller; the Atmega 328P chip on the Arduino is the microcontroller. </p>
+<p>In this website, we have made every effort to <em>not</em> be technically incorrect, but if you spot any places we've missed, do let us know!</p>
+</details>
+<h3 id="the-fpga-design-flow">The FPGA design flow</h3>
+<p>In our lectures, we have already seen how different digital logic structures can be represented with a Hardware Description Language (HDL), such as SystemVerilog, our choice of HDL for this course. Now, we will explore how the HDL we write is turned into something we can upload to our FPGA board and use. </p>
+<p>Here is a very quick overview of the steps in creating a design for an FPGA:</p>
+<ol>
+<li>
+<p><strong>Write RTL code in HDL</strong> <br>
+Register-Transfer Level (RTL) code is written in an HDL. It describes the system we want to design in terms of the logic we want it to represent. Of course, the first step in creating a design is to write the RTL code so that we can eventually put it on our FPGA. </p>
+</li>
+<li>
+<p><strong>Simulate RTL code</strong> <br>
+This is an extremely important step in the FPGA design flow. Unfortunately, it is also one that is super tempting to skip!  As a designer, it is extremely important for us to use the simulator to make sure our design is logically correct before we proceed to the next steps. If we decide to skip simulation and testing, we risk building and uploading a full design that produces the wrong output - with larger designs, this could be hours or days wasted! <br></p>
+</li>
+<li>
+<p><strong>Synthesis</strong> <br>
+Synthesis takes our RTL code and turns it into a "netlist" - that is, it converts it into a set of connections between the different components available on our FPGA board. </p>
+</li>
+<li>
+<p><strong>Implementation</strong><br>
+Implementation takes our synthesised netlist and decides how the FPGA should be configured to implement that netlist. For example, it will choose the specific components to be used on the board (placement), and the specific wires that should be used to connect these components (routing). </p>
+</li>
+<li>
+<p><strong>Programming/Uploading</strong> <br>
+After running implementation, we need to generate a bitstream - this is a file we can upload to our FPGA board to program the FPGA and implement our design on it. Then, we upload the bitstream to our FPGA board, and voila: we have a working design on our FPGA!</p>
+</li>
+</ol>
+<details class="note">
+<summary>Different kinds of simulation</summary>
+<p>In the steps above, the kind of simulation we cover is "behavioral simulation" - this only tells us if the logic we have designed is logically and mathematically correct. It is also possible to run post-synthesis and post-implmentation simulations. These are useful when we want to verify that our design is not only theoretically correct, but practically achievable on the FPGA board. For this course, we need only know about behavioral simulation. </p>
+</details>
+<h2 id="creating-a-new-project-in-vivado">Creating a new project in Vivado</h2>
+<p>You should have Vivado installed on your own computer, as explained in the <a href="../../../guides/prerequisites/">prerequisites</a>. However, if you did not/could not complete those steps yet, you can use the lab PCs for now. However, we very strongly recommend installing Vivado on your own computer as soon as possible so you can practice at home, and work on your projects after class. </p>
+<p>Launch Vivado from the Start menu or desktop on Windows. If you are using Linux, the installer may or may not have made a shortcut for you. If it has, use that. If it hasn't, run Vivado from the command line: <code>source /tools/Xilinx/Vivado/2023.2/settings64.sh</code> followed by <code>vivado &amp;</code>. </p>
+<p>When you launch Vivado, you should see a screen like this one:</p>
+<figure>
+<p><img alt="" src="../vivado-home.png"></p>
+<figcaption>
+<p>Vivado's startup screen, which appears when the software is launched</p>
+</figcaption>
+</figure>
+<p>Click on "Create Project" under "Quick Start" to create a brand new project. A wizard will appear to guide you through the process. </p>
+<figure>
+<p><img alt="" src="../vivado-new-project.png"></p>
+<figcaption>
+<p>The "Create a New Vivado Project" wizard</p>
+</figcaption>
+</figure>
+<p>Click "Next". The following screen will ask you to give your project a name and location. Choose a descriptive name (e.g. <code>week_03</code>) and save it somewhere you will remember. </p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Where possible, do not save your project in a OneDrive folder on Windows. Vivado continuously updates some project files, and OneDrive will try to sync these all as they happen, which can cause various weird issues. Also avoid using a deeply nested folder, as long file paths can sometimes cause issues. </p>
+<p>These precautions are useful not just for Vivado, but for many IDEs and development toolchains, especially for FPGA and microcontroller development boards. </p>
+</div>
+<p>After selecting a project name and location, click "Next". Vivado will ask you to specify the type of project you want to create. </p>
+<figure>
+<p><img alt="" src="../vivado-project-type.png"></p>
+<figcaption>
+<p>The "Project Type" screen</p>
+</figcaption>
+</figure>
+<p>Here, select "RTL Project". Make sure "Do not specify sources at this time" and "Project is an extensible Vitis platform" are <em>unticked</em>. Then, click "Next". You will then be prompted to add source files to your project. </p>
+<figure>
+<p><img alt="" src="../vivado-add-sources.png"></p>
+<figcaption>
+<p>The "Add Sources" screen</p>
+</figcaption>
+</figure>
+<p>Here, you will need to add two files that you have downloaded, and create a new one. Go ahead and click "Add Files", navigate to wherever you downloaded <code>Adder.sv</code> and <code>Adder_sim.sv</code>, and add those two files into the project. </p>
+<p>Under the "HDL Source For" column, change the setting for <code>Adder_sim.sv</code> to "Simulation only". </p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Having all your source files in the project directory is useful to keep them organized. So, we recommend keeping "Copy sources into project" ticked. It also means you can work on a copy of the files you downloaded, while not modifying the originals, so you can practice or experiment later without redownloading them. </p>
+</div>
+<p>Next, click on "Create file". We need to create a new file called <code>Top.sv</code>. </p>
+<figure>
+<p><img alt="" src="../vivado-create-top.png"></p>
+<figcaption>
+<p>The "Create Source File" prompt.</p>
+</figcaption>
+</figure>
+<p>Select "SystemVerilog" as the file type, and name the file <code>Top</code>, as shown in the screenshot. Click "OK" to save your changes and then click "Next" to proceed. Now, you will be prompted to "Add Constraints". </p>
+<figure>
+<p><img alt="" src="../vivado-add-constraints.png"></p>
+<figcaption>
+<p>The "Add Constraints" screen</p>
+</figcaption>
+</figure>
+<p>Constraints files tell Vivado about the features of your FPGA board and how all of its peripherals like the LEDs and switches are connected to the FPGA chip. Therefore, every FPGA board has a different constraints file, and you must choose the correct one for your board. In our case, we are using a Nexys 4, so click "Add Files" and then add the file <code>Nexys-4-Master.xdc</code>. </p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If your FPGA box says "Nexys 4 DDR", then you <strong>must</strong> pick the <code>Nexys-4-DDR-Master.xdc</code> file. The two boards, while very similar, are not identical and require different constraints files. However, the rest of the steps will be the same regardless of which variant of the board you have with you. </p>
+</div>
+<p>Once you have selected the constraints file, click "Next". The wizard will now prompt you to specify the default AMD part or board you are using. </p>
+<figure>
+<p><img alt="" src="../vivado-default-part.png"></p>
+<figcaption>
+<p>The "Default Part" screen</p>
+</figcaption>
+</figure>
+<p>Here, simply search for the part number <code>xc7a100tcsg324-1</code> and select that part, then click "Next". </p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can choose to go into the "Boards" tab, and then find the Nexys 4 or Nexys 4 DDR to select. You may need to refresh the catalog by clicking the "Refresh" button. This is easier when you are using a board where you don't quite remember the alphabet soup part number of the FPGA. Feel free to use this method for future labs. </p>
+</div>
+<p>You are now ready to create your project. You should see a screen with all the options you selected, so take a moment to confirm that they look right, then click "Finish". </p>
+<figure>
+<p><img alt="" src="../vivado-project-summary.png"></p>
+<figcaption>
+<p>The "New Project Summary" screen</p>
+</figcaption>
+</figure>
+<p>After a few seconds, Vivado will create and open your new project for you. It will then prompt you to specify the inputs and outputs for the Top file. Continue to the next section to understand how to fill this section out.</p>
+<h2 id="creating-a-simple-design">Creating a simple design</h2>
+<h3 id="design-specification">Design specification</h3>
+<p>For our first lab, we will be building a very simple circuit on our FPGA. The end goal is to build a system where we use the switches to input two 8-bit numbers and see the sum of the numbers, plus the carry value, on the LEDs. </p>
+<p>For example, suppose you want to add 48 and 64. 48 in binary is <code>00110000</code> while 64 is <code>01000000</code>. Enter <code>00110000 01000000</code> on the switches, where <code>0</code> indicates a switch in the "down" position and <code>1</code> indicates a switch in the "up" position. The sum of 48 and 64 is 112, or <code>01110000</code> in binary. Then, the 8 LEDs on the right should show this value, with <code>0</code> meaning the LED isn't lit up, and <code>1</code> meaning it is. The image below shows this test case:</p>
+<p><img alt="Adder Example" src="../adder_example.jpg"></p>
+<h3 id="modules-in-hdl">Modules in HDL</h3>
+<p>Hardware Description Languages describe circuits in terms of "modules". Each module represents a block of hardware with inputs going in, and outputs coming out. An example of a module is the Adder module that we will explore today. The <code>Adder</code> has two 8-bit input buses for the two operands to be added, as well as an 8-bit output bus and a single carry wire for the result of the addition and the carry respectively.</p>
+<p>Modules can be nested, that is, one module can contain another module. A module can contain one or many instances of one or many other modules. </p>
+<p>Usually, (good) FPGA designs will include a <code>Top</code> module, and one or more modules inside <code>Top</code>. This <code>Top</code> module is, as the name implies, at the top of the hierarchy and goes straight on the FPGA. Thus, the inputs and outputs of the <code>Top</code> module are the inputs and outputs of the FPGA chip itself - in our case, these are the peripherals on our board. So, knowing the requirements, we can deduce what the required inputs and outputs of the <code>Top</code> module are: the switches as our inputs and LEDs as our outputs. Enter these into the "Define Module" dialog box as shown below, then click "OK". </p>
+<figure>
+<p><img alt="" src="../vivado-define-module.png"></p>
+<figcaption>
+<p>The "Define Module" prompt filled with the inputs and outputs required for the <code>Top</code> module</p>
+</figcaption>
+</figure>
+<p>You should now see the main Vivado window, which looks something like this:</p>
+<figure>
+<p><img alt="" src="../vivado-main-screen.png"></p>
+<figcaption>
+<p>The Project Manager view in Vivado, which should appear after you create a new project. </p>
+</figcaption>
+</figure>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you have a smaller or lower resolution screen, it may be difficult to see the different panes in the window clearly, or to see enough content in them. You can double-click on the pane title (e.g. "Sources") to expand that panel to fill the whole screen.</p>
+</div>
+<p>After importing files into the project, Vivado may not have detected which module should be <code>Top</code> correctly. In my case, it is using the <code>Adder</code> module as the top module. You can see this in the "Sources" pane - the <code>Adder</code> module is bold and has a small icon next to it to indicate that this is the top module. </p>
+<p>To set <code>Top</code> as the top module, simply right-click it in the Sources pane, and click on Set as Top. Vivado may take a couple of seconds to update the pane to reflect this. </p>
+<p>To complete our design, we need to connect our <code>Adder</code> module in the <code>Top</code> module. To do so, double-click the Top module in the "Sources" pane, and add the following line of code after the last semicolon in the <code>module Top</code> declaration, and before the <code>endmodule</code> keyword:</p>
+<div class="highlight"><pre><span></span><code><span class="n">Adder</span><span class="w"> </span><span class="n">adder_1</span><span class="p">(</span>
+<span class="w">    </span><span class="p">.</span><span class="n">in_a</span><span class="w"> </span><span class="p">(</span><span class="n">sw</span><span class="p">[</span><span class="mi">15</span><span class="o">:</span><span class="mi">8</span><span class="p">]),</span>
+<span class="w">    </span><span class="p">.</span><span class="n">in_b</span><span class="w"> </span><span class="p">(</span><span class="n">sw</span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]),</span>
+<span class="w">    </span><span class="p">.</span><span class="n">result</span><span class="w"> </span><span class="p">(</span><span class="n">led</span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]),</span>
+<span class="w">    </span><span class="p">.</span><span class="n">carry_out</span><span class="w"> </span><span class="p">(</span><span class="n">led</span><span class="p">[</span><span class="mi">8</span><span class="p">])</span>
+<span class="p">);</span>
+</code></pre></div>
+<p>Let's break down what this code does:</p>
+<ol>
+<li>
+<p><code>Adder</code> means we are trying to create an instance of the <code>Adder</code> module here. </p>
+</li>
+<li>
+<p><code>adder_1</code> is the name we are giving this instance of this module.</p>
+</li>
+<li>
+<p><code>.in_a (sw[15:8])</code> indicates that we want to connect switches 15-8 (the leftmost 8 switches on the board) to the Input A of our adder. Similar reasoning applies to the rest of the connections. </p>
+</li>
+</ol>
+<p>Finally, press Ctrl-S on your keyboard to save the file. After a few seconds, you will observe that the "Sources" pane reflects that an <code>Adder</code> module is instantiated within the <code>Top</code> module. </p>
+<figure>
+<p><img alt="" src="../vivado-module-hierarchy.png"></p>
+<figcaption>
+<p>The "Sources" pane should reflect the <code>Adder</code> module being instantiated within the <code>Top</code> module like this</p>
+</figcaption>
+</figure>
+<p>Congratulations! You have created a simple digital circuit design. </p>
+<h3 id="elaborating-the-design">Elaborating the design</h3>
+<p>In simple terms, "Elaboration" is a process which takes your RTL code and converts it into a series of logic gates/components and the connections between them. Elaboration is actually a part of the Synthesis step, but it is useful for us to stop the tool after elaboration to find out if the design is actually what we expected. </p>
+<p>On the Flow Navigator pane on the left side of the window, you should see a group of options called "RTL ANALYSIS". Under this section, use the arrow to expand "Open Elaborated Design", then click on "Schematic". If there is a prompt about the current settings potentially slowing down elaboration, just click "OK" to continue with elaboration. After a few seconds, you should see the "Elaborated Design" view in your Vivado window, and the schematic of your design.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Use your mouse scroll wheel to move up and down in your design. Hold down Ctrl while scrolling to zoom in and out, and hold down Shift to scroll left and right. </p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Question 1: A Picture Is Worth A Thousand Words [0.3 points]</p>
+<p>Include a screenshot of your RTL design of the Top module. Expand the Adder block to show the components inside it. If your elaborated design is too big to comfortably see in one screenshot, you may take multiple screenshots and include them all in your report. </p>
+</div>
+<p>Now that we have looked at the RTL design and verified that it (at least mostly) makes sense, we can make sure that it really does (completely) make sense and does what we want it to do, by running the simulations. </p>
+<h2 id="simulation-in-vivado">Simulation in Vivado</h2>
+<p>We mentioned <a href="#the-fpga-design-flow">above</a> that simulation is an important step in the FPGA design flow. However, since it bears repeating, we will say it again here: <strong>simulation is a very important step in the FPGA design flow</strong>. Behavioral simulation (the kind we will use) is perhaps the most important for us - it allows us to verify that our logic is all correct. </p>
+<p>To simulate the device that we have just created, we need to actually define the simulation by writing code to describe the environment to simulate the device in. The simulation <em>testbench</em> is an environment where we connect the device we want to test, to inputs that we can control and to outputs that we can monitor. </p>
+<div class="admonition question">
+<p class="admonition-title">Question 2: The importance of simulation [0.2 points]</p>
+<p>Simulation is a very important part of design and engineering. Write a few sentences explaining how simulations are used in the discipline of your first major (i.e. electrical engineering, mechanical engineering, biomedical engineering etc.), and why they are important. </p>
+</div>
+<h3 id="writing-a-testbench">Writing a testbench</h3>
+<p>When we write a testbench, we use HDL code to describe how the module we want to test is connected, and then provide stimuli to the inputs and watch the outputs change accordingly. </p>
+<details class="note">
+<summary>RTL? HDL? Are they the same?</summary>
+<p>All RTL code is written in an HDL, but not all HDL code is RTL code.  In the <a href="#creating-a-simple-design">previous section</a>, we used SystemVerilog, an HDL, to write RTL code that describes the design of a module we want to create. In this section, we use the same HDL to write simulation code. </p>
+</details>
+<p>For today's lab, we have provided simulation code for you to use. In your Sources panel, navigate to "Simulation Sources" -&gt; "sim_1" -&gt; "Adder_sim". It should be bold with the little green-and-grey icon next to it, indicating that it is the top module for simulation. If this isn't the case, right-click the module name and click on "Set as Top". This will set <code>Adder_sim</code> as the top module <em>only for simulation</em>. </p>
+<p>Let's take a look at <code>Adder_sim.sv</code> and understand what's going on here. </p>
+<p>First, we define the inputs and outputs for our testbench. Since we are only simulating the <code>Adder</code> module, we can just include the inputs and outputs to that module. </p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kt">logic</span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">in_a</span><span class="p">;</span>
+<span class="kt">logic</span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">in_b</span><span class="p">;</span>
+<span class="kt">logic</span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="kt">logic</span><span class="w"> </span><span class="n">carry</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+<p>We can imagine these are wires floating in our simulation world. But, what are wires if we have nothing to connect them to?</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">Adder</span><span class="w"> </span><span class="n">uut</span><span class="w"> </span><span class="p">(</span><span class="n">in_a</span><span class="p">,</span><span class="w"> </span><span class="n">in_b</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="n">carry</span><span class="p">);</span><span class="w"> </span><span class="c1">// uut stands for "unit under testing"</span>
+</code></pre></div></td></tr></table></div>
+<p>Here, we instantiate the Adder module, just like we did in the <code>Top</code> module. We use a shorter form of the syntax we used in <code>Top</code>, but these two syntaxes are interchangeable and it's not necessary to use one or another. </p>
+<details class="note">
+<summary>Why simulate only Adder?</summary>
+<p>There is nothing stopping us from simulating the <code>Top</code> module as a whole, instead of just the <code>Adder</code> module. However, since the <code>Top</code> module only contains very simple, straight connections from the FPGA board's peripherals to the <code>Adder</code> module, the <code>Adder</code> module is the one with any complexity (and therefore, the one that is likely to be broken). </p>
+<p>If we want to be very proper with testing, we can simulate every module in our design separately, as well as testing our design as a whole. While this may seem overkill for small designs where it is still relatively possible to find bugs by simulating the design as a whole, it's a good habit for when our designs become more complex. </p>
+</details>
+<p>Now comes the fun part of simulation. We now need to provide stimuli to the module that we are testing. </p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">in_a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">8'b0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">in_b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">8'b0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">#</span><span class="mi">10</span><span class="p">;</span>
+<span class="w">    </span><span class="n">in_a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">8'b1010</span><span class="p">;</span>
+<span class="w">    </span><span class="n">in_b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">8'b1010</span><span class="p">;</span>
+<span class="w">    </span><span class="p">#</span><span class="mi">10</span><span class="p">;</span>
+<span class="w">    </span><span class="n">in_a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">8'b11111111</span><span class="p">;</span>
+<span class="w">    </span><span class="n">in_b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">8'b11111111</span><span class="p">;</span>
+<span class="w">    </span><span class="p">#</span><span class="mi">10</span><span class="p">;</span>
+<span class="k">end</span>
+</code></pre></div></td></tr></table></div>
+<p>The <code>initial begin [...] end</code> section denotes code that is to be executed only once at the beginning of the simulation. If you've ever played with Arduino, this is analogous to the <code>void setup()</code> function in most Arduino code. </p>
+<p>Inside the <code>initial</code> block, we write code to set the values of each of the inputs to the adder. For example:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">30</span>
+<span class="normal">31</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="w">    </span><span class="n">in_a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">8'b0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">in_b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">8'b0</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+<p>This code sets both input a and input b to <code>0</code> in binary. The <code>8'b</code> part of the number is used to indicate that you are writing an 8-bit number in the binary number system.</p>
+<p>Then, we wait for a time period of 10 nanoseconds, by using the line </p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="w">    </span><span class="p">#</span><span class="mi">10</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+<p>This code on its own only means that we wait for 10 units of time, but not the unit of time. </p>
+<p>Scroll up to the very top of the code, and look at line 1.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="no">`timescale</span><span class="w"> </span><span class="mi">1</span><span class="n">ns</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1</span><span class="n">ps</span>
+</code></pre></div></td></tr></table></div>
+<p>This sets the unit of time (one nanosecond) and the precision of our simulation (one picosecond). </p>
+<h3 id="running-simulation">Running Simulation</h3>
+<p>Now that we understand the simulation code, let us try to run the simulation by clicking "Run Simulation" and then "Run Behavioral Simulation". This will run the simulation for the default runtime of 1000 nanoseconds, but can be changed in Vivado's settings. </p>
+<p>You should see a view like this appear:</p>
+<figure>
+<p><img alt="" src="../vivado-sim-home.png"></p>
+<figcaption>
+<p>The Vivado "Simulation" view</p>
+</figcaption>
+</figure>
+<p>First of all, we should resize the panels in the waveform window to be able to see the waveform correctly. Then we can zoom out in the waveform until we can see all our test cases clearly. We can use the zoom buttons on the top of the waveform pane to zoom, or use Ctrl-scroll just like in the RTL schematic view. </p>
+<p>Perhaps we want to look at what the wires inside our <code>Adder</code> module <code>uut</code> are doing. That's possible too - First, select the <code>uut</code> module in the "Scope" pane. Then, in the "Object" pane, we will see the wires inside our module. Drag <code>carry[7:0]</code> to the waveform to add it in, or right-click it and choose "Add to Wave Window". </p>
+<p>The new bus we added to our wave window doesn't actually have a wave corresponding to it. To fix this, we need to restart our simulation. Let us take this opportunity to learn about the controls for our simulation:</p>
+<figure>
+<p><img alt="" src="../vivado-sim-controls.png"></p>
+<figcaption></figcaption>
+</figure>
+<p>From the left, the buttons are:</p>
+<ol>
+<li><strong>Restart</strong>: This goes back to the beginning of the simulation (i.e. to time t=0). </li>
+<li><strong>Run All</strong>: This will run the simulation until it hits a breakpoint or another condition that causes the simulation to pause/stop, such as <code>$stop</code>, <code>$finish</code>, and possibly <code>$error</code>.</li>
+<li><strong>Run for &lt;time&gt;</strong>: This will run the simulation for the amount of time we specify using the inputs immediately to the right. In this case, I have it set to 30 nanoseconds for three test cases (each 10ns). We can also set it to 10ns, and click the button multiple times to run one test case (clock cycle) at a time. </li>
+<li><strong>Step</strong>: Single stepping, but works in a manner similar to software single-stepping only within procedural blocks (assign/always) and with blocking assignments. </li>
+<li><strong>Break</strong>: Used to stop the simulation. In this case, it runs very fast and we won't get a chance (or need) to stop it midway. </li>
+<li><strong>Relaunch Simulation</strong>: This will completely relaunch the simulation by re-reading the simulation code, recompiling it and running it from scratch. Remember to use this whenever we make changes to our simulation code. </li>
+</ol>
+<div class="admonition question">
+<p class="admonition-title">Question 3: Simulation [0.2 points]</p>
+<p>Take the last four digits of your NUSNET ID. Split them into two 2-digit numbers. For example, if your NUSNET ID is e0411018, your two numbers are 10 and 18. Convert these two numbers to binary, and add them as a test case to your testbench code. </p>
+<p>In your report, include a screenshot of your simulation waveform. You should show all five signals <code>in_a</code>, <code>in_b</code>, <code>result</code>, <code>carry</code> and <code>carry[7:0]</code>, over all three included test cases, plus the one you added yourself. Follow the format of the screenshot below. </p>
+</div>
+<p>Running a simulation is only part of the story. The simulation results need to be correct, and we must be able to understand them to tell if they are. For every test case, look at the inputs provided, and calculate the output that should be produced. The outputs in the waveform (<code>result</code>) should correspond to the correct answer. </p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To make the simulation waveform more understandable at a glance, we can change the numbers to decimal numbers. Simply right-click a wave, and select "Radix" -&gt; "Unsigned Decimal". If you are fluent in binary or hexadecimal addition, feel free to use those. </p>
+</div>
+<p>In this case, we see that our simulation of the <code>Adder</code> module produces the following results:</p>
+<figure>
+<p><img alt="" src="../vivado-sim-results.png"></p>
+<figcaption>
+<p>The results of simulating our <code>Adder</code> module. </p>
+</figcaption>
+</figure>
+<p>The results indicate that we get:</p>
+<ol>
+<li>00 + 00 = 00</li>
+<li>0a + 0a = 04</li>
+<li>ff + ff = fe</li>
+</ol>
+<p>Clearly, 0a+0a should not be 04, a number smaller than 0a in a case where there is no carry out. 0a is 10 in decimal, so 10+10 should be 20 in decimal or 14 in hex. Something isn't right here!</p>
+<div class="admonition question">
+<p class="admonition-title">Question 4: Pest Control [0.3 points]</p>
+<p>We appear to have a bug in our code, so let's investigate what's going wrong. Which bit is incorrect in our result? Which line of SystemVerilog code in <code>Adder.sv</code> corresponds to that bit? What is the correct line of code? Correct the code and relaunch the simulation. Verify that the result is correct, and paste a screenshot of the correct simulation results in your report. </p>
+</div>
+<p>Congratulations! Our design is now correct, and we can prove that this is the case in simulation. </p>
+<h2 id="making-our-design-work">Making our design work</h2>
+<h3 id="setting-up-constraints">Setting up constraints</h3>
+<p>Constraints tell Vivado how the inputs and outputs of our <code>Top</code> module should map to inputs and outputs on the FPGA chip itself. The pins on the physical FPGA are connected to the board peripherals like the switches and LEDs. </p>
+<p>Let us explore the constraints file and see how we can set up the constraints for this design. Click on "Project Manager" in the pane on the far left of the window to go back into the Project Manger view. Then, from the "Sources" pane, navigate to "Constraints" -&gt; "constr_1" -&gt; <code>Nexys-4-Master.xdc</code> (Remember to use the correct file for your board). Open the file to see its contents. </p>
+<p>We see a file full of commented lines of code. Different parts of the code correspond to different pins, where a different external peripheral is connected. </p>
+<p>Let's take an example: we want to use the switches at the bottom of our Nexys 4 to input numbers into our design. So, we can uncomment the lines corresponding to the switches we want to use. In this design, we use all of them, so we can simply uncomment all of lines 12 through 60. We can do this by deleting the <code>#</code> at the beginning of the line. The text will now be in black and purple, like normal functional code. </p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>We can select many lines of code, and use the keyboard shortcut Ctrl+/ to toggle comments on or off for those lines. </p>
+<p>Note that some lines are double-commented (i.e. two <code>#</code>s). These lines are meant to be actual comments on the code. The double commenting ensures that if we select all the lines and uncomment them all at the same time, the real comments will still remain comments.</p>
+</div>
+<p>Which other peripherals are we using on the board? Uncomment the lines in the Constraints that correspond to those. </p>
+<p>Now, our design is ready for synthesis and implementation. </p>
+<h3 id="synthesis">Synthesis</h3>
+<p>To run synthesis on our design, the first step is to re-verify that we have selected the correct <code>Top</code> module. If not, now is the time to change it. </p>
+<p>Running synthesis is as simple as clicking on "Run Synthesis". Vivado will prompt us for the synthesis parameters:</p>
+<figure>
+<p><img alt="" src="../vivado-synth-launch-runs.png"></p>
+<figcaption>
+<p>The "Launch Runs" dialog box, prompting us for the launch directory and options</p>
+</figcaption>
+</figure>
+<p>Having more jobs can help to synthesize large designs faster. For this design, it probably doesn't make a difference. Just select the largest possible number and click "OK" to start synthesis. Feel free to check "Don't show this dialog again". </p>
+<p>It might look like nothing is happening, but if you look at the top-right of the window, you will see that Vivado is "Running synth_design":</p>
+<p><img alt="" src="../vivado-synth-running.png"></p>
+<p>Once synthesis is complete, the following dialog box appears: </p>
+<p><img alt="" src="../vivado-synth-completed.png"></p>
+<p>Choose "Open Synthesized Design" and then click "OK". Give Vivado a few seconds to think, and the Synthesized Design view will soon appear. </p>
+<figure>
+<p><img alt="" src="../vivado-synthesized-design.png"></p>
+<figcaption>
+<p>The "Synthesized Design" view in Vivado</p>
+</figcaption>
+</figure>
+<p>For this course, it is not necessary to understand most of what we see here. We can go to "Open Synthesized Design" -&gt; "Schematic" to view the schematic that Vivado synthesized our design to. </p>
+<figure>
+<p><img alt="" src="../vivado-synth-schematics.png"></p>
+<figcaption>
+<p>The synthesized schematic of our design</p>
+</figcaption>
+</figure>
+<p>Notice that it is very different to the RTL schematic we got from the elaborated design. The synthesized schematic uses components that are available inside our specific FPGA chip to implement the logic we specified. </p>
+<p>We can read the various reports such as Utilization, Timing Summary and so on. These contain useful (and interesting) information, but for now, we do not need to understand these. They are useful when our designs are much bigger, more complex, and much (much!) closer to the limits of the capabilities of our FPGA. </p>
+<p>For now, we can move onto the next step, Implementation. </p>
+<h3 id="implementation">Implementation</h3>
+<p>Just like with synthesis, we can run implementation by clicking "Run Implementation" in the "Flow Navigator" pane on the far left. If the "Launch Runs" dialog appears again, just select the maximum number of jobs possible and click "OK" like we did before. </p>
+<p>The top right of the window will cycle through many stages: Initializing Design, Running place_design, Running route_design and finally, Implementation Complete. When it's done, the "Implementation Completed" dialog box will appear:</p>
+<p><img alt="" src="../vivado-impl-completed.png"></p>
+<p>Here, we can click "OK" on the default selection of "Open Implemented Design". If we are asked if we want to close "Synthesized Design" before opening "Implemented Design", we can select "Yes". </p>
+<p>We can once again look at the schematic, which should look similar to the synthesized schematic:</p>
+<figure>
+<p><img alt="" src="../vivado-impl-schematics.png"></p>
+<figcaption>
+<p>The implemented schematic of our design</p>
+</figcaption>
+</figure>
+<p>The reports post-implementation are actually more useful than those from post-synthesis. It provides us the parameters and measurements of the design, as it will really be on the FPGA. For larger designs, the Timing report is particularly useful, but to understand why, we must wait a couple of weeks till the lab on sequential circuits. </p>
+<p>Just one more step, and we will be ready to load our design on the Nexys 4. Yay!</p>
+<h3 id="generate-the-bitstream">Generate the bitstream</h3>
+<p>Finally, we are ready to generate the bitstream we can upload to the Nexys 4 to watch it do something. In the "Flow Navigator", scroll all the way to the bottom and click on "Generate Bitstream". As before, if the dialog box asking for the Run options pops up, select the max number of jobs and click "OK". You should see "Running write_bitstream" in the top right corner. </p>
+<p><img alt="" src="../vivado-bitstream-running.png"></p>
+<p>Once the bitstream is generated, you will see the following dialog box:</p>
+<p><img alt="" src="../vivado-bitstream-completed.png"></p>
+<p>From here, select "Open Hardware Manager" and then "OK". This will open the "Hardware Manager" view where you can upload the bitstream to your Nexys 4. </p>
+<figure>
+<p><img alt="" src="../vivado-hw-manager.png"></p>
+<figcaption>
+<p>The Vivado Hardware Manager view</p>
+</figcaption>
+</figure>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If bitstream generation fails, the most likely cause is a mistake in the constraints file. Unfortunately, after editing the constraints file, you will have to re-run synthesis, implementation and bitstream generation. </p>
+</div>
+<p>Get your Nexys 4 board ready. Make sure you follow the <a href="../../../guides/nexys4/#board-handling-guidelines">Board Handling Guidelines</a>. Plug the USB cable into your computer, and flick the power switch on the top left corner of the board. Your board will probably have a test bitstream loaded on it, which turns on the RGB LEDs, seven-segment displays, and causes the LEDs to turn on when switches are switched on. </p>
+<p>In the green banner near the top of the window, or in the "Flow Navigator" pane on the left, click on "Open Target", followed by "Auto Connect". </p>
+<figure>
+<p><img alt="" src="../vivado-green-open-target.png"></p>
+<figcaption>
+<p>The "Open Target" menu from the green banner at the top of the window</p>
+</figcaption>
+</figure>
+<p>If you only have one board plugged into your computer, Auto Connect should detect it correctly and connect to it. Finally, the step we've been anticipating all this time: click on Program Device in the green banner or the Flow Navigator. The "Program Device" dialog box will appear. </p>
+<p><img alt="" src="../vivado-program-device.png"></p>
+<p>Simply click on "Program" to upload the bitstream to the FPGA. </p>
+<p>Congratulations, your design has now been loaded onto your Nexys 4! Refer back to the <a href="#design-specification">Design Specification</a>, and remember that we have created a system that adds the two numbers input via the switches on the bottom. Verify that the test cases we tried in simulation produce the correct results. </p>
+<div class="admonition question">
+<p class="admonition-title">Question 5: Hardware [0.5 points]</p>
+<p>Take the last four digits of your matriculation number. Split them into two 2-digit numbers. For example, if your matriculation number A0244864X ends in 4864, your two numbers are 48 and 64. Convert these numbers to binary and use the switches to input them into the adder. Take a picture of your board and include it in your report, with the switch positions and LEDs clearly visible. </p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Question 6: Pop Quiz [0.5 points]</p>
+<p>Once you have finished your work, approach a GA near you. They will ask you a question about your design. We will be very lenient with your answers, so don't worry if you don't know the answer right away. We will give you a hint if you ask for it.</p>
+<p>You do not need to add anything to your report for this question. We will record your score and add it to your final grade. </p>
+</div>
+<h2 id="concluding-remarks">Concluding remarks</h2>
+<p>Congratulations on finishing the first graded lab assignment for this course! Remember to follow the instructions on the <a href="../../../grading/#lab-assignments">Grading page</a>. </p>
+<div class="admonition success">
+<p class="admonition-title">What we should know</p>
+<ul>
+<li>What an FPGA is, and what it is used for. </li>
+<li>The overall flow of designing for an FPGA, from design, to simulation, to synthesis, implementation and bitstream generation. </li>
+<li>How to use Vivado to create a new project, and implement a simple design on a Nexys 4 board. </li>
+<li>How to use the Vivado simulation tools to find any bugs in our code and eliminate them before running synthesis. </li>
+<li>How to synthesize, implement, and generate a bitstream for the Nexys 4 in Vivado. </li>
+</ul>
+</div>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:1">
+<p>This is a simplification of what really happens when we program an FPGA. In reality, FPGAs are like any other chip, with a fixed number of components which can't change. However, using a configurable network of interconnects, the connections between these components can be set to our liking, allowing us to build logic devices and circuits. To learn more about the weird and wonderful world of FPGAs, you can take <a href="https://nusmods.com/courses/EE4218/embedded-hardware-system-design">EE4218</a> and learn more. <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://nus-cs2100de.github.io/labs">NUS CS2100DE Labs</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://github.com/nus-cs2100de">NUS CS2100DE Team</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC-SA 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a>. Template designed by <a href="mailto:neil@neilbaner.net">Neil Banerjee</a>. </p>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/nus-cs2100de" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:neil@nus.edu.sg" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

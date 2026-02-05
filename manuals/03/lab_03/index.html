@@ -1,0 +1,1481 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://nus-cs2100de.github.io/labs/manuals/03/lab_03/">
+      
+      
+        <link rel="prev" href="../../02/lab_02/">
+      
+      
+        <link rel="next" href="../../04/lab_04/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Lab 3 [Week 5] - CS2100DE Labs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12.3%207.29c.2-.18.44-.29.7-.29.27%200%20.5.11.71.29.19.21.29.45.29.71%200%20.27-.1.5-.29.71-.21.19-.44.29-.71.29-.26%200-.5-.1-.7-.29-.19-.21-.3-.44-.3-.71%200-.26.11-.5.3-.71m-2.5%204.68s2.17-1.72%202.96-1.79c.74-.06.59.79.52%201.23l-.01.06c-.14.53-.31%201.17-.48%201.78-.38%201.39-.75%202.75-.66%203%20.1.34.72-.09%201.17-.39.06-.04.11-.08.16-.11%200%200%20.08-.08.16.03.02.03.04.06.06.08.09.14.14.19.02.27l-.04.02c-.22.15-1.16.81-1.54%201.05-.41.27-1.98%201.17-1.74-.58.21-1.23.49-2.29.71-3.12.41-1.5.59-2.18-.33-1.59-.37.22-.59.36-.72.45-.11.08-.12.08-.19-.05l-.03-.06-.05-.08c-.07-.1-.07-.11.03-.2M22%2012c0%205.5-4.5%2010-10%2010S2%2017.5%202%2012%206.5%202%2012%202s10%204.5%2010%2010m-2%200c0-4.42-3.58-8-8-8s-8%203.58-8%208%203.58%208%208%208%208-3.58%208-8%22/%3E%3C/svg%3E');}</style>
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Merriweather";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-3-creating-more-complex-sequential-logic" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="CS2100DE Labs" class="md-header__button md-logo" aria-label="CS2100DE Labs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CS2100DE Labs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 3 [Week 5]
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_2">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="CS2100DE Labs" class="md-nav__button md-logo" aria-label="CS2100DE Labs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CS2100DE Labs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../howto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to use this website
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../grading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Grading
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparing for labs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Preparing for labs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Prerequisites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/nexys4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting to know your Nexys 4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://nus-cg3207.github.io/labs/getting_started/vivado_install_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation guide for Vivado (from CG3207)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab manuals
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lab manuals
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01/lab_01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1 [Week 3]
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02/lab_02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 [Week 4]
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3 [Week 5]
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3 [Week 5]
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clocks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Registers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequential-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequential logic
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#activity-1-creating-a-simple-counter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Activity 1: Creating a simple counter
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Activity 1: Creating a simple counter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#design-specification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design Specification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#designing-our-counter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Designing our counter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#even-more-simulation-techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Even more simulation techniques
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slowing-down-our-counter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Slowing down our counter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#activity-2-displaying-the-counter-on-the-seven-segment-display" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Activity 2: Displaying the counter on the seven-segment display
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Activity 2: Displaying the counter on the seven-segment display">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#design-specification_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design specification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#taking-advantage-of-persistence-of-vision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Taking advantage of persistence of vision
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#putting-everything-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Putting everything together
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concluding-remarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concluding Remarks
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04/lab_04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4 [Week 6]
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clocks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Registers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequential-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequential logic
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#activity-1-creating-a-simple-counter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Activity 1: Creating a simple counter
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Activity 1: Creating a simple counter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#design-specification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design Specification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#designing-our-counter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Designing our counter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#even-more-simulation-techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Even more simulation techniques
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slowing-down-our-counter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Slowing down our counter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#activity-2-displaying-the-counter-on-the-seven-segment-display" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Activity 2: Displaying the counter on the seven-segment display
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Activity 2: Displaying the counter on the seven-segment display">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#design-specification_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design specification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#taking-advantage-of-persistence-of-vision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Taking advantage of persistence of vision
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#putting-everything-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Putting everything together
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concluding-remarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concluding Remarks
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<div><h1 id="lab-3-creating-more-complex-sequential-logic">Lab 3: Creating more complex sequential logic</h1>
+<div class="admonition info">
+<p class="admonition-title">Graded Lab Assignment</p>
+<p>This lab includes a graded lab assignment, worth <strong>6 points</strong>. Refer to <a href="../../../grading/">the page on grading</a> for more information. </p>
+<p>Today's lab will be a bit different. Activity 1 (worth <strong>3 points</strong>) is to be completed in class, with the report submitted as usual. Activity 2 (worth <strong>3 points</strong>) is a take-home assignment, which you must demonstrate to the teaching team in Week 6. </p>
+</div>
+<h2 id="introduction">Introduction</h2>
+<p>Hello there! Welcome back once again to CS2100DE. After the last couple of weeks, we should be reasonably comfortable with the basics of digital design, and we should also be quite at home using Vivado. Of course, the previous manuals are still available to look at for reference. </p>
+<p>Today, we will learn all about sequential logic. We will start by developing a simple counter that can count up or down, as we prefer. Then, we will display this counter on the seven-segment displays - this time, every digit will be able to show a different character! We will explore some more new simulation techniques too. </p>
+<p>As we did last week, we will hold your hand even less this week; but we believe in you :) Feel free to approach the GAs or TA in charge with any questions or concerns you have. </p>
+<h3 id="clocks">Clocks</h3>
+<p>In digital design, a clock is a signal that is used to time a digital circuit. It is a square (ish) wave that goes up and down at a fixed time interval. Clock signals are generated by oscillators, e.g. a piezoelectric crystal like quartz.</p>
+<figure>
+<p><img alt="" src="../16MHZ_Crystal.jpg"></p>
+<figcaption>
+<p>From <a href="https://en.wikipedia.org/wiki/Crystal_oscillator">Wikipedia</a>: "A miniature 16 MHz quartz crystal enclosed in a hermetically sealed HC-49/S package, used as the resonator in a crystal oscillator."</p>
+<p>By <a rel="nofollow" class="external text" href="https://www.flickr.com/people/33504192@N00">oomlout</a> - <a rel="nofollow" class="external free" href="https://www.flickr.com/photos/snazzyguy/4150705616/">https://www.flickr.com/photos/snazzyguy/4150705616/</a>, <a href="https://creativecommons.org/licenses/by-sa/2.0" title="Creative Commons Attribution-Share Alike 2.0">CC BY-SA 2.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=23310595">Link</a></p>
+</figcaption>
+</figure>
+<p>Most digital circuits require a clock signal, and this is what determines how fast it runs. So, when we go to buy a laptop, and see one that says it runs at e.g. 3.5 GHz, that means the clock signal runs at 3.5 GHz, or 3.5 billion cycles per second. (Yes, that's really fast.) Your phones, laptops, Arduino, etc. all use clock signals to time themselves. And yes, our FPGA has a clock built in, which runs at 100 MHz - that is, it completes a full period (on and then off) 100 million times a second (or every 10 nanoseconds). </p>
+<p>When the clock signal goes from <code>0</code> to <code>1</code>, we call that a "positive edge". When the clock signal goes from <code>1</code> to <code>0</code>, we call that a "negative edge". </p>
+<h3 id="registers">Registers</h3>
+<p>A register is a memory element that stores the value of a bit. For the purposes of FPGA designs (for Xilinx FPGAs, anyway), a register is a D-Flip Flop (remember those from last week?). At every positive clock edge, whatever is on the input <code>D</code> gets transmitted to the output <code>Q</code>, and doesn't change until the next positive clock edge. So, we can see how the register has "memory" - while a combinational circuit will change as soon as any of the inputs change, a register will retain the same output until it receives a clock signal. </p>
+<p>To make this a bit more concrete, here is some SystemVerilog code to create a D flip flop:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="w">    </span><span class="k">module</span><span class="w"> </span><span class="n">DFF</span><span class="w"> </span><span class="p">(</span>
+<span class="w">        </span><span class="k">input</span><span class="w"> </span><span class="n">clk</span><span class="p">,</span>
+<span class="w">        </span><span class="k">input</span><span class="w"> </span><span class="n">D</span><span class="p">,</span>
+<span class="w">        </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w"> </span><span class="n">Q</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="w">        </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">            </span><span class="n">Q</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">D</span><span class="p">;</span>
+<span class="w">        </span><span class="k">end</span>
+<span class="w">    </span><span class="k">endmodule</span>
+</code></pre></div></td></tr></table></div>
+<p>Let's dive a bit deeper and explore what each line of code does. </p>
+<p>First, of course, we must define the inputs and outputs to the module. As we remember from the lectures, a D flip flop has an input for the clock, an input D and an output Q. </p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="w">    </span><span class="k">module</span><span class="w"> </span><span class="n">DFF</span><span class="w"> </span><span class="p">(</span>
+<span class="w">        </span><span class="k">input</span><span class="w"> </span><span class="n">clk</span><span class="p">,</span>
+<span class="w">        </span><span class="k">input</span><span class="w"> </span><span class="n">D</span><span class="p">,</span>
+<span class="w">        </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w"> </span><span class="n">Q</span>
+<span class="w">    </span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>Note that we need to declare <code>Q</code> as an <code>output reg</code> instead of simply an <code>output</code>. Vivado doesn't do this for you automatically when you create the module and define its inputs and outputs, so you must add the keyword <code>reg</code> in by yourself. Happily enough, Vivado will indeed yell at you right in the text editor if you forget to do it, saying "procedural assignment to a non-register Q is not permitted" - one of the more descriptive and precise errors you can get :3</p>
+<p>Next, the sequential logic signature dish: </p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="w">        </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">            </span><span class="c1">// ...</span>
+<span class="w">        </span><span class="k">end</span>
+</code></pre></div></td></tr></table></div>
+<p>The keyword <code>always</code> is as the name implies; it means that any behaviour defined inside this block will be repeated till the end of time (or until you turn off/reprogram the FPGA, whichever comes first). This is the same behaviour as combinational logic - once you define a combinational logic circuit, it performs the same function till the end of time. </p>
+<p>The <code>@(...)</code> syntax is used to define the "sensitivity list" - that is, it defines which input(s) should be used as a cue for the logic to take effect. In this case, we say <code>always @(posedge clk)</code>, meaning that our logic should take effect at every positive edge of the clock, or, whenever the clock goes from <code>0</code> to <code>1</code>. </p>
+<p>Finally, we must define the logic that will be executed at every clock edge, so:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="w">            </span><span class="n">Q</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">D</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+<p>This simply states that we will assign the value seen at the input D, to the output Q. </p>
+<p>If, instead, we had simply written:</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">module</span><span class="w"> </span><span class="n">DFF</span><span class="w"> </span><span class="p">(</span>
+<span class="w">        </span><span class="k">input</span><span class="w"> </span><span class="n">D</span><span class="p">,</span>
+<span class="w">        </span><span class="k">output</span><span class="w"> </span><span class="n">Q</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="w">        </span><span class="k">assign</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">D</span><span class="p">;</span>
+<span class="w">    </span><span class="k">endmodule</span>
+</code></pre></div>
+<p>This would have been combinational logic. Remember that when we defined combinational logic, we said that the output of combinational logic depends on the inputs <em>at that moment</em>. Notice the difference in this module: <code>Q</code> will not change as soon as <code>D</code> changes. Instead, it will change when the clock has a positive edge. Thus, sequential logic has "memory" - it can remember what the previous state was until there is a clock edge. </p>
+<p>Elaborating this code produces a schematic that looks like this:</p>
+<figure>
+<p><img alt="" src="../dff_schematic.png"></p>
+<figcaption>
+<p>The schematic of a D flip flop elaborated in Vivado</p>
+</figcaption>
+</figure>
+<p>We can see that it produces a flip flop just like we saw in the lecture. </p>
+<p>We can simulate the D flip flop and observe its operation:</p>
+<figure>
+<p><img alt="" src="../dff_sim.png"></p>
+<figcaption>
+<p>The result of simulating this DFF module</p>
+</figcaption>
+</figure>
+<p>In this simulation, we start with <code>D</code> and <code>Q</code> at <code>0</code> and <code>clk</code> at <code>1</code>. </p>
+<ol>
+<li>
+<p>Between 0 and 10 nanoseconds, we can see that no matter how much <code>D</code> changes, as long as <code>clk</code> remains <code>0</code>, the change is not propagated to <code>Q</code>. </p>
+</li>
+<li>
+<p>Then, at 10 nanoseconds, when <code>clk</code> goes from <code>0</code> to <code>1</code>, since <code>D</code> is <code>1</code> at that moment, <code>Q</code> will become <code>1</code>. </p>
+</li>
+<li>
+<p>At 11 nanoseconds we observe that even as <code>clk</code> is <code>1</code>, changes in <code>D</code> are still not propagated to <code>Q</code> - remember, the changes only propagate when <code>clk</code> has a positive edge, not when it is <code>1</code> or <code>0</code>. </p>
+</li>
+<li>
+<p>At 15 nanoseconds, when <code>clk</code> goes from <code>1</code> to <code>0</code>, we see that the changes are still not propagated to <code>Q</code> - this is a negative edge.</p>
+</li>
+<li>
+<p>At 20 nanoseconds, when <code>clk</code> goes from <code>0</code> to <code>1</code>, we see that <code>D</code> is again <code>1</code>, so <code>Q</code> remains as <code>1</code> and doesn't change. </p>
+</li>
+<li>
+<p>Finally, at 30 nanoseconds, when <code>clk</code> goes from <code>0</code> to <code>1</code>, we see that <code>D</code> is <code>0</code> and therefore <code>Q</code> becomes <code>0</code> again. </p>
+</li>
+<li>
+<p>The code we used for simulation here can be found <a href="https://github.com/NUS-CS2100DE/labs/tree/2f9e4f3bf2d8cbd39fa70472e234890a963f4d8c/lab_templates/week05">here</a>, but don't worry if you don't understand it. We will go through how to simulate synchronous hardware soon. </p>
+</li>
+</ol>
+<h3 id="sequential-logic">Sequential logic</h3>
+<p>Sequential logic, or sequential circuits, are essentially a block of combinational logic that is placed behind a register (in our case, a D Flip Flop). </p>
+<p>Consider the following code:</p>
+<div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">LogicWithDFF</span><span class="p">(</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">a</span><span class="p">,</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">b</span><span class="p">,</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">c</span><span class="p">,</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">d</span><span class="p">,</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">clk</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="n">Q</span>
+<span class="w">    </span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">logic</span><span class="w"> </span><span class="n">ff_in</span><span class="p">;</span>
+<span class="w">    </span><span class="n">DFF</span><span class="w"> </span><span class="n">ff_1</span><span class="p">(</span><span class="n">clk</span><span class="p">,</span><span class="w"> </span><span class="n">ff_in</span><span class="p">,</span><span class="w"> </span><span class="n">Q</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">ff_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">d</span><span class="p">);</span><span class="w"> </span>
+<span class="k">endmodule</span>
+</code></pre></div>
+<p>This code creates a combinational block that performs the logic function a AND b AND (c OR d). Then, it connects the output of the combinational logic to the input of the D Flip Flop we just created. The schematic produced looks like this:</p>
+<figure>
+<p><img alt="" src="../complex_logic_dff_module_schematic.png"></p>
+<figcaption>
+<p>A block of combinational logic behind a D Flip Flop, giving us a sequential circuit</p>
+</figcaption>
+</figure>
+<p>Here, instead of the input to the register being just a single wire, we have some complex logic. It will behave just like the register, in that the output <code>Q</code> will not update until a positive clock edge. </p>
+<p>We do not need to explicitly define registers when writing SystemVerilog code. Instead, we can infer them as below:</p>
+<div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">DFFWithLogic</span><span class="p">(</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">clk</span><span class="p">,</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">a</span><span class="p">,</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">b</span><span class="p">,</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">c</span><span class="p">,</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">d</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w"> </span><span class="n">Q</span>
+<span class="w">    </span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">        </span><span class="n">Q</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">d</span><span class="p">);</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="k">endmodule</span>
+</code></pre></div>
+<p>The schematic for this circuit looks almost identical, with the exception that the flip flop is not inside a module:</p>
+<figure>
+<p><img alt="" src="../complex_logic_dff_schematic.png"></p>
+<figcaption>
+<p>The same circuit as above, implemented in a simpler format</p>
+</figcaption>
+</figure>
+<p>And on that note, we are ready to tackle our first lab activity, where we will create a counter that can count up. Sounds simple, but you'll see you can learn a lot from it...</p>
+<h2 id="activity-1-creating-a-simple-counter">Activity 1: Creating a simple counter</h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>This activity should be done in class. All the questions within this activity should be answered in the report as usual.</p>
+</div>
+<p>In this activity, we will create a counter that can count up and down. We will use HDL simulation to verify the functionality, before we finally display the output on the seven-segment displays. </p>
+<p>Create a new project in Vivado. For now, just give it a <code>Top</code> module and specify <code>clk</code> as an input. We'll figure out the rest later. </p>
+<h3 id="design-specification">Design Specification</h3>
+<p>For this activity, we will design an 8-bit Counter module. </p>
+<p>The module inputs should be:</p>
+<ul>
+<li><code>clk</code> (clock signal)</li>
+<li><code>rst</code> (reset counter)</li>
+<li><code>up_down</code> (1 bit to determine counting direction)</li>
+</ul>
+<p>The module output should be:</p>
+<ul>
+<li>An 8-bit value <code>count</code>. The module should initially output the value <code>8'b0</code> on <code>count</code>. </li>
+</ul>
+<p>If <code>up_down</code> is <code>0</code>, the module should count up from <code>0</code>, i.e. <code>1</code>, <code>2</code>, etc. If <code>up_down</code> is <code>1</code>, the module should count down, eg. <code>0</code>, <code>255</code>, <code>254</code>, etc.</p>
+<p>If <code>up_down</code> changes while counting, it should continue counting from the last number it reached. E.g. [<code>up_down == 0</code>] <code>0</code>, <code>1</code>, <code>2</code>, [<code>up_down == 1</code>] <code>1</code>, <code>0</code>, <code>255</code>, <code>254</code>, [<code>up_down == 0</code>] <code>255</code>, <code>0</code>...</p>
+<p>Counting should be done on the positive edge of the clock. That is, the counter value should increment (or decrement) by 1 every time the clock goes from <code>0</code> to <code>1</code>. </p>
+<p><code>rst</code> is an active-low reset signal. If (and only if) <code>rst</code> is 0 at a positive clock edge, the counter should reset to <code>0</code>. </p>
+<h3 id="designing-our-counter">Designing our counter</h3>
+<p>The design specification is a lot to take in, but it's not as bad as it looks. Let's break our work down into steps. </p>
+<ol>
+<li>
+<p>Create a new module called <code>Counter</code>. Give it the inputs and outputs we specified above. </p>
+</li>
+<li>
+<p>We know that the goal of the counter is to increment the value of <code>count</code>. So, write a line of code that increases the value of <code>count</code> by 1. Hint: assign <code>count</code> to the sum of <code>count</code> and 1. </p>
+</li>
+<li>
+<p>The next thing we know is that depending on <code>up_down</code>, the counter should count up or down. Use the ternary operator syntax (<code>assign value = (condition) ? value_if_true : value_if_false</code>) to implement this.</p>
+</li>
+<li>
+<p>Then, add another condition to reset the counter to 0 when the reset signal is low.</p>
+</li>
+<li>
+<p>Finally, we add the special sauce that makes our code sequential. Encapsulate the code you have written so far in an <code>always</code> block, as illustrated below:</p>
+<div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="c1">// your code from step 3 here</span>
+<span class="k">end</span>
+</code></pre></div>
+</li>
+<li>
+<p>At this point, Vivado will probably be complaining, saying "Procedural assignment to a non-register count is not permitted, left-hand side should be reg/integer/time/genvar." There are a couple of changes we need to make. </p>
+<ol>
+<li>
+<p>First, we must change the line <code>output [7:0] count</code> to <code>output reg [7:0] count</code>. At this point, Vivado will not complain anymore, but we must make some more changes. </p>
+</li>
+<li>
+<p>Next, we must remove the keyword <code>assign</code> from our code.</p>
+</li>
+<li>
+<p>Finally, we must change the <code>=</code> sign (for a blocking assignment) to <code>&lt;=</code> (for a non-blocking assignment). </p>
+</li>
+</ol>
+</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When writing sequential code, there are two types of assignments: non-blocking assignment, denoted with <code>&lt;=</code>, and blocking assignment, denoted simply with <code>=</code>. These two are not generally equivalent, and <strong>should not be used interchangeably</strong>. </p>
+<p>The difference is that blocking assignments are considered to be ordered - that is, we assume we define the order in which connections are defined matters. </p>
+<p><strong>We recommend avoiding the blocking assignment <code>=</code> completely for sequential code</strong>. It should only be used if we're extremely sure we know what we're doing, and even then, in very rare circumstances. Always using the non-blocking assignment <code>&lt;=</code> will not be problematic, and for this course, you will definitely never need to use <code>=</code>. There will always be a better way to do it with a <code>&lt;=</code>. </p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Question 1: Tick, tock [1 point]</p>
+<p>Please show all of the code inside your Counter module. You need not include the comments that Vivado automatically generates.</p>
+</div>
+<p>Now, you have a counter module, and are ready to proceed further. You should have spent no more than 60 minutes for this task. </p>
+<h3 id="even-more-simulation-techniques">Even more simulation techniques</h3>
+<p>We have a counter, but no way to know if it's remotely correct. So guess what time it is?</p>
+<p>Last week, we used <code>for</code> loops to simulate 16 test cases in one shot. It saved us a bunch of time from having to write test cases by hand. However, just running simulation is barely half the story; we need to verify that the results are correct. Doing that for 16 test cases is one thing, but for around 4000 possible combinations (by my napkin maths) it would drive you to insanity. So, let's automate some more checking so we don't need to waste our time debugging. </p>
+<p>Create a new simulation source called <code>Counter_sim</code>. You should know how to do this, if not, refer to Lab 1. </p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>In Vivado, if we create a module with no inputs or outputs, it creates a blank file without the template to get you started. To work around this, we can add a dummy input <code>x</code> to your simulation module and simply remove the <code>input x</code> line in the file later. </p>
+</div>
+<p>We will not provide exact code to type in, but the following steps should be enough to write the code. </p>
+<ol>
+<li>
+<p>Create <code>logic</code> instances for all the inputs and outputs to <code>Counter</code>. Remember to choose the widths appropriately.</p>
+</li>
+<li>
+<p>Instantiate the <code>Counter</code> module. </p>
+</li>
+<li>
+<p>Create a new <code>Integer</code> variable call <code>correct_count</code>. Initialize it to 0. </p>
+</li>
+<li>
+<p>Create an <code>initial</code> block to run our simulation code. </p>
+<ol>
+<li>Start by setting <code>clk</code>, <code>up_down</code> and <code>rst</code> to <code>0</code>. </li>
+<li>Wait for one nanosecond, then set <code>rst</code> to  <code>1</code>. </li>
+<li>Create a <code>for</code> loop. It should run for 20 iterations. In the loop:<ol>
+<li>Compare <code>count</code> to <code>correct_count</code>. If they do not match, use the function <code>$error()</code> to display an error message, and the command <code>$stop</code> to stop the simulation immediately. Hint: you can use <code>if ... else</code> statements in SystemVerilog simulations.</li>
+<li>Increment the <code>correct_count</code> variable.</li>
+<li>Wait for 10 nanoseconds for the next clock edge. </li>
+</ol>
+</li>
+<li>Set <code>up_down</code> to <code>1</code>. </li>
+<li>Create a new <code>for</code> loop. It should be identical to the previous loop, with one exception: you must decrement <code>correct_count</code> instead. </li>
+<li>Finish the <code>initial</code> block with a <code>$finish</code> command. This will terminate the simulation, and your waveform will be just the right length. </li>
+</ol>
+</li>
+<li>
+<p>Create an <code>always</code> block to make the clock tick at 100 MHz. That is, it should go high for 5 nanoseconds, then go low for 5 nanoseconds. </p>
+</li>
+</ol>
+<div class="admonition question">
+<p class="admonition-title">Question 2: In the Matrix [1 point]</p>
+<p>Please show the code for your simulation and the simulation waveform, including the signals <code>clk</code>, <code>up_down</code>, <code>rst</code> and <code>count</code>, as well as <code>correct_count</code>. </p>
+<p>Needless to say, your simulation should run all the test cases and pass them. </p>
+</div>
+<p>Congratulations! You have built a working counter. The bulk of the work should be done by now. You should have spent no longer than 90 minutes on this task, or 150 minutes in total. </p>
+<h3 id="slowing-down-our-counter">Slowing down our counter</h3>
+<p>Our counter can now count up and down correctly. However, there's a problem: it's too fast! </p>
+<p>Like we mentioned above, the FPGA's built-in clock runs at 100 MHz, or a hundred million clock edges per second. We can count up to 255 in just over 2 microseconds - that's way too fast for us to appreciate. Let's slow down the counter a bit so we can see it. </p>
+<p>We will create a second counter, that increments at every clock edge. It will be reset to zero after a certain number of counts - say, 10 million. Then, we will increment <code>count</code> every time this new counter is equal to zero. In this example, every 10 million clock edges, the new counter will be reset to zero. This means that <code>count</code> will be incremented every 25 million clock edges, or at 4 Hz. </p>
+<p>You may want to try implementing the above by yourself. If you need a hint, see the section below:</p>
+<details class="note">
+<summary>Detailed steps - do not reveal if you want to challenge yourself</summary>
+<ol>
+<li>
+<p>First, let us do some maths. Our FPGA's clock runs at 100 MHz. Suppose we want the counter to count up at 4 Hz. How many clock edges do we need between two counts? Call this value <code>N_COUNTS</code>. </p>
+</li>
+<li>
+<p>What is the minimum number of bits we need to be able to count up to this number? Call the number of bits <code>N_BITS</code>. </p>
+</li>
+<li>
+<p>Create a new <code>logic</code> value called <code>clk_cnt</code>. It should be a bus of <code>N_BITS</code> values. </p>
+</li>
+<li>
+<p>Like we did in the first part, increment <code>clk_cnt</code> by one every clock edge. </p>
+</li>
+<li>
+<p>Using the ternary (<code>?</code> and <code>:</code> syntax) operator, add a condition so that when <code>clk_cnt</code> is equal to <code>N_COUNTS</code>, it is reset to 0, and otherwise, it is incremented. </p>
+</li>
+<li>
+<p>Finally, in the line that increments <code>count</code>, add the condition that <code>count</code> should only be incremented when <code>clk_cnt</code> is 0. </p>
+</li>
+</ol>
+</details>
+<div class="admonition question">
+<p class="admonition-title">Question 3: Reduce Speed Now [1 point]</p>
+<p>Please show the RTL schematic and the finished code of your Counter module, after it has been slowed down. </p>
+</div>
+<p>Well done! You have finished the in-class portion of this week's lab. Please submit your report now. The remainder of the activities in this manual are take-home. </p>
+<h2 id="activity-2-displaying-the-counter-on-the-seven-segment-display">Activity 2: Displaying the counter on the seven-segment display</h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>This activity is take-home. There is no submission or report required for this activity. However, you must demonstrate that your design works as specified, at the beginning of lab next week. </p>
+</div>
+<p>We've made and verified a counter that can count up and down. But it's no fun having something imaginary inside a simulation (insert <em>Matrix</em> references). Let's display the output of the counter on the seven-segment displays. </p>
+<h3 id="design-specification_1">Design specification</h3>
+<p>The final product for this activity will include three counters, that count up and/or down independently of each other. </p>
+<p>Counter 0's output will be displayed on displays 7 and 6 (the first two from the left). Counter 1's output will be displayed on displays 4 and 3 (the two in the middle). Counter 2's output will be displayed on displays 1 and 0 (the first two from the right). </p>
+<p>Displays 2 and 5 should be blank. </p>
+<p>All counters' values will be displayed in hex format. We will use the SevenSegDecoder module from last week to save us some time. </p>
+<p>The <code>up_down</code> signal for counter 0 will be controlled by switch 2. The <code>up_down</code> signal for counter 1 will be controlled by switch 1. The <code>up_down</code> signal for counter 2 will be controlled by switch 0. </p>
+<p>The <code>rst</code> signal for counter 0 will be controlled by the left push button. The <code>rst</code> signal for counter 1 will be controlled by the center push button. The <code>rst</code> signal for counter 2 will be controlled by the right push button. </p>
+<p>Below is a video of the final product you should have:</p>
+<p><div class="video-container"><video style="position:relative;width:100%;height:22.172vw" controls alt="type:video"><source src="../demo.MOV" type="video/mp4"></source></video></div></p>
+<h3 id="taking-advantage-of-persistence-of-vision">Taking advantage of persistence of vision</h3>
+<p>Last week, we said that because of the way the seven-segment displays are wired, we can only show one unique character on the displays, at any given time. Those that read the accompanying note may remember the caveat - "at any given time". However, we can play some tricks on our eyes. </p>
+<p>By showing characters on one display at a time, but changing the display used very fast, we can create the illusion of different displays showing different characters. This is due to persistence of vision: when we see something with our eyes, they retain that image for a few fractions of a second, and merge it with what they see subsequently. When we change the display used very fast, our eyes cannot react fast enough to one display turning off, and it gives the illusion of all the displays being lit simultaneously. </p>
+<p>The following animation shows, first in slow motion, then slowly speeding up, how this should look. </p>
+<figure>
+<p><img alt="" src="../7segment_multiplexing.gif"></p>
+<figcaption>
+<p>By Laserlicht, <a href="https://creativecommons.org/licenses/by-sa/4.0" title="Creative Commons Attribution-Share Alike 4.0">CC BY-SA 4.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=115556518">Link</a></p>
+</figcaption>
+</figure>
+<p>Once again, the <a href="https://digilent.com/reference/programmable-logic/nexys-4/reference-manual#seven-segment_display">Nexys 4 Reference Manual</a> is a useful resource for an alternative explanation. </p>
+<h3 id="putting-everything-together">Putting everything together</h3>
+<p>Finally, we must put what we've learned together. Since you have a week to finish this activity, the instruction will be minimal. </p>
+<p>Following, in no particular order, are some tips for creating your final design. </p>
+<ul>
+<li>
+<p>Use three <code>Counter</code> modules and one <code>SevenSegDecoder</code> module from last week in this design. </p>
+</li>
+<li>
+<p>Use a 3-bit counter to decide which anode to light up. You can design this counter right inside <code>Top</code>, but it'll be better if you create a new module, say <code>SlowCounter</code>. It will be similar to the counter we already designed in the lab. Use the same 3-bit counter to decide what to display on the segments. </p>
+</li>
+<li>
+<p>Note that displays <code>2</code> and <code>5</code> will always be blank, so we should skip these. Instead, when our counter is at <code>2</code> or <code>5</code>, we can simply keep displaying the previous digit. Or, we can design the counter to skip <code>2</code> and <code>5</code>. Both methods will be accepted. </p>
+</li>
+<li>
+<p>We recommend a refresh rate of &gt;500 Hz to make the displays look seamless to the naked eye. Rates too high will cause problems. Try to change the displays at anywhere between 500 to 2000 Hz. </p>
+</li>
+<li>
+<p>The pushbuttons we need are labelled <code>btnC</code>, <code>btnL</code> and <code>btnR</code> in the constraints. Remember to add them, and any other inputs and outputs used, to the inputs and outputs of the <code>Top</code> module. </p>
+</li>
+</ul>
+<div class="admonition question">
+<p class="admonition-title">Question 4: One, two, three, jump [3 points]</p>
+<p>Demonstrate the finished product to your nearest member of the teaching team (GA or TA/instructor/lecturer). We will check the functionality and make sure it is as specified. No further action for this part is needed on your end. The points you score will be added to your score for this report later. [1 point]</p>
+<p>You will be asked two questions regarding your understanding of the implemented solution. You may refer to any materials you need to answer these questions. [2 points; each question worth 1 point]</p>
+<p>To be very clear, hardware implementation is <strong>required</strong>. The final product should be running on your Nexys 4 board by next week. </p>
+<p>This task is due next week, at the start of the lab. Instructions for the demo will be made available on Canvas. </p>
+</div>
+<p>You should not need more than an afternoon or so to implement this. If you require assistance, post your questions on the <a href="https://github.com/NUS-CS2100DE/labs/discussions">Discussions page</a>. Remember to not send the teaching team emails with technical questions. </p>
+<h2 id="concluding-remarks">Concluding Remarks</h2>
+<p>And that concludes our third lab assignment! Remember to follow the instructions on the <a href="../../../grading/#lab-assignments">Grading Page</a> and upload your assignment on time. </p>
+<div class="admonition success">
+<p class="admonition-title">What we should know</p>
+<ul>
+<li>How to use the clock built into our FPGA. </li>
+<li>How to design, write and use sequential logic in Vivado with SystemVerilog. </li>
+<li>How to play tricks on our eyes with the seven-segment displays.</li>
+<li>How to reduce our own workload by getting our simulation to automatically verify our design. </li>
+</ul>
+</div>
+<p>Next week, we will be taking a break from Vivado and digital design, to have some fun writing RISC-V assembly code. </p></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://nus-cs2100de.github.io/labs">NUS CS2100DE Labs</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://github.com/nus-cs2100de">NUS CS2100DE Team</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC-SA 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a>. Template designed by <a href="mailto:neil@neilbaner.net">Neil Banerjee</a>. </p>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/nus-cs2100de" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:neil@nus.edu.sg" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
