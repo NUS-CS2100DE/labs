@@ -53,7 +53,7 @@ To make the most of the labs, we recommend doing some reading before you come fo
 | 4     | 06 Feb 2026   | [Playing with the 7-segment display](manuals/02/lab_02.md)        |           |
 | 5     | 13 Feb 2026   | [Creating more complex logic](manuals/03/lab_03.md)               |           |
 | 6     | 20 Feb 2026   | [Introduction to RISC-V Assembly](manuals/04/lab_04.md)           |           |
-| 7     | 27 Feb 2026   | Under construction - stay tuned!                                  |           |
+| 7     | 27 Feb 2026   | [Decoding RISC-V Instructions](manuals/05/lab_05.md)              |           |
 | 8     | 06 Mar 2026   | TBD                                                               |           |
 | 9     | 13 Mar 2026   | TBD                                                               |           |
 | 10    | 20 Mar 2026   | TBD                                                               |           |
