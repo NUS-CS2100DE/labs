@@ -54,7 +54,7 @@ To make the most of the labs, we recommend doing some reading before you come fo
 | 5     | 13 Feb 2026   | [Creating more complex logic](manuals/03/lab_03.md)               |           |
 | 6     | 20 Feb 2026   | [Introduction to RISC-V Assembly](manuals/04/lab_04.md)           |           |
 | 7     | 27 Feb 2026   | [Decoding RISC-V Instructions](manuals/05/lab_05.md)              |           |
-| 8     | 06 Mar 2026   | TBD                                                               |           |
+| 8     | 06 Mar 2026   | [Putting things together](manuals/06/lab_06.md)                   |           |
 | 9     | 13 Mar 2026   | TBD                                                               |           |
 | 10    | 20 Mar 2026   | TBD                                                               |           |
 | 11    | 27 Mar 2026   | TBD                                                               |           |
