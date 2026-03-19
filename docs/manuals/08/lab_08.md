@@ -1,6 +1,6 @@
 # Lab 8 : The Finale - Running Programs on our CPU
 
-Welcome to the final lab for CS2100DE! We're finally there, the promised land - our CPU is ready to run real programs! Now, we just need to debug any issues remaining, and we will be good to go. 
+Welcome to the penultimate lab for CS2100DE! We're finally there, the promised land - our CPU is ready to run real programs! Now, we just need to debug any issues remaining, and we will be good to go. 
 
 !!! info "Project Work"
 	This manual is part of the final project. You do not need to write a report for this. You should work in your project groups. 
@@ -181,7 +181,7 @@ Here are the steps to put our RISC-V assembly code from RARS on to the board:
 
 ## Concluding Remarks
 
-Congratulations on completing the labs for CS2100DE! No, really, congratulations - we have successfully built a full, working CPU running on our FPGA, which can run RISC-V programs! This is no small feat, and genuinely worthy of high commendation. The only thing remaining now is to come to the demo next week and show the teaching team what you know. All the best for that, and for finals!
+Congratulations on completing the hardware project for CS2100DE! No, really, congratulations - we have successfully built a full, working CPU running on our FPGA, which can run RISC-V programs! This is no small feat, and genuinely worthy of high commendation. Next week, we will learn how to write programs for this CPU much more easily, using the C programming language, allowing us to write much more complex stuff. It will be exciting - stay tuned!
 
 !!! success "What we should know"
 	* How to debug a reasonably complex design on an FPGA.

@@ -55,7 +55,7 @@ To make the most of the labs, we recommend doing some reading before you come fo
 | 6     | 20 Feb 2026   | [Introduction to RISC-V Assembly](manuals/04/lab_04.md)           |           |
 | 7     | 27 Feb 2026   | [Decoding RISC-V Instructions](manuals/05/lab_05.md)              |           |
 | 8     | 06 Mar 2026   | [Putting things together](manuals/06/lab_06.md)                   |           |
-| 9     | 13 Mar 2026   | TBD                                                               |           |
+| 9     | 13 Mar 2026   | [Getting our CPU working](manuals/07/lab_07.md)                   |           |
 | 10    | 20 Mar 2026   | TBD                                                               |           |
 | 11    | 27 Mar 2026   | TBD                                                               |           |
 | 12    | 03 Apr 2026   | Good Friday (Public Holiday)                                      |           |
