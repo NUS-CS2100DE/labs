@@ -21,25 +21,91 @@
 
 
 module Decoder(    
-    input instr,
-    output PCS,
-    output mem_to_reg,
-    output mem_write,
-    output alu_control,
-    output alu_src_b,
-    output imm_src,
-    output reg_write
+    input reg [31:0]instr,
+    output reg [1:0] PCS,
+    output reg mem_to_reg,
+    output reg mem_write,
+    output reg [3:0] alu_control,
+    output reg alu_src_b,
+    output reg [2:0] imm_src,
+    output reg reg_write
     );
     
     logic [6:0] opcode;
     logic [2:0] funct3;
     logic [6:0] funct7;
-
-    assign opcode = 0;
-    assign funct3 = 0;
-    assign funct7 = 0;
+    logic ALUControl_0;
+    
+//    assign ALUControl_0 = 0;
+    assign opcode = instr[6:0];
+    assign funct3 = instr[14:12];
+    assign funct7 = instr[31:25];
     
     always @(instr) begin
+        case(opcode)
+            7'h33:begin
+                PCS = 2'b00;
+                mem_to_reg = 0;
+                mem_write =0;
+                alu_control = {funct3,funct7[5]};
+                alu_src_b = 0;
+                imm_src = 3'bxxx;
+                reg_write = 1;
+            end
+            7'h13:begin
+                if(funct3==3'h1)begin
+                    ALUControl_0 = funct7[5];
+                end else if (funct3==33'h5) begin
+                    ALUControl_0  = funct7[5];
+                end else begin
+                    ALUControl_0  = 1'b0;
+                end
+//                ALUControl_0 = ((funct3==3'h1)|(funct3==33'h5)))?funct7[5]:1'b0;
+                PCS = 2'b00;
+                mem_to_reg = 0;
+                mem_write =0;
+                alu_control = {funct3,ALUControl_0};
+                alu_src_b = 1;
+                imm_src = 3'b011;
+                reg_write = 1;
+            end
+            7'h03:begin
+                PCS = 2'b00;
+                mem_to_reg = 1;
+                mem_write =0;
+                alu_control = 4'b0000;
+                alu_src_b = 1;
+                imm_src = 3'b011;
+                reg_write = 1;
+            end
+            7'h23:begin
+                PCS = 2'b00;
+                mem_to_reg = 1'bx;
+                mem_write =1;
+                alu_control = 4'b0000;
+                alu_src_b = 1;
+                imm_src = 3'b110;
+                reg_write = 0;
+            end
+            7'h63:begin
+                PCS = 2'b01;
+                mem_to_reg = 1'bx;
+                mem_write =0;
+                alu_control = 4'b0001;
+                alu_src_b = 0;
+                imm_src = 3'b111;
+                reg_write = 0;
+            end
+            7'h6F:begin
+                PCS = 2'b10;
+                mem_to_reg = 1'bx;
+                mem_write =0;
+                alu_control = 4'bxxxx;
+                alu_src_b = 1'bx;
+                imm_src = 3'b010;
+                reg_write = 0;
+            end
+        endcase
 
     end
 

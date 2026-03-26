@@ -54,22 +54,22 @@ module Top_MMC(
     logic [31:0] seven_seg_data;
     
     // ONLY FOR SIMULATION - COMMENT OUT FOR HARDWARE IMPLEMENTATION!!!
-//    assign clk_cpu = clk; 
+    assign clk_cpu = clk; 
     
     // ONLY FOR HARDWARE IMPLEMENTATION - COMMENT OUT FOR SIMULATION!!!
-    logic [3:0] counter;
-    assign clk_cpu = counter[3];
+//    logic [3:0] counter;
+//    assign clk_cpu = counter[3];
     
-    always @(posedge clk) begin
-        counter <= counter + 1;
-    end
+//    always @(posedge clk) begin
+//        counter <= counter + 1;
+//    end
     
     // Initializing our instruction and data memories
     initial begin
         $readmemh("AA_IROM.mem", instruction_rom);
         $readmemh("AA_DMEM.mem", data_memory);
         
-        counter <= 0;
+//        counter <= 0;
         led <= 0;
         seven_seg_data <= 0;
     end

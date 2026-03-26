@@ -21,31 +21,17 @@
 
 
 module Extend(
-    input [31:7] instr_imm,
-    input imm_src,
-    output reg [31:0] ext_imm
+    input [31:0] InstrImm,
+    input [2:0] ImmSrc,
+    output reg [31:0] ExtImm
     );
-    
-    always @(imm_src, instr_imm) begin
-        case (imm_src)
-            3'b000: begin // I
-                ext_imm <= 32'b0;
-            end
-            3'b001: begin // S
-                ext_imm <= 32'b0;
-            end
-            3'b010: begin // B
-                ext_imm <= 32'b0;
-            end
-            3'b011: begin // U
-                ext_imm <= 32'b0;
-            end
-            3'b100: begin // J/UJ
-                ext_imm <= 32'b0;
-            end
-            default: begin
-                ext_imm <= 32'b0;
-            end
-        endcase
-    end
+    always@(InstrImm,ImmSrc)
+        case(ImmSrc)
+            3'b000: ExtImm = {InstrImm[31:12], 12'h000} ;  // U type
+            3'b010: ExtImm = {{12{InstrImm[31]}}, InstrImm[19:12], InstrImm[20], InstrImm[30:21], 1'b0} ;   // UJ   
+            3'b011: ExtImm = {{20{InstrImm[31]}}, InstrImm[31:20]} ;  // I    
+            3'b110: ExtImm = {{20{InstrImm[31]}}, InstrImm[31:25], InstrImm[11:7]} ;  // S    
+            3'b111: ExtImm = {{20{InstrImm[31]}}, InstrImm[7], InstrImm[30:25], InstrImm[11:8], 1'b0} ;  // SB    
+            default: ExtImm = 32'bx ;  // undefined     
+        endcase   
 endmodule

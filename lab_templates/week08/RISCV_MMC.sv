@@ -33,22 +33,94 @@ module RISCV_MMC(
     output reg [31:0] mem_write_data  // Delete reg for release. v2: Renamed to support sb/sw
     );
 
-	assign mem_read = mem_to_reg; // This is needed for the proper functionality of some devices such as UART CONSOLE
+    logic [2:0] ImmSrc;
+    logic [1:0] PCS;
+    logic mem_to_reg;
+//    logic mem_write;
+    logic [3:0] alu_control;
+    logic alu_src_b;
+//    logic imm_src;
+    logic reg_write;
+    logic [31:0] ExtImm;
+//    logic [31:0] alu_result;
+    logic [2:0] alu_flags;
+    
+    logic [31:0] RD1;
+    logic[31:0] RD2;
+    
+    logic [2:0] funct3;
+    logic [31:0] WD;
+    logic [31:0] pc_in;
+    logic [1:0] PC_src;
+    
+    assign pc_in = PC + ((PC_src==1)?ExtImm:32'd4);
+    
+    assign funct3 = instr[14:12];
+    
+    assign WD = (mem_to_reg==1)? mem_read_data:alu_result;
+    
+    assign mem_read = mem_to_reg; // This is needed for the proper functionality of some devices such as UART CONSOLE
+    
 
 	// Create all the wires/logic signals you need here
 
 	// Instantiate your extender module here
+	Extend extend(
+    .InstrImm(instr[31:0]),
+    .ImmSrc(ImmSrc),
+    .ExtImm(ExtImm)
+    );
+
 
 	// Instantiate your instruction decoder here
+	Decoder decoder(    
+    .instr(instr),
+    .PCS(PCS),
+    .mem_to_reg(mem_to_reg),
+    .mem_write(mem_write),
+    .alu_control(alu_control),
+    .alu_src_b(alu_src_b),
+    .imm_src(ImmSrc),
+    .reg_write(reg_write)
+    );
 
 	// Instantiate your ALU here
+	ALU alu(
+    .src_a(RD1),
+    .src_b(ExtImm),
+    .control(alu_control),
+    .result(alu_result), 
+    .flags(alu_flags)
+    );
 
 
 
 	// Instantiate the Register File
+	RegFile regfile(
+    .clk(clk),
+    .we(reg_write),
+    .rs1(instr[19:15]),
+    .rs2(instr[24:20]),
+    .rd(instr[11:7]),
+    .WD(WD),
+    .RD1(RD1),
+    .RD2(RD2)
+    );
 
 	// Instantiate the PC Logic
+	PC_Logic pc_logic( // This is a combinational module, unlike ARM. See the note below.
+	.PCS(PCS),	// 00 for non-control, 01 for conditional branch, 10 for jal, 11 for jalr
+	.funct3(funct3),	// condition specified in the instruction (eq / ne / lt / ge / ltu / geu)
+	.alu_flags(alu_flags), 	// {eq, lt, ltu}
+	.PC_src(PC_src)	// will need to be expanded to 2 bits to support jalr
+    );
 
 	// Instantiate the Program Counter
+	ProgramCounter programcounter(
+    .clk(clk),
+    .rst(rst),
+    .pc_in(pc_in),
+    .pc(PC)  
+    );
 
 endmodule
