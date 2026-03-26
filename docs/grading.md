@@ -27,7 +27,7 @@ As you may have figured out by now, the project for this course involves buildin
 
 The grading criteria for the project will be as follows: 
 
-* **Basic Hardware implementation [12 points]**
+* **Basic Hardware implementation [8 points]**
 
 	For this criterion, the project group will be scored as a group. The implementation of the project, as described in Labs 5-8, will be tested on the FPGA board. For this requirement, the basic demo program provided is sufficient, and no modifications to the final product specified in Lab 5-8 is required. 
 
@@ -39,14 +39,13 @@ The grading criteria for the project will be as follows:
 
 	Each student will be asked 3 questions, worth 2 points each. The scope of these questions is wide: they may be about the RISC-V ISA, the microarchitecture, about SystemVerilog or Vivado, or about the specific implementation presented. These questions must be answered *individually*, so every group member needs to know every part of the finished project to be able to answer these questions. 
 
-* **Enhancements to Hardware [2 points]**
+* **Enhancements to Hardware [6 points]**
 
-	Up to 2 points will be awarded for any enhancements made beyond the basic requirements for the project. 
+	Up to 6 points will be awarded for enhancements made beyond the basic requirements for the project, broken down as follows:
 
-	Here are some examples of enhancements which could be implemented:
-
-	1. Support for `lui` and `auipc` instructions. 
-	2. A more complex demo program than the one included, e.g. using the push buttons, adding more features, etc. 
+	1. One point each will be awarded for implementing the `lui` and `auipc` instructions, for a total of two extra points.
+	2. Up to two points will be awarded for writing a more complex demo program than the one included. Relatively simple programs will be awarded one point, while complex and interesting ones will be awarded two points. 
+	3. Up to two points will be awarded for implementing some feature that has *not* been covered in the lab. This may be an advanced feature discussed in the lecture, or something else entirely. Points will be awarded based on the complexity of the enhancement, up to a maximum of two. 
 
 
 
