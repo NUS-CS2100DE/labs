@@ -45,20 +45,19 @@ To make the most of the labs, we recommend doing some reading before you come fo
 
 ## Lab Schedule and Outline
 
-| Week  | Lab Date      | Activity                                                          | Remarks   |
-|-------|---------------|-------------------------------------------------------------------|-----------|
-| 1     | 16 Jan 2026   | Nil                                                               |           |
-| 2     | 23 Jan 2026   | Nil                                                               |           |
-| 3     | 30 Jan 2026   | [Getting familiar with FPGA tools](manuals/01/lab_01.md)          |           |
-| 4     | 06 Feb 2026   | [Playing with the 7-segment display](manuals/02/lab_02.md)        |           |
-| 5     | 13 Feb 2026   | [Creating more complex logic](manuals/03/lab_03.md)               |           |
-| 6     | 20 Feb 2026   | [Introduction to RISC-V Assembly](manuals/04/lab_04.md)           |           |
-| 7     | 27 Feb 2026   | [Decoding RISC-V Instructions](manuals/05/lab_05.md)              |           |
-| 8     | 06 Mar 2026   | [Putting things together](manuals/06/lab_06.md)                   |           |
-| 9     | 13 Mar 2026   | [Getting our CPU working](manuals/07/lab_07.md)                   |           |
-| 10    | 20 Mar 2026   | TBD                                                               |           |
-| 11    | 27 Mar 2026   | TBD                                                               |           |
-| 12    | 03 Apr 2026   | Good Friday (Public Holiday)                                      |           |
-| 13    | 10 Apr 2026   | Project demonstration                                             |           |
-
+| Week   | Lab Date      | Activity                                                          | Remarks   |
+|--------|---------------|-------------------------------------------------------------------|-----------|
+| 1      | 16 Jan 2026   | Nil                                                               |           |
+| 2      | 23 Jan 2026   | Nil                                                               |           |
+| 3      | 30 Jan 2026   | [Getting familiar with FPGA tools](manuals/01/lab_01.md)          |           |
+| 4      | 06 Feb 2026   | [Playing with the 7-segment display](manuals/02/lab_02.md)        |           |
+| 5      | 13 Feb 2026   | [Creating more complex logic](manuals/03/lab_03.md)               |           |
+| 6      | 20 Feb 2026   | [Introduction to RISC-V Assembly](manuals/04/lab_04.md)           |           |
+| 7      | 06 Mar 2026   | [Decoding RISC-V Instructions](manuals/05/lab_05.md)              |           |
+| 8      | 13 Mar 2026   | [Putting things together](manuals/06/lab_06.md)                   |           |
+| 9      | 20 Mar 2026   | [Getting our CPU working](manuals/07/lab_07.md)                   |           |
+| 10     | 27 Mar 2026   | [Writing Programs for our CPU](manuals/08/lab_08.md)              |           |
+| 11     | 03 Apr 2026   | Good Friday (Public Holiday)                                      |           |
+| 12     | 10 Apr 2026   | Freestyle - work on project                                       |           |
+| 13     | 17 Apr 2026   | Project demonstration                                             |           |
 
