@@ -38,7 +38,8 @@ module RISCV_MMC(
     logic mem_to_reg;
 //    logic mem_write;
     logic [3:0] alu_control;
-    logic alu_src_b;
+    logic [1:0] alu_src_a;
+    logic [1:0] alu_src_b;
 //    logic imm_src;
     logic reg_write;
     logic [31:0] ExtImm;
@@ -46,6 +47,10 @@ module RISCV_MMC(
     logic [2:0] alu_flags;
     
     logic [31:0] RD1;
+    logic [31:0] SrcA;
+    logic [31:0] SrcA_PC;
+    logic [31:0] SrcB;
+    logic [31:0] SrcB_Ext;
     logic[31:0] RD2;
     
     logic [2:0] funct3;
@@ -53,13 +58,19 @@ module RISCV_MMC(
     logic [31:0] pc_in;
     logic [1:0] PC_src;
     
-    assign pc_in = PC + ((PC_src==1)?ExtImm:32'd4);
+    assign pc_in = ((PC_src[1]==1)?RD1:PC) + ((PC_src[0]==1)?ExtImm:32'd4);
     
     assign funct3 = instr[14:12];
     
     assign WD = (mem_to_reg==1)? mem_read_data:alu_result;
     
     assign mem_read = mem_to_reg; // This is needed for the proper functionality of some devices such as UART CONSOLE
+    
+    assign SrcA_PC = (alu_src_a[1]==0)?32'h0000:PC;
+    assign SrcA = (alu_src_a[0]==0)?RD1:SrcA_PC;
+    
+    assign SrcB_Ext = (alu_src_b[1]==0)?32'h0004:ExtImm;
+    assign SrcB = (alu_src_b[0]==0)?RD2:SrcB_Ext;
     
 
 	// Create all the wires/logic signals you need here
@@ -79,6 +90,7 @@ module RISCV_MMC(
     .mem_to_reg(mem_to_reg),
     .mem_write(mem_write),
     .alu_control(alu_control),
+    .alu_src_a(alu_src_a),
     .alu_src_b(alu_src_b),
     .imm_src(ImmSrc),
     .reg_write(reg_write)
@@ -86,8 +98,8 @@ module RISCV_MMC(
 
 	// Instantiate your ALU here
 	ALU alu(
-    .src_a(RD1),
-    .src_b(ExtImm),
+    .src_a(SrcA),
+    .src_b(SrcB),
     .control(alu_control),
     .result(alu_result), 
     .flags(alu_flags)
