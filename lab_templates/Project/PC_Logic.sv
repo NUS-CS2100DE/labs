@@ -50,17 +50,17 @@ module PC_Logic( // This is a combinational module, unlike ARM. See the note bel
 			2'b00: PC_src <= 2'b00;
 			2'b01: // branch
 				case (funct3)
-					3'b000: PC_src      <= { 1'b0, alu_flags[2] };
-					3'b001: PC_src      <= { 1'b0, ~alu_flags[2] };
-					3'b100: PC_src      <= { 1'b0, alu_flags[1] };
-					3'b101: PC_src      <= { 1'b0, ~alu_flags[1] };
-					3'b110: PC_src      <= { 1'b0, alu_flags[0] };
-					3'b111: PC_src      <= { 1'b0, ~alu_flags[0] };
-					default: PC_src      <= 2'b0;
+					3'b000: PC_src      = { 1'b0, alu_flags[2] };
+					3'b001: PC_src      = { 1'b0, ~alu_flags[2] };
+					3'b100: PC_src      = { 1'b0, alu_flags[1] };
+					3'b101: PC_src      = { 1'b0, ~alu_flags[1] };
+					3'b110: PC_src      = { 1'b0, alu_flags[0] };
+					3'b111: PC_src      = { 1'b0, ~alu_flags[0] };
+					default: PC_src      = 2'b00;
 				endcase
-			2'b10: PC_src      <= 2'b01;
-			2'b11: PC_src      <= 2'b11;
-			default: PC_src    <= 2'b00;
+			2'b10: PC_src      = 2'b01; // jal
+			2'b11: PC_src      = 2'b11; // jalr
+			default: PC_src    = 2'b00;
 		endcase
 	end
 	

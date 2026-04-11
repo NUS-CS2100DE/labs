@@ -85,7 +85,7 @@ module RISCV_MMC(
     
     assign SrcB_Ext = (alu_src_bE[1]==0)?32'h0004:ExtImmE;
     assign SrcB = (alu_src_bE[0]==0)?RD2E:SrcB_Ext;
-    assign pc_in = ((PC_src[1]==1)?RD1E:pcF) + ((PC_src[0]==1)?ExtImmE:32'd4); // need to or the pcf and pce
+//    assign pc_in = ((PC_src[1]==1)?RD1E:pcF) + ((PC_src[0]==1)?ExtImmE:32'd4); // need to or the pcf and pce
     
     logic [31:0] WriteDataE;
     logic [31:0] alu_resultE;
@@ -115,12 +115,21 @@ module RISCV_MMC(
 //    assign mem_read = mem_to_reg; // This is needed for the proper functionality of some devices such as UART CONSOLE
     
 
-    
+    always @(*) begin
+        case (PC_src)
+            2'b00: pc_in = pcF +4; // normal
+            2'b01: pc_in = pcE +ExtImmE; // branch
+            2'b10: pc_in = pcE +ExtImmE; // jal
+            2'b11: pc_in = RD1E +ExtImmE; // jalr
+            default: pc_in = pcF +4;
+        endcase
+    end
 
 	// Create all the wires/logic signals you need here
 	always@(posedge clk)begin
 	   // F to D
 	   instrD<=instrF; 
+	   pcD <=pcF;
 	   // D to E
 	   funct3E<=funct3D;
        PCSE<=PCSD;
@@ -135,14 +144,21 @@ module RISCV_MMC(
        ExtImmE<=ExtImmD;
        rdE<=rdD;
        pcE<=pcD;
-       rdE<=rdD;
        // E to M
+
        reg_writeM<=reg_writeE;
        mem_to_regM<=mem_to_regE;
        mem_writeM<=mem_writeE;
        rdM<=rdE;
        alu_resultM<=alu_resultE;
        rdM<=rdE;
+//       case (PC_src) // store return address
+//            2'b00: rdM<=rdE; // normal
+//            2'b01: rdM<=rdE; // branch
+//            2'b10: rdM<=rdE; // jal
+//            2'b11: rdM<=rdE; // jalr
+//            default: rdM<=rdE;
+//        endcase
        // M to W
        reg_writeW<=reg_writeM;
        mem_to_regW<=mem_to_regM;
@@ -198,8 +214,8 @@ module RISCV_MMC(
 
 	// Instantiate the PC Logic
 	PC_Logic pc_logic( // This is a combinational module, unlike ARM. See the note below.
-	.PCS(PCS),	// 00 for non-control, 01 for conditional branch, 10 for jal, 11 for jalr
-	.funct3(funct3),	// condition specified in the instruction (eq / ne / lt / ge / ltu / geu)
+	.PCS(PCSE),	// 00 for non-control, 01 for conditional branch, 10 for jal, 11 for jalr
+	.funct3(funct3E),	// condition specified in the instruction (eq / ne / lt / ge / ltu / geu)
 	.alu_flags(alu_flags), 	// {eq, lt, ltu}
 	.PC_src(PC_src)	// will need to be expanded to 2 bits to support jalr
     );
