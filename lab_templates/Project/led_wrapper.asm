@@ -25,6 +25,9 @@ main:
 
 loop:
     lui   x4, 0x80         # delay counter = 0x00080000
+    j delay
+
+start_of_actual_loop:
     nop
     nop
     nop
@@ -53,3 +56,20 @@ loop:
     nop
     nop
     nop
+    
+delay:
+     nop
+     nop
+     nop
+     addi x4, x4, -1
+     nop
+     nop
+     nop
+     bne x4,x0, delay
+     nop
+     nop
+     nop
+     j start_of_actual_loop
+     nop
+     nop
+     nop

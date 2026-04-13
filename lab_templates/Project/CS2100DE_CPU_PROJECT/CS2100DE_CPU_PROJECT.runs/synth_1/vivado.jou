@@ -3,8 +3,8 @@
 # SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Mon Apr 13 14:55:50 2026
-# Process ID         : 110442
+# Start of session at: Mon Apr 13 15:07:50 2026
+# Process ID         : 150659
 # Current directory  : /home/farhan-sadik/Desktop/labs/lab_templates/Project/CS2100DE_CPU_PROJECT/CS2100DE_CPU_PROJECT.runs/synth_1
 # Command line       : vivado -log Top_MMC.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source Top_MMC.tcl
 # Log file           : /home/farhan-sadik/Desktop/labs/lab_templates/Project/CS2100DE_CPU_PROJECT/CS2100DE_CPU_PROJECT.runs/synth_1/Top_MMC.vds
@@ -13,12 +13,12 @@
 # Platform           : Ubuntu
 # Operating System   : Ubuntu 25.10
 # Processor Detail   : AMD Ryzen 7 5800H with Radeon Graphics
-# CPU Frequency      : 3967.034 MHz
+# CPU Frequency      : 3594.206 MHz
 # CPU Physical cores : 8
 # CPU Logical cores  : 16
 # Host memory        : 13958 MB
 # Swap memory        : 4294 MB
 # Total Virtual      : 18253 MB
-# Available Virtual  : 8855 MB
+# Available Virtual  : 8956 MB
 #-----------------------------------------------------------
 source Top_MMC.tcl -notrace
