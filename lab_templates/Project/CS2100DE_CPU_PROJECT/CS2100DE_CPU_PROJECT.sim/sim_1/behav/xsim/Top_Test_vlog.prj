@@ -1,0 +1,18 @@
+# compile verilog/system verilog design source files
+sv xil_defaultlib  --include "../../../../../../../../../Vitis/2025.2/data/rsb/busdef" \
+"../../../../../ALU.sv" \
+"../../../../../Decoder.sv" \
+"../../../../../Extend.sv" \
+"../../../../../PC_Logic.sv" \
+"../../../../../ProgramCounter.sv" \
+"../../../../../RISCV_MMC.sv" \
+"../../../../../RegFile.sv" \
+"../../../../../SevenSegDecoder.sv" \
+"../../../../../Top_MMC.sv" \
+"../../../../../Top_Test.sv" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

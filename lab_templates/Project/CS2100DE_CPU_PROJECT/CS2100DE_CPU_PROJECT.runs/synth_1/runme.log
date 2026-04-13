@@ -1,0 +1,317 @@
+
+*** Running vivado
+    with args -log Top_MMC.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source Top_MMC.tcl
+
+
+****** Vivado v2025.2 (64-bit)
+  **** SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+  **** IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+  **** SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+  **** Start of session at: Mon Apr 13 14:55:50 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source Top_MMC.tcl -notrace
+Command: read_checkpoint -auto_incremental -incremental /home/farhan-sadik/Desktop/labs/lab_templates/Project/CS2100DE_CPU_PROJECT/CS2100DE_CPU_PROJECT.srcs/utils_1/imports/synth_1/Top_MMC.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from /home/farhan-sadik/Desktop/labs/lab_templates/Project/CS2100DE_CPU_PROJECT/CS2100DE_CPU_PROJECT.srcs/utils_1/imports/synth_1/Top_MMC.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
+Command: synth_design -top Top_MMC -part xc7a100tcsg324-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 110587
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2312.812 ; gain = 485.125 ; free physical = 167 ; free virtual = 7133
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'Top_MMC' [/home/farhan-sadik/Desktop/labs/lab_templates/Project/Top_MMC.sv:23]
+INFO: [Synth 8-3876] $readmem data file 'AA_IROM.mem' is read successfully [/home/farhan-sadik/Desktop/labs/lab_templates/Project/Top_MMC.sv:69]
+INFO: [Synth 8-3876] $readmem data file 'AA_DMEM.mem' is read successfully [/home/farhan-sadik/Desktop/labs/lab_templates/Project/Top_MMC.sv:70]
+INFO: [Synth 8-6157] synthesizing module 'SevenSegDecoder' [/home/farhan-sadik/Desktop/labs/lab_templates/Project/SevenSegDecoder.sv:23]
+INFO: [Synth 8-226] default block is never used [/home/farhan-sadik/Desktop/labs/lab_templates/Project/SevenSegDecoder.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'SevenSegDecoder' (0#1) [/home/farhan-sadik/Desktop/labs/lab_templates/Project/SevenSegDecoder.sv:23]
+INFO: [Synth 8-6157] synthesizing module 'RISCV_MMC' [/home/farhan-sadik/Desktop/labs/lab_templates/Project/RISCV_MMC.sv:23]
+INFO: [Synth 8-226] default block is never used [/home/farhan-sadik/Desktop/labs/lab_templates/Project/RISCV_MMC.sv:121]
+INFO: [Synth 8-6157] synthesizing module 'Extend' [/home/farhan-sadik/Desktop/labs/lab_templates/Project/Extend.sv:23]
+INFO: [Synth 8-6155] done synthesizing module 'Extend' (0#1) [/home/farhan-sadik/Desktop/labs/lab_templates/Project/Extend.sv:23]
+INFO: [Synth 8-6157] synthesizing module 'Decoder' [/home/farhan-sadik/Desktop/labs/lab_templates/Project/Decoder.sv:23]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/farhan-sadik/Desktop/labs/lab_templates/Project/Decoder.sv:57]
+INFO: [Synth 8-6155] done synthesizing module 'Decoder' (0#1) [/home/farhan-sadik/Desktop/labs/lab_templates/Project/Decoder.sv:23]
+INFO: [Synth 8-6157] synthesizing module 'ALU' [/home/farhan-sadik/Desktop/labs/lab_templates/Project/ALU.sv:23]
+INFO: [Synth 8-6155] done synthesizing module 'ALU' (0#1) [/home/farhan-sadik/Desktop/labs/lab_templates/Project/ALU.sv:23]
+INFO: [Synth 8-6157] synthesizing module 'RegFile' [/home/farhan-sadik/Desktop/labs/lab_templates/Project/RegFile.sv:23]
+INFO: [Synth 8-6155] done synthesizing module 'RegFile' (0#1) [/home/farhan-sadik/Desktop/labs/lab_templates/Project/RegFile.sv:23]
+INFO: [Synth 8-6157] synthesizing module 'PC_Logic' [/home/farhan-sadik/Desktop/labs/lab_templates/Project/PC_Logic.sv:34]
+INFO: [Synth 8-226] default block is never used [/home/farhan-sadik/Desktop/labs/lab_templates/Project/PC_Logic.sv:50]
+INFO: [Synth 8-6155] done synthesizing module 'PC_Logic' (0#1) [/home/farhan-sadik/Desktop/labs/lab_templates/Project/PC_Logic.sv:34]
+INFO: [Synth 8-6157] synthesizing module 'ProgramCounter' [/home/farhan-sadik/Desktop/labs/lab_templates/Project/ProgramCounter.sv:34]
+INFO: [Synth 8-6155] done synthesizing module 'ProgramCounter' (0#1) [/home/farhan-sadik/Desktop/labs/lab_templates/Project/ProgramCounter.sv:34]
+INFO: [Synth 8-6155] done synthesizing module 'RISCV_MMC' (0#1) [/home/farhan-sadik/Desktop/labs/lab_templates/Project/RISCV_MMC.sv:23]
+INFO: [Synth 8-6155] done synthesizing module 'Top_MMC' (0#1) [/home/farhan-sadik/Desktop/labs/lab_templates/Project/Top_MMC.sv:23]
+WARNING: [Synth 8-3848] Net mem_read in module/entity RISCV_MMC does not have driver. [/home/farhan-sadik/Desktop/labs/lab_templates/Project/RISCV_MMC.sv:29]
+WARNING: [Synth 8-3848] Net ReadDataW in module/entity RISCV_MMC does not have driver. [/home/farhan-sadik/Desktop/labs/lab_templates/Project/RISCV_MMC.sv:109]
+WARNING: [Synth 8-7129] Port instr[31] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[29] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[28] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[27] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[26] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[25] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[24] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[23] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[22] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[21] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[20] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[19] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[18] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[17] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[16] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[15] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[11] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[10] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[9] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[8] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[7] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InstrImm[6] in module Extend is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InstrImm[5] in module Extend is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InstrImm[4] in module Extend is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InstrImm[3] in module Extend is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InstrImm[2] in module Extend is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InstrImm[1] in module Extend is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InstrImm[0] in module Extend is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mem_read in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[31] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[30] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[29] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[28] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[27] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[26] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[25] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[24] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[23] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[22] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[21] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[20] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[19] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[18] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[17] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[16] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[15] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[14] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[13] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[12] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[11] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[10] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[9] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[8] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[7] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[6] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[5] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[4] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[3] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[2] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[1] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[0] in module RISCV_MMC is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2400.781 ; gain = 573.094 ; free physical = 168 ; free virtual = 7045
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2412.656 ; gain = 584.969 ; free physical = 167 ; free virtual = 7044
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2412.656 ; gain = 584.969 ; free physical = 167 ; free virtual = 7044
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2412.656 ; gain = 0.000 ; free physical = 167 ; free virtual = 7044
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/farhan-sadik/Desktop/labs/lab_templates/Project/Nexys-4-Master-2100.xdc]
+Finished Parsing XDC File [/home/farhan-sadik/Desktop/labs/lab_templates/Project/Nexys-4-Master-2100.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/home/farhan-sadik/Desktop/labs/lab_templates/Project/Nexys-4-Master-2100.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/Top_MMC_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/Top_MMC_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 2520.426 ; gain = 0.000 ; free physical = 189 ; free virtual = 7066
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2520.461 ; gain = 0.000 ; free physical = 188 ; free virtual = 7066
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2520.461 ; gain = 692.773 ; free physical = 198 ; free virtual = 7079
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a100tcsg324-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2528.430 ; gain = 700.742 ; free physical = 198 ; free virtual = 7079
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2528.430 ; gain = 700.742 ; free physical = 198 ; free virtual = 7079
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2528.430 ; gain = 700.742 ; free physical = 198 ; free virtual = 7081
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   32 Bit       Adders := 2     
+	   3 Input   32 Bit       Adders := 1     
+	   2 Input    3 Bit       Adders := 1     
++---XORs : 
+	   2 Input     32 Bit         XORs := 1     
++---Registers : 
+	               32 Bit    Registers := 11    
+	               16 Bit    Registers := 1     
+	                8 Bit    Registers := 1     
+	                5 Bit    Registers := 3     
+	                4 Bit    Registers := 2     
+	                3 Bit    Registers := 2     
+	                2 Bit    Registers := 3     
+	                1 Bit    Registers := 8     
++---RAMs : 
+	               8K Bit	(256 X 32 bit)          RAMs := 1     
+	             1024 Bit	(32 X 32 bit)          RAMs := 1     
++---Muxes : 
+	   2 Input   32 Bit        Muxes := 10    
+	   4 Input   32 Bit        Muxes := 2     
+	  41 Input   32 Bit        Muxes := 1     
+	   3 Input   32 Bit        Muxes := 1     
+	   8 Input    8 Bit        Muxes := 1     
+	   4 Input    2 Bit        Muxes := 1     
+	   3 Input    1 Bit        Muxes := 2     
+	   2 Input    1 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 240 (col length:80)
+BRAMs: 270 (col length: RAMB18 80 RAMB36 40)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7129] Port instr[31] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[29] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[28] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[27] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[26] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[25] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[24] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[23] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[22] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[21] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[20] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[19] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[18] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[17] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[16] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[15] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[11] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[10] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[9] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[8] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port instr[7] in module Decoder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InstrImm[6] in module Extend is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InstrImm[5] in module Extend is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InstrImm[4] in module Extend is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InstrImm[3] in module Extend is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InstrImm[2] in module Extend is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InstrImm[1] in module Extend is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InstrImm[0] in module Extend is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mem_read in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[31] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[30] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[29] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[28] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[27] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[26] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[25] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[24] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[23] in module RISCV_MMC is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ReadDataM[22] in module RISCV_MMC is either unconnected or has no load
+INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 2536.430 ; gain = 708.742 ; free physical = 316 ; free virtual = 7202
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Preliminary Mapping Report (see note below)
++------------+--------------------------+-----------+----------------------+--------------+
+|Module Name | RTL Object               | Inference | Size (Depth x Width) | Primitives   | 
++------------+--------------------------+-----------+----------------------+--------------+
+|Top_MMC     | cpu/regfile/reg_bank_reg | Implied   | 32 x 32              | RAM32M x 12  | 
++------------+--------------------------+-----------+----------------------+--------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 2589.430 ; gain = 761.742 ; free physical = 238 ; free virtual = 7122
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 2673.453 ; gain = 845.766 ; free physical = 164 ; free virtual = 7050
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Final Mapping Report
++------------+--------------------------+-----------+----------------------+--------------+
+|Module Name | RTL Object               | Inference | Size (Depth x Width) | Primitives   | 
++------------+--------------------------+-----------+----------------------+--------------+
+|Top_MMC     | cpu/regfile/reg_bank_reg | Implied   | 32 x 32              | RAM32M x 12  | 
++------------+--------------------------+-----------+----------------------+--------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 2689.469 ; gain = 861.781 ; free physical = 268 ; free virtual = 7048
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------

@@ -46,8 +46,9 @@ module PC_Logic( // This is a combinational module, unlike ARM. See the note bel
     
     
 	always @(*) begin
+		PC_src = 2'b00; // default — prevent inferred latch
 		case (PCS)
-			2'b00: PC_src <= 2'b00;
+			2'b00: PC_src = 2'b00;
 			2'b01: // branch
 				case (funct3)
 					3'b000: PC_src      = { 1'b0, alu_flags[2] };

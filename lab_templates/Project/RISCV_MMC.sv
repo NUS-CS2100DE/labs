@@ -79,6 +79,7 @@ module RISCV_MMC(
     logic [31:0] pc_in;
     logic [2:0] alu_flags;
     logic [2:0]funct3E;
+
     
     assign SrcA_PC = (alu_src_aE[1]==0)?32'h0000:pcE;
     assign SrcA = (alu_src_aE[0]==0)?RD1E:SrcA_PC;
@@ -89,6 +90,7 @@ module RISCV_MMC(
     
     logic [31:0] WriteDataE;
     logic [31:0] alu_resultE;
+    assign WriteDataE = RD2E;
 
     //M Stage  
     logic reg_writeM;
@@ -145,6 +147,7 @@ module RISCV_MMC(
        rdE<=rdD;
        pcE<=pcD;
        // E to M
+       WriteDataM <= WriteDataE;
 
        reg_writeM<=reg_writeE;
        mem_to_regM<=mem_to_regE;

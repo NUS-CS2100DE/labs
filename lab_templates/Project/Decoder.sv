@@ -42,7 +42,18 @@ module Decoder(
     assign funct3 = instr[14:12];
     assign funct7 = instr[31:25];
     
-    always @(instr) begin
+    always @(instr, opcode, funct3, funct7) begin
+        // Defaults — prevent inferred latches
+        PCS          = 2'b00;
+        mem_to_reg   = 1'b0;
+        mem_write    = 1'b0;
+        alu_control  = 4'b0000;
+        alu_src_a    = 2'b00;
+        alu_src_b    = 2'b00;
+        imm_src      = 3'b000;
+        reg_write    = 1'b0;
+        ALUControl_0 = 1'b0;
+
         case(opcode)
             7'h33:begin //DP Reg
                 PCS = 2'b00;

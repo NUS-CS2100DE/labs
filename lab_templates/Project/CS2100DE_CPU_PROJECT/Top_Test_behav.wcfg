@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="Top_Test_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="Top_Test" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="48.234 ns"></ZoomEndTime>
+      <Cursor1Time time="9,015.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="203"></NameColumnWidth>
+      <ValueColumnWidth column_width="68"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="33" />
+   <wvobject type="logic" fp_name="/Top_Test/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/Top_Test/btnCpuReset">
+      <obj_property name="ElementShortName">btnCpuReset</obj_property>
+      <obj_property name="ObjectShortName">btnCpuReset</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/Top_Test/btnC">
+      <obj_property name="ElementShortName">btnC</obj_property>
+      <obj_property name="ObjectShortName">btnC</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/Top_Test/btnU">
+      <obj_property name="ElementShortName">btnU</obj_property>
+      <obj_property name="ObjectShortName">btnU</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/Top_Test/btnL">
+      <obj_property name="ElementShortName">btnL</obj_property>
+      <obj_property name="ObjectShortName">btnL</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/Top_Test/btnR">
+      <obj_property name="ElementShortName">btnR</obj_property>
+      <obj_property name="ObjectShortName">btnR</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/Top_Test/btnD">
+      <obj_property name="ElementShortName">btnD</obj_property>
+      <obj_property name="ObjectShortName">btnD</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/Top_Test/sw">
+      <obj_property name="ElementShortName">sw[15:0]</obj_property>
+      <obj_property name="ObjectShortName">sw[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/Top_Test/led">
+      <obj_property name="ElementShortName">led[15:0]</obj_property>
+      <obj_property name="ObjectShortName">led[15:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/Top_Test/seg">
+      <obj_property name="ElementShortName">seg[6:0]</obj_property>
+      <obj_property name="ObjectShortName">seg[6:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/Top_Test/an">
+      <obj_property name="ElementShortName">an[7:0]</obj_property>
+      <obj_property name="ObjectShortName">an[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/Top_Test/dut/cpu/instrF">
+      <obj_property name="ElementShortName">instrF[31:0]</obj_property>
+      <obj_property name="ObjectShortName">instrF[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/Top_Test/dut/cpu/regfile/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/Top_Test/dut/cpu/regfile/we">
+      <obj_property name="ElementShortName">we</obj_property>
+      <obj_property name="ObjectShortName">we</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/Top_Test/dut/cpu/regfile/rs1">
+      <obj_property name="ElementShortName">rs1[4:0]</obj_property>
+      <obj_property name="ObjectShortName">rs1[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/Top_Test/dut/cpu/regfile/rs2">
+      <obj_property name="ElementShortName">rs2[4:0]</obj_property>
+      <obj_property name="ObjectShortName">rs2[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/Top_Test/dut/cpu/regfile/rd">
+      <obj_property name="ElementShortName">rd[4:0]</obj_property>
+      <obj_property name="ObjectShortName">rd[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/Top_Test/dut/cpu/regfile/WD">
+      <obj_property name="ElementShortName">WD[31:0]</obj_property>
+      <obj_property name="ObjectShortName">WD[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/Top_Test/dut/cpu/regfile/RD1">
+      <obj_property name="ElementShortName">RD1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">RD1[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/Top_Test/dut/cpu/regfile/RD2">
+      <obj_property name="ElementShortName">RD2[31:0]</obj_property>
+      <obj_property name="ObjectShortName">RD2[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/Top_Test/dut/cpu/regfile/reg_bank">
+      <obj_property name="ElementShortName">reg_bank[0:31][31:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_bank[0:31][31:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/Top_Test/dut/mem_write_data">
+      <obj_property name="ElementShortName">mem_write_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_write_data[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/Top_Test/dut/cpu/mem_writeD">
+      <obj_property name="ElementShortName">mem_writeD</obj_property>
+      <obj_property name="ObjectShortName">mem_writeD</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/Top_Test/dut/cpu/mem_writeE">
+      <obj_property name="ElementShortName">mem_writeE</obj_property>
+      <obj_property name="ObjectShortName">mem_writeE</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/Top_Test/dut/cpu/mem_writeM">
+      <obj_property name="ElementShortName">mem_writeM</obj_property>
+      <obj_property name="ObjectShortName">mem_writeM</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/Top_Test/dut/cpu/WriteDataM">
+      <obj_property name="ElementShortName">WriteDataM[31:0]</obj_property>
+      <obj_property name="ObjectShortName">WriteDataM[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/Top_Test/dut/cpu/WriteDataE">
+      <obj_property name="ElementShortName">WriteDataE[31:0]</obj_property>
+      <obj_property name="ObjectShortName">WriteDataE[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/Top_Test/dut/cpu/WriteDataM">
+      <obj_property name="ElementShortName">WriteDataM[31:0]</obj_property>
+      <obj_property name="ObjectShortName">WriteDataM[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/Top_Test/dut/cpu/RD1D">
+      <obj_property name="ElementShortName">RD1D[31:0]</obj_property>
+      <obj_property name="ObjectShortName">RD1D[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/Top_Test/dut/cpu/RD2D">
+      <obj_property name="ElementShortName">RD2D[31:0]</obj_property>
+      <obj_property name="ObjectShortName">RD2D[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/Top_Test/dut/cpu/RD2E">
+      <obj_property name="ElementShortName">RD2E[31:0]</obj_property>
+      <obj_property name="ObjectShortName">RD2E[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/Top_Test/dut/cpu/alu_resultE">
+      <obj_property name="ElementShortName">alu_resultE[31:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_resultE[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/Top_Test/dut/cpu/alu_resultM">
+      <obj_property name="ElementShortName">alu_resultM[31:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_resultM[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+</wave_config>
