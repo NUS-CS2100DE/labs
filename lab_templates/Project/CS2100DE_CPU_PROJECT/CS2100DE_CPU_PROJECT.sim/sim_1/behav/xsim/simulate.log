@@ -1,2 +1,10 @@
 Time resolution is 1 ps
 WARNING: Too many words specified in data file AA_DMEM.mem
+105000 ns: LED = 0001
+945000 ns: LED = 0002
+1785000 ns: LED = 0004
+2625000 ns: LED = 0008
+3465000 ns: LED = 0010
+4305000 ns: LED = 0020
+PASS: observed 6 correct LED updates
+$finish called at time : 4305 ns : File "/home/farhan-sadik/Desktop/labs/lab_templates/Project/Top_Test.sv" Line 78

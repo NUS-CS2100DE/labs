@@ -2,21 +2,21 @@
 //////////////////////////////////////////////////////////////////////////////////
 // Company: National University of Singapore
 // Engineer: Neil Banerjee
-// 
+//
 // Create Date: 22.02.2025 21:29:09
 // Design Name: RISCV-MMC
 // Module Name: RISCV_MMC
 // Project Name: CS2100DE Labs
 // Target Devices: Nexys 4/Nexys 4 DDR
 // Tool Versions: Vivado 2023.2
-// Description: The main RISC-V CPU 
-// 
+// Description: The main RISC-V CPU
+//
 // Dependencies: Nil
-// 
+//
 // Revision:
 // Revision 0.01 - File Created
 // Additional Comments:
-// 
+//
 //////////////////////////////////////////////////////////////////////////////////
 
 
@@ -25,17 +25,17 @@ module RISCV_MMC(
     input rst,
     //input Interrupt,      // for optional future use.
     input [31:0] instrF,
-    input [31:0] ReadDataM,       // v2: Renamed to support lb/lbu/lh/lhu
+    input [31:0] ReadDataM,
     output mem_read,
-    output reg mem_writeM,  // Delete reg for release. v2: Changed to column-wise write enable to support sb/sw. Each column is a byte.
+    output reg mem_writeM,
     output [31:0] pcF,
     output [31:0] alu_result,
-    output reg [31:0] WriteDataM  // Delete reg for release. v2: Renamed to support sb/sw
+    output reg [31:0] WriteDataM
     );
-    
-    
-    
-    //D Stage
+
+    localparam [31:0] NOP_INSTR = 32'h00000013;
+
+    // D stage
     logic [31:0] instrD;
     logic [1:0] PCSD;
     logic reg_writeD;
@@ -45,18 +45,21 @@ module RISCV_MMC(
     logic [1:0] alu_src_aD;
     logic [1:0] alu_src_bD;
     logic [31:0] RD1D;
-    logic[31:0] RD2D;
+    logic [31:0] RD2D;
     logic [31:0] ExtImmD;
+    logic [4:0] rs1D;
+    logic [4:0] rs2D;
     logic [4:0] rdD;
     logic [31:0] pcD;
-    logic [2:0]funct3D;
-    
+    logic [2:0] funct3D;
     logic [2:0] ImmSrc;
-    
-    assign funct3D = instrD[14:12];
+
+    assign rs1D = instrD[19:15];
+    assign rs2D = instrD[24:20];
     assign rdD = instrD[11:7];
-    
-    // E Stage
+    assign funct3D = instrD[14:12];
+
+    // E stage
     logic [1:0] PCSE;
     logic reg_writeE;
     logic mem_to_regE;
@@ -65,170 +68,260 @@ module RISCV_MMC(
     logic [1:0] alu_src_aE;
     logic [1:0] alu_src_bE;
     logic [31:0] RD1E;
-    logic[31:0] RD2E;
+    logic [31:0] RD2E;
     logic [31:0] ExtImmE;
+    logic [4:0] rs1E;
+    logic [4:0] rs2E;
     logic [4:0] rdE;
     logic [31:0] pcE;
-    
+    logic [2:0] funct3E;
+
+    logic [31:0] ForwardedRD1E;
+    logic [31:0] ForwardedRD2E;
     logic [31:0] SrcA;
     logic [31:0] SrcA_PC;
     logic [31:0] SrcB;
     logic [31:0] SrcB_Ext;
-    
-    logic [1:0] PC_src;
-    logic [31:0] pc_in;
-    logic [2:0] alu_flags;
-    logic [2:0]funct3E;
-
-    
-    assign SrcA_PC = (alu_src_aE[1]==0)?32'h0000:pcE;
-    assign SrcA = (alu_src_aE[0]==0)?RD1E:SrcA_PC;
-    
-    assign SrcB_Ext = (alu_src_bE[1]==0)?32'h0004:ExtImmE;
-    assign SrcB = (alu_src_bE[0]==0)?RD2E:SrcB_Ext;
-//    assign pc_in = ((PC_src[1]==1)?RD1E:pcF) + ((PC_src[0]==1)?ExtImmE:32'd4); // need to or the pcf and pce
-    
     logic [31:0] WriteDataE;
     logic [31:0] alu_resultE;
-    assign WriteDataE = RD2E;
+    logic [2:0] alu_flags;
+    logic [1:0] PC_src;
+    logic [31:0] pc_in;
+    logic control_hazardE;
 
-    //M Stage  
+    // M stage
     logic reg_writeM;
     logic mem_to_regM;
-//    logic mem_writeM;
-//    logic [31:0] WriteDataM;
     logic [31:0] alu_resultM;
     logic [4:0] rdM;
-    assign alu_result = alu_resultM;
-    
-    //W Stage
+    logic [31:0] ResultM;
+
+    // W stage
     logic reg_writeW;
     logic mem_to_regW;
-    logic [31:0] WriteDataW;
     logic [4:0] rdW;
     logic [31:0] ReadDataW;
     logic [31:0] alu_resultW;
-   
-    
     logic [31:0] WD;
-    
-    assign WD = (mem_to_regW==1)? ReadDataW:alu_resultW;
-    
-//    assign mem_read = mem_to_reg; // This is needed for the proper functionality of some devices such as UART CONSOLE
-    
+
+    assign alu_result = alu_resultM;
+    assign mem_read = mem_to_regM;
+    assign ResultM = mem_to_regM ? ReadDataM : alu_resultM;
+    assign WD = mem_to_regW ? ReadDataW : alu_resultW;
+
+    always @(*) begin
+        ForwardedRD1E = RD1E;
+        if (reg_writeM && (rdM != 5'd0) && (rdM == rs1E)) begin
+            ForwardedRD1E = ResultM;
+        end
+        else if (reg_writeW && (rdW != 5'd0) && (rdW == rs1E)) begin
+            ForwardedRD1E = WD;
+        end
+    end
+
+    always @(*) begin
+        ForwardedRD2E = RD2E;
+        if (reg_writeM && (rdM != 5'd0) && (rdM == rs2E)) begin
+            ForwardedRD2E = ResultM;
+        end
+        else if (reg_writeW && (rdW != 5'd0) && (rdW == rs2E)) begin
+            ForwardedRD2E = WD;
+        end
+    end
+
+    assign SrcA_PC = alu_src_aE[1] ? pcE : 32'h0000_0000;
+    assign SrcA = alu_src_aE[0] ? SrcA_PC : ForwardedRD1E;
+    assign SrcB_Ext = alu_src_bE[1] ? ExtImmE : 32'd4;
+    assign SrcB = alu_src_bE[0] ? SrcB_Ext : ForwardedRD2E;
+    assign WriteDataE = ForwardedRD2E;
 
     always @(*) begin
         case (PC_src)
-            2'b00: pc_in = pcF +4; // normal
-            2'b01: pc_in = pcE +ExtImmE; // branch
-            2'b10: pc_in = pcE +ExtImmE; // jal
-            2'b11: pc_in = RD1E +ExtImmE; // jalr
-            default: pc_in = pcF +4;
+            2'b00: pc_in = pcF + 32'd4;
+            2'b01: pc_in = pcE + ExtImmE;
+            2'b10: pc_in = pcE + ExtImmE;
+            2'b11: pc_in = ForwardedRD1E + ExtImmE;
+            default: pc_in = pcF + 32'd4;
         endcase
     end
 
-	// Create all the wires/logic signals you need here
-	always@(posedge clk)begin
-	   // F to D
-	   instrD<=instrF; 
-	   pcD <=pcF;
-	   // D to E
-	   funct3E<=funct3D;
-       PCSE<=PCSD;
-       reg_writeE<=reg_writeD;
-       mem_to_regE<=mem_to_regD;
-       mem_writeE<=mem_writeD;
-       alu_controlE<=alu_controlD;
-       alu_src_aE<=alu_src_aD;
-       alu_src_bE<=alu_src_bD;
-       RD1E<=RD1D;
-       RD2E<=RD2D;
-       ExtImmE<=ExtImmD;
-       rdE<=rdD;
-       pcE<=pcD;
-       // E to M
-       WriteDataM <= WriteDataE;
+    assign control_hazardE = (PC_src != 2'b00);
 
-       reg_writeM<=reg_writeE;
-       mem_to_regM<=mem_to_regE;
-       mem_writeM<=mem_writeE;
-       rdM<=rdE;
-       alu_resultM<=alu_resultE;
-       rdM<=rdE;
-//       case (PC_src) // store return address
-//            2'b00: rdM<=rdE; // normal
-//            2'b01: rdM<=rdE; // branch
-//            2'b10: rdM<=rdE; // jal
-//            2'b11: rdM<=rdE; // jalr
-//            default: rdM<=rdE;
-//        endcase
-       // M to W
-       reg_writeW<=reg_writeM;
-       mem_to_regW<=mem_to_regM;
-       rdW<=rdM;
-       alu_resultW <= alu_resultM;
-       rdW<=rdM;
-	
-	end
+    initial begin
+        instrD = NOP_INSTR;
+        pcD = 32'd0;
+        PCSE = 2'b00;
+        reg_writeE = 1'b0;
+        mem_to_regE = 1'b0;
+        mem_writeE = 1'b0;
+        alu_controlE = 4'b0000;
+        alu_src_aE = 2'b00;
+        alu_src_bE = 2'b00;
+        RD1E = 32'd0;
+        RD2E = 32'd0;
+        ExtImmE = 32'd0;
+        rs1E = 5'd0;
+        rs2E = 5'd0;
+        rdE = 5'd0;
+        pcE = 32'd0;
+        funct3E = 3'b000;
+        reg_writeM = 1'b0;
+        mem_to_regM = 1'b0;
+        mem_writeM = 1'b0;
+        alu_resultM = 32'd0;
+        rdM = 5'd0;
+        WriteDataM = 32'd0;
+        reg_writeW = 1'b0;
+        mem_to_regW = 1'b0;
+        rdW = 5'd0;
+        ReadDataW = 32'd0;
+        alu_resultW = 32'd0;
+    end
 
-	// Instantiate your extender module here
-	Extend extend(
-    .InstrImm(instrD[31:0]),
-    .ImmSrc(ImmSrc),
-    .ExtImm(ExtImmD)
+    always @(posedge clk) begin
+        if (rst) begin
+            instrD <= NOP_INSTR;
+            pcD <= 32'd0;
+            PCSE <= 2'b00;
+            reg_writeE <= 1'b0;
+            mem_to_regE <= 1'b0;
+            mem_writeE <= 1'b0;
+            alu_controlE <= 4'b0000;
+            alu_src_aE <= 2'b00;
+            alu_src_bE <= 2'b00;
+            RD1E <= 32'd0;
+            RD2E <= 32'd0;
+            ExtImmE <= 32'd0;
+            rs1E <= 5'd0;
+            rs2E <= 5'd0;
+            rdE <= 5'd0;
+            pcE <= 32'd0;
+            funct3E <= 3'b000;
+            reg_writeM <= 1'b0;
+            mem_to_regM <= 1'b0;
+            mem_writeM <= 1'b0;
+            alu_resultM <= 32'd0;
+            rdM <= 5'd0;
+            WriteDataM <= 32'd0;
+            reg_writeW <= 1'b0;
+            mem_to_regW <= 1'b0;
+            rdW <= 5'd0;
+            ReadDataW <= 32'd0;
+            alu_resultW <= 32'd0;
+        end
+        else begin
+            // F to D
+            if (control_hazardE) begin
+                instrD <= NOP_INSTR;
+                pcD <= 32'd0;
+            end
+            else begin
+                instrD <= instrF;
+                pcD <= pcF;
+            end
+
+            // D to E
+            if (control_hazardE) begin
+                funct3E <= 3'b000;
+                PCSE <= 2'b00;
+                reg_writeE <= 1'b0;
+                mem_to_regE <= 1'b0;
+                mem_writeE <= 1'b0;
+                alu_controlE <= 4'b0000;
+                alu_src_aE <= 2'b00;
+                alu_src_bE <= 2'b00;
+                RD1E <= 32'd0;
+                RD2E <= 32'd0;
+                ExtImmE <= 32'd0;
+                rs1E <= 5'd0;
+                rs2E <= 5'd0;
+                rdE <= 5'd0;
+                pcE <= 32'd0;
+            end
+            else begin
+                funct3E <= funct3D;
+                PCSE <= PCSD;
+                reg_writeE <= reg_writeD;
+                mem_to_regE <= mem_to_regD;
+                mem_writeE <= mem_writeD;
+                alu_controlE <= alu_controlD;
+                alu_src_aE <= alu_src_aD;
+                alu_src_bE <= alu_src_bD;
+                RD1E <= RD1D;
+                RD2E <= RD2D;
+                ExtImmE <= ExtImmD;
+                rs1E <= rs1D;
+                rs2E <= rs2D;
+                rdE <= rdD;
+                pcE <= pcD;
+            end
+
+            // E to M
+            WriteDataM <= WriteDataE;
+            reg_writeM <= reg_writeE;
+            mem_to_regM <= mem_to_regE;
+            mem_writeM <= mem_writeE;
+            rdM <= rdE;
+            alu_resultM <= alu_resultE;
+
+            // M to W
+            reg_writeW <= reg_writeM;
+            mem_to_regW <= mem_to_regM;
+            rdW <= rdM;
+            ReadDataW <= ReadDataM;
+            alu_resultW <= alu_resultM;
+        end
+    end
+
+    Extend extend(
+        .InstrImm(instrD[31:0]),
+        .ImmSrc(ImmSrc),
+        .ExtImm(ExtImmD)
     );
 
-
-	// Instantiate your instruction decoder here
-	Decoder decoder(    
-    .instr(instrD),
-    .PCS(PCSD),
-    .mem_to_reg(mem_to_regD),
-    .mem_write(mem_writeD),
-    .alu_control(alu_controlD),
-    .alu_src_a(alu_src_aD),
-    .alu_src_b(alu_src_bD),
-    .imm_src(ImmSrc),
-    .reg_write(reg_writeD)
+    Decoder decoder(
+        .instr(instrD),
+        .PCS(PCSD),
+        .mem_to_reg(mem_to_regD),
+        .mem_write(mem_writeD),
+        .alu_control(alu_controlD),
+        .alu_src_a(alu_src_aD),
+        .alu_src_b(alu_src_bD),
+        .imm_src(ImmSrc),
+        .reg_write(reg_writeD)
     );
 
-	// Instantiate your ALU here
-	ALU alu(
-    .src_a(SrcA),
-    .src_b(SrcB),
-    .control(alu_controlE),
-    .result(alu_resultE), 
-    .flags(alu_flags)
+    ALU alu(
+        .src_a(SrcA),
+        .src_b(SrcB),
+        .control(alu_controlE),
+        .result(alu_resultE),
+        .flags(alu_flags)
     );
 
-
-
-	// Instantiate the Register File
-	RegFile regfile(
-    .clk(clk),
-    .we(reg_writeW),
-    .rs1(instrD[19:15]),
-    .rs2(instrD[24:20]),
-    .rd(rdW),
-    .WD(WD),
-    .RD1(RD1D),
-    .RD2(RD2D)
+    RegFile regfile(
+        .clk(clk),
+        .we(reg_writeW),
+        .rs1(rs1D),
+        .rs2(rs2D),
+        .rd(rdW),
+        .WD(WD),
+        .RD1(RD1D),
+        .RD2(RD2D)
     );
 
-	// Instantiate the PC Logic
-	PC_Logic pc_logic( // This is a combinational module, unlike ARM. See the note below.
-	.PCS(PCSE),	// 00 for non-control, 01 for conditional branch, 10 for jal, 11 for jalr
-	.funct3(funct3E),	// condition specified in the instruction (eq / ne / lt / ge / ltu / geu)
-	.alu_flags(alu_flags), 	// {eq, lt, ltu}
-	.PC_src(PC_src)	// will need to be expanded to 2 bits to support jalr
+    PC_Logic pc_logic(
+        .PCS(PCSE),
+        .funct3(funct3E),
+        .alu_flags(alu_flags),
+        .PC_src(PC_src)
     );
 
-	// Instantiate the Program Counter
-	ProgramCounter programcounter(
-    .clk(clk),
-    .rst(rst),
-    .pc_in(pc_in),
-    .pc(pcF)  
+    ProgramCounter programcounter(
+        .clk(clk),
+        .rst(rst),
+        .pc_in(pc_in),
+        .pc(pcF)
     );
 
 endmodule

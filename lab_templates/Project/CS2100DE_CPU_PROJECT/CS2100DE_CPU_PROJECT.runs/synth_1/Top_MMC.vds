@@ -3,8 +3,8 @@
 # SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Mon Apr 13 15:07:50 2026
-# Process ID         : 150659
+# Start of session at: Mon Apr 13 15:36:51 2026
+# Process ID         : 204202
 # Current directory  : /home/farhan-sadik/Desktop/labs/lab_templates/Project/CS2100DE_CPU_PROJECT/CS2100DE_CPU_PROJECT.runs/synth_1
 # Command line       : vivado -log Top_MMC.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source Top_MMC.tcl
 # Log file           : /home/farhan-sadik/Desktop/labs/lab_templates/Project/CS2100DE_CPU_PROJECT/CS2100DE_CPU_PROJECT.runs/synth_1/Top_MMC.vds
@@ -13,13 +13,13 @@
 # Platform           : Ubuntu
 # Operating System   : Ubuntu 25.10
 # Processor Detail   : AMD Ryzen 7 5800H with Radeon Graphics
-# CPU Frequency      : 3594.206 MHz
+# CPU Frequency      : 3967.597 MHz
 # CPU Physical cores : 8
 # CPU Logical cores  : 16
 # Host memory        : 13958 MB
 # Swap memory        : 4294 MB
 # Total Virtual      : 18253 MB
-# Available Virtual  : 8956 MB
+# Available Virtual  : 9668 MB
 #-----------------------------------------------------------
 source Top_MMC.tcl -notrace
 Command: read_checkpoint -auto_incremental -incremental /home/farhan-sadik/Desktop/labs/lab_templates/Project/CS2100DE_CPU_PROJECT/CS2100DE_CPU_PROJECT.srcs/utils_1/imports/synth_1/Top_MMC.dcp
@@ -34,9 +34,9 @@ INFO: [Designutils 20-5440] No compile time benefit to using incremental synthes
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 150759
+INFO: [Synth 8-7075] Helper process launched with PID 204392
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2312.422 ; gain = 484.156 ; free physical = 714 ; free virtual = 7215
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2312.562 ; gain = 481.875 ; free physical = 376 ; free virtual = 7788
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'Top_MMC' [/home/farhan-sadik/Desktop/labs/lab_templates/Project/Top_MMC.sv:23]
 INFO: [Synth 8-3876] $readmem data file 'AA_IROM.mem' is read successfully [/home/farhan-sadik/Desktop/labs/lab_templates/Project/Top_MMC.sv:69]
@@ -45,7 +45,7 @@ INFO: [Synth 8-6157] synthesizing module 'SevenSegDecoder' [/home/farhan-sadik/D
 INFO: [Synth 8-226] default block is never used [/home/farhan-sadik/Desktop/labs/lab_templates/Project/SevenSegDecoder.sv:64]
 INFO: [Synth 8-6155] done synthesizing module 'SevenSegDecoder' (0#1) [/home/farhan-sadik/Desktop/labs/lab_templates/Project/SevenSegDecoder.sv:23]
 INFO: [Synth 8-6157] synthesizing module 'RISCV_MMC' [/home/farhan-sadik/Desktop/labs/lab_templates/Project/RISCV_MMC.sv:23]
-INFO: [Synth 8-226] default block is never used [/home/farhan-sadik/Desktop/labs/lab_templates/Project/RISCV_MMC.sv:121]
+INFO: [Synth 8-226] default block is never used [/home/farhan-sadik/Desktop/labs/lab_templates/Project/RISCV_MMC.sv:139]
 INFO: [Synth 8-6157] synthesizing module 'Extend' [/home/farhan-sadik/Desktop/labs/lab_templates/Project/Extend.sv:23]
 INFO: [Synth 8-6155] done synthesizing module 'Extend' (0#1) [/home/farhan-sadik/Desktop/labs/lab_templates/Project/Extend.sv:23]
 INFO: [Synth 8-6157] synthesizing module 'Decoder' [/home/farhan-sadik/Desktop/labs/lab_templates/Project/Decoder.sv:23]
@@ -62,8 +62,6 @@ INFO: [Synth 8-6157] synthesizing module 'ProgramCounter' [/home/farhan-sadik/De
 INFO: [Synth 8-6155] done synthesizing module 'ProgramCounter' (0#1) [/home/farhan-sadik/Desktop/labs/lab_templates/Project/ProgramCounter.sv:34]
 INFO: [Synth 8-6155] done synthesizing module 'RISCV_MMC' (0#1) [/home/farhan-sadik/Desktop/labs/lab_templates/Project/RISCV_MMC.sv:23]
 INFO: [Synth 8-6155] done synthesizing module 'Top_MMC' (0#1) [/home/farhan-sadik/Desktop/labs/lab_templates/Project/Top_MMC.sv:23]
-WARNING: [Synth 8-3848] Net mem_read in module/entity RISCV_MMC does not have driver. [/home/farhan-sadik/Desktop/labs/lab_templates/Project/RISCV_MMC.sv:29]
-WARNING: [Synth 8-3848] Net ReadDataW in module/entity RISCV_MMC does not have driver. [/home/farhan-sadik/Desktop/labs/lab_templates/Project/RISCV_MMC.sv:109]
 WARNING: [Synth 8-7129] Port instr[31] in module Decoder is either unconnected or has no load
 WARNING: [Synth 8-7129] Port instr[29] in module Decoder is either unconnected or has no load
 WARNING: [Synth 8-7129] Port instr[28] in module Decoder is either unconnected or has no load
@@ -92,52 +90,19 @@ WARNING: [Synth 8-7129] Port InstrImm[3] in module Extend is either unconnected 
 WARNING: [Synth 8-7129] Port InstrImm[2] in module Extend is either unconnected or has no load
 WARNING: [Synth 8-7129] Port InstrImm[1] in module Extend is either unconnected or has no load
 WARNING: [Synth 8-7129] Port InstrImm[0] in module Extend is either unconnected or has no load
-WARNING: [Synth 8-7129] Port mem_read in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[31] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[30] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[29] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[28] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[27] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[26] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[25] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[24] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[23] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[22] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[21] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[20] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[19] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[18] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[17] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[16] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[15] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[14] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[13] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[12] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[11] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[10] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[9] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[8] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[7] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[6] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[5] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[4] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[3] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[2] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[1] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[0] in module RISCV_MMC is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2400.391 ; gain = 572.125 ; free physical = 601 ; free virtual = 7104
+Finished RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2400.531 ; gain = 569.844 ; free physical = 280 ; free virtual = 7695
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2409.297 ; gain = 581.031 ; free physical = 601 ; free virtual = 7103
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2412.406 ; gain = 581.719 ; free physical = 279 ; free virtual = 7693
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2409.297 ; gain = 581.031 ; free physical = 601 ; free virtual = 7103
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2412.406 ; gain = 581.719 ; free physical = 279 ; free virtual = 7693
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2409.297 ; gain = 0.000 ; free physical = 601 ; free virtual = 7103
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2412.406 ; gain = 0.000 ; free physical = 279 ; free virtual = 7693
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
@@ -148,31 +113,31 @@ INFO: [Project 1-236] Implementation specific constraints were found while readi
 Resolution: To avoid this warning, move constraints listed in [.Xil/Top_MMC_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2522.035 ; gain = 0.000 ; free physical = 601 ; free virtual = 7100
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2532.145 ; gain = 0.000 ; free physical = 276 ; free virtual = 7691
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2522.070 ; gain = 0.000 ; free physical = 601 ; free virtual = 7100
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2532.180 ; gain = 0.000 ; free physical = 276 ; free virtual = 7691
 INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2522.070 ; gain = 693.805 ; free physical = 604 ; free virtual = 7106
+Finished Constraint Validation : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2532.180 ; gain = 701.492 ; free physical = 297 ; free virtual = 7703
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a100tcsg324-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2530.039 ; gain = 701.773 ; free physical = 604 ; free virtual = 7106
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2540.148 ; gain = 709.461 ; free physical = 297 ; free virtual = 7703
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2530.039 ; gain = 701.773 ; free physical = 603 ; free virtual = 7106
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2540.148 ; gain = 709.461 ; free physical = 297 ; free virtual = 7703
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:13 . Memory (MB): peak = 2530.039 ; gain = 701.773 ; free physical = 604 ; free virtual = 7107
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2540.148 ; gain = 709.461 ; free physical = 297 ; free virtual = 7705
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -186,10 +151,10 @@ Detailed RTL Component Info :
 +---XORs : 
 	   2 Input     32 Bit         XORs := 1     
 +---Registers : 
-	               32 Bit    Registers := 11    
+	               32 Bit    Registers := 12    
 	               16 Bit    Registers := 1     
 	                8 Bit    Registers := 1     
-	                5 Bit    Registers := 3     
+	                5 Bit    Registers := 5     
 	                4 Bit    Registers := 3     
 	                3 Bit    Registers := 2     
 	                2 Bit    Registers := 3     
@@ -198,14 +163,14 @@ Detailed RTL Component Info :
 	               8K Bit	(256 X 32 bit)          RAMs := 1     
 	             1024 Bit	(32 X 32 bit)          RAMs := 1     
 +---Muxes : 
-	   2 Input   32 Bit        Muxes := 10    
+	   2 Input   32 Bit        Muxes := 17    
 	   4 Input   32 Bit        Muxes := 2     
-	  57 Input   32 Bit        Muxes := 1     
+	  17 Input   32 Bit        Muxes := 1     
 	   3 Input   32 Bit        Muxes := 1     
 	   8 Input    8 Bit        Muxes := 1     
 	   4 Input    2 Bit        Muxes := 1     
 	   3 Input    1 Bit        Muxes := 2     
-	   2 Input    1 Bit        Muxes := 1     
+	   2 Input    1 Bit        Muxes := 3     
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -249,31 +214,20 @@ WARNING: [Synth 8-7129] Port InstrImm[3] in module Extend is either unconnected 
 WARNING: [Synth 8-7129] Port InstrImm[2] in module Extend is either unconnected or has no load
 WARNING: [Synth 8-7129] Port InstrImm[1] in module Extend is either unconnected or has no load
 WARNING: [Synth 8-7129] Port InstrImm[0] in module Extend is either unconnected or has no load
-WARNING: [Synth 8-7129] Port mem_read in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[31] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[30] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[29] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[28] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[27] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[26] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[25] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[24] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[23] in module RISCV_MMC is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ReadDataM[22] in module RISCV_MMC is either unconnected or has no load
-INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:16 ; elapsed = 00:00:16 . Memory (MB): peak = 2538.039 ; gain = 709.773 ; free physical = 556 ; free virtual = 7063
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:26 ; elapsed = 00:00:27 . Memory (MB): peak = 2548.148 ; gain = 717.461 ; free physical = 298 ; free virtual = 7713
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
 ---------------------------------------------------------------------------------
 
 Distributed RAM: Preliminary Mapping Report (see note below)
-+------------+--------------------------+-----------+----------------------+--------------+
-|Module Name | RTL Object               | Inference | Size (Depth x Width) | Primitives   | 
-+------------+--------------------------+-----------+----------------------+--------------+
-|Top_MMC     | cpu/regfile/reg_bank_reg | Implied   | 32 x 32              | RAM32M x 12  | 
-+------------+--------------------------+-----------+----------------------+--------------+
++------------+--------------------------+-----------+----------------------+-----------------+
+|Module Name | RTL Object               | Inference | Size (Depth x Width) | Primitives      | 
++------------+--------------------------+-----------+----------------------+-----------------+
+|Top_MMC     | cpu/regfile/reg_bank_reg | Implied   | 32 x 32              | RAM32M x 12     | 
+|Top_MMC     | data_memory_reg          | Implied   | 256 x 32             | RAM256X1S x 32  | 
++------------+--------------------------+-----------+----------------------+-----------------+
 
 Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
 ---------------------------------------------------------------------------------
@@ -283,24 +237,25 @@ Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 2590.039 ; gain = 761.773 ; free physical = 501 ; free virtual = 7011
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:30 ; elapsed = 00:00:31 . Memory (MB): peak = 2593.148 ; gain = 762.461 ; free physical = 242 ; free virtual = 7648
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 2619.086 ; gain = 790.820 ; free physical = 469 ; free virtual = 6978
+Finished Timing Optimization : Time (s): cpu = 00:00:30 ; elapsed = 00:00:31 . Memory (MB): peak = 2622.195 ; gain = 791.508 ; free physical = 218 ; free virtual = 7624
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
 ---------------------------------------------------------------------------------
 
 Distributed RAM: Final Mapping Report
-+------------+--------------------------+-----------+----------------------+--------------+
-|Module Name | RTL Object               | Inference | Size (Depth x Width) | Primitives   | 
-+------------+--------------------------+-----------+----------------------+--------------+
-|Top_MMC     | cpu/regfile/reg_bank_reg | Implied   | 32 x 32              | RAM32M x 12  | 
-+------------+--------------------------+-----------+----------------------+--------------+
++------------+--------------------------+-----------+----------------------+-----------------+
+|Module Name | RTL Object               | Inference | Size (Depth x Width) | Primitives      | 
++------------+--------------------------+-----------+----------------------+-----------------+
+|Top_MMC     | cpu/regfile/reg_bank_reg | Implied   | 32 x 32              | RAM32M x 12     | 
+|Top_MMC     | data_memory_reg          | Implied   | 256 x 32             | RAM256X1S x 32  | 
++------------+--------------------------+-----------+----------------------+-----------------+
 
 ---------------------------------------------------------------------------------
 Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -309,7 +264,7 @@ Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 2628.102 ; gain = 799.836 ; free physical = 458 ; free virtual = 6968
+Finished Technology Mapping : Time (s): cpu = 00:00:31 ; elapsed = 00:00:32 . Memory (MB): peak = 2640.203 ; gain = 809.516 ; free physical = 185 ; free virtual = 7591
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -327,53 +282,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:24 ; elapsed = 00:00:24 . Memory (MB): peak = 2786.914 ; gain = 958.648 ; free physical = 323 ; free virtual = 6830
+Finished IO Insertion : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 2790.016 ; gain = 959.328 ; free physical = 166 ; free virtual = 7509
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:24 ; elapsed = 00:00:24 . Memory (MB): peak = 2786.914 ; gain = 958.648 ; free physical = 323 ; free virtual = 6830
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 2790.016 ; gain = 959.328 ; free physical = 166 ; free virtual = 7509
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:24 ; elapsed = 00:00:24 . Memory (MB): peak = 2786.914 ; gain = 958.648 ; free physical = 323 ; free virtual = 6830
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 2790.016 ; gain = 959.328 ; free physical = 168 ; free virtual = 7511
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:24 ; elapsed = 00:00:24 . Memory (MB): peak = 2786.914 ; gain = 958.648 ; free physical = 323 ; free virtual = 6830
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 2790.016 ; gain = 959.328 ; free physical = 168 ; free virtual = 7511
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:24 ; elapsed = 00:00:24 . Memory (MB): peak = 2786.914 ; gain = 958.648 ; free physical = 323 ; free virtual = 6830
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 2790.016 ; gain = 959.328 ; free physical = 168 ; free virtual = 7510
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:24 ; elapsed = 00:00:24 . Memory (MB): peak = 2786.914 ; gain = 958.648 ; free physical = 323 ; free virtual = 6830
----------------------------------------------------------------------------------
----------------------------------------------------------------------------------
-Start ROM, RAM, DSP, Shift Register and Retiming Reporting
----------------------------------------------------------------------------------
-
-Static Shift Register Report:
-+------------+---------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
-|Module Name | RTL Name            | Length | Width | Reset Signal | Pull out first Reg | Pull out last Reg | SRL16E | SRLC32E | 
-+------------+---------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
-|Top_MMC     | cpu/reg_writeW_reg  | 3      | 1     | NO           | NO                 | YES               | 1      | 0       | 
-|Top_MMC     | cpu/rdW_reg[4]      | 3      | 5     | NO           | NO                 | YES               | 5      | 0       | 
-|Top_MMC     | cpu/mem_to_regW_reg | 3      | 1     | NO           | NO                 | YES               | 1      | 0       | 
-+------------+---------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
-
----------------------------------------------------------------------------------
-Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 2790.016 ; gain = 959.328 ; free physical = 168 ; free virtual = 7510
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -386,52 +325,53 @@ Report BlackBoxes:
 +-+--------------+----------+
 
 Report Cell Usage: 
-+------+---------+------+
-|      |Cell     |Count |
-+------+---------+------+
-|1     |BUFG     |     2|
-|2     |CARRY4   |    39|
-|3     |LUT1     |     4|
-|4     |LUT2     |    50|
-|5     |LUT3     |    21|
-|6     |LUT4     |   129|
-|7     |LUT5     |   215|
-|8     |LUT6     |   390|
-|9     |MUXF7    |     4|
-|10    |RAM32M   |    10|
-|11    |RAM32X1D |     4|
-|12    |SRL16E   |     7|
-|13    |FDRE     |   391|
-|14    |FDSE     |    23|
-|15    |IBUF     |     2|
-|16    |OBUF     |    31|
-+------+---------+------+
++------+----------+------+
+|      |Cell      |Count |
++------+----------+------+
+|1     |BUFG      |     2|
+|2     |CARRY4    |    39|
+|3     |LUT1      |    34|
+|4     |LUT2      |   129|
+|5     |LUT3      |   100|
+|6     |LUT4      |   131|
+|7     |LUT5      |   177|
+|8     |LUT6      |   573|
+|9     |MUXF7     |     4|
+|10    |RAM256X1S |    32|
+|11    |RAM32M    |    10|
+|12    |RAM32X1D  |     4|
+|13    |FDRE      |   456|
+|14    |FDSE      |    10|
+|15    |IBUF      |    23|
+|16    |OBUF      |    31|
++------+----------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:24 ; elapsed = 00:00:24 . Memory (MB): peak = 2786.914 ; gain = 958.648 ; free physical = 323 ; free virtual = 6830
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 2790.016 ; gain = 959.328 ; free physical = 168 ; free virtual = 7510
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 61 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 2786.914 ; gain = 845.875 ; free physical = 323 ; free virtual = 6830
-Synthesis Optimization Complete : Time (s): cpu = 00:00:24 ; elapsed = 00:00:24 . Memory (MB): peak = 2786.922 ; gain = 958.648 ; free physical = 323 ; free virtual = 6830
+Synthesis finished with 0 errors, 0 critical warnings and 28 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 2790.016 ; gain = 839.555 ; free physical = 167 ; free virtual = 7509
+Synthesis Optimization Complete : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 2790.023 ; gain = 959.328 ; free physical = 167 ; free virtual = 7510
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 2786.922 ; gain = 0.000 ; free physical = 331 ; free virtual = 6838
-INFO: [Netlist 29-17] Analyzing 57 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2790.023 ; gain = 0.000 ; free physical = 323 ; free virtual = 7665
+INFO: [Netlist 29-17] Analyzing 89 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2842.941 ; gain = 0.000 ; free physical = 474 ; free virtual = 6982
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2846.043 ; gain = 0.000 ; free physical = 322 ; free virtual = 7666
 INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 14 instances were transformed.
+  A total of 46 instances were transformed.
+  RAM256X1S => RAM256X1S (MUXF7(x2), MUXF8, RAMS64E(x4)): 32 instances
   RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 10 instances
   RAM32X1D => RAM32X1D (RAMD32(x2)): 4 instances
 
-Synth Design complete | Checksum: d5a0b655
+Synth Design complete | Checksum: b36d486a
 INFO: [Common 17-83] Releasing license: Synthesis
-46 Infos, 102 Warnings, 0 Critical Warnings and 0 Errors encountered.
+45 Infos, 56 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:30 ; elapsed = 00:00:29 . Memory (MB): peak = 2842.977 ; gain = 1171.797 ; free physical = 472 ; free virtual = 6980
-INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 1933.634; main = 1933.634; forked = 281.885
-INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3534.793; main = 2842.945; forked = 996.750
-Write ShapeDB Complete: Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 2866.953 ; gain = 0.000 ; free physical = 471 ; free virtual = 6980
+synth_design: Time (s): cpu = 00:00:40 ; elapsed = 00:00:39 . Memory (MB): peak = 2846.078 ; gain = 1173.445 ; free physical = 326 ; free virtual = 7670
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 1929.232; main = 1929.232; forked = 281.021
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3544.902; main = 2846.047; forked = 996.750
+Write ShapeDB Complete: Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 2870.055 ; gain = 0.000 ; free physical = 326 ; free virtual = 7664
 INFO: [Common 17-1381] The checkpoint '/home/farhan-sadik/Desktop/labs/lab_templates/Project/CS2100DE_CPU_PROJECT/CS2100DE_CPU_PROJECT.runs/synth_1/Top_MMC.dcp' has been generated.
 INFO: [Vivado 12-24828] Executing command : report_utilization -file Top_MMC_utilization_synth.rpt -pb Top_MMC_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Mon Apr 13 15:08:25 2026...
+INFO: [Common 17-206] Exiting Vivado at Mon Apr 13 15:37:35 2026...

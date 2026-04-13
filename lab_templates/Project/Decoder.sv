@@ -60,9 +60,9 @@ module Decoder(
                 mem_to_reg = 0;
                 mem_write =0;
                 alu_control = {funct3,funct7[5]};
-                alu_src_a = 2'bx0;
-                alu_src_b = 2'bx0;;
-                imm_src = 3'bxxx;
+                alu_src_a = 2'b00;
+                alu_src_b = 2'b00;
+                imm_src = 3'b000;
                 reg_write = 1;
             end
             7'h13:begin //DP Imm
@@ -78,7 +78,7 @@ module Decoder(
                 mem_to_reg = 0;
                 mem_write =0;
                 alu_control = {funct3,ALUControl_0};
-                alu_src_a = 2'bx0;
+                alu_src_a = 2'b00;
                 alu_src_b = 2'b11;
                 imm_src = 3'b011;
                 reg_write = 1;
@@ -88,28 +88,28 @@ module Decoder(
                 mem_to_reg = 1;
                 mem_write =0;
                 alu_control = 4'b0000;
-                alu_src_a = 2'bx0;
+                alu_src_a = 2'b00;
                 alu_src_b = 2'b11;
                 imm_src = 3'b011;
                 reg_write = 1;
             end
             7'h23:begin
                 PCS = 2'b00; // store
-                mem_to_reg = 1'bx;
+                mem_to_reg = 1'b0;
                 mem_write =1;
                 alu_control = 4'b0000;
-                alu_src_a = 2'bx0;
+                alu_src_a = 2'b00;
                 alu_src_b = 2'b11;
                 imm_src = 3'b110;
                 reg_write = 0;
             end
             7'h63:begin //branch
                 PCS = 2'b01;
-                mem_to_reg = 1'bx;
+                mem_to_reg = 1'b0;
                 mem_write =0;
                 alu_control = 4'b0001;
-                alu_src_a = 2'bx0;
-                alu_src_b = 2'bx0;
+                alu_src_a = 2'b00;
+                alu_src_b = 2'b00;
                 imm_src = 3'b111;
                 reg_write = 0;
             end

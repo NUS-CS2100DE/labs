@@ -1,0 +1,14 @@
+0.7
+2020.2
+May 21 2025
+22:59:56
+/home/farhan-sadik/Desktop/labs/lab_templates/Project/ALU.sv,1776053694,systemVerilog,,/home/farhan-sadik/Desktop/labs/lab_templates/Project/Decoder.sv,,ALU,,,,,,,,
+/home/farhan-sadik/Desktop/labs/lab_templates/Project/Decoder.sv,1776064856,systemVerilog,,/home/farhan-sadik/Desktop/labs/lab_templates/Project/Extend.sv,,Decoder,,,,,,,,
+/home/farhan-sadik/Desktop/labs/lab_templates/Project/Extend.sv,1776053694,systemVerilog,,/home/farhan-sadik/Desktop/labs/lab_templates/Project/ProgramCounter.sv,,Extend,,,,,,,,
+/home/farhan-sadik/Desktop/labs/lab_templates/Project/PC_Logic.sv,1776058999,systemVerilog,,/home/farhan-sadik/Desktop/labs/lab_templates/Project/RegFile.sv,,PC_Logic,,,,,,,,
+/home/farhan-sadik/Desktop/labs/lab_templates/Project/ProgramCounter.sv,1776053694,systemVerilog,,/home/farhan-sadik/Desktop/labs/lab_templates/Project/PC_Logic.sv,,ProgramCounter,,,,,,,,
+/home/farhan-sadik/Desktop/labs/lab_templates/Project/RISCV_MMC.sv,1776064826,systemVerilog,,/home/farhan-sadik/Desktop/labs/lab_templates/Project/ALU.sv,,RISCV_MMC,,,,,,,,
+/home/farhan-sadik/Desktop/labs/lab_templates/Project/RegFile.sv,1776064842,systemVerilog,,/home/farhan-sadik/Desktop/labs/lab_templates/Project/SevenSegDecoder.sv,,RegFile,,,,,,,,
+/home/farhan-sadik/Desktop/labs/lab_templates/Project/SevenSegDecoder.sv,1776053694,systemVerilog,,,,SevenSegDecoder,,,,,,,,
+/home/farhan-sadik/Desktop/labs/lab_templates/Project/Top_MMC.sv,1776065438,systemVerilog,,/home/farhan-sadik/Desktop/labs/lab_templates/Project/RISCV_MMC.sv,,Top_MMC,,,,,,,,
+/home/farhan-sadik/Desktop/labs/lab_templates/Project/Top_Test.sv,1776065457,systemVerilog,,/home/farhan-sadik/Desktop/labs/lab_templates/Project/Top_MMC.sv,,Top_Test,,,,,,,,

@@ -1,20 +1,10 @@
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado" Owner="farhan-sadik" Host="YOURUNIQUEHOSTNAME" Pid="48216" HostCore="16" HostMemory="13630976">
+    <Process Command="vivado" Owner="farhan-sadik" Host="YOURUNIQUEHOSTNAME" Pid="183443" HostCore="16" HostMemory="13630976">
     </Process>
 </ProcessHandle>
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado" Owner="farhan-sadik" Host="YOURUNIQUEHOSTNAME" Pid="110949" HostCore="16" HostMemory="13630976">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado" Owner="farhan-sadik" Host="YOURUNIQUEHOSTNAME" Pid="129407" HostCore="16" HostMemory="13630976">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado" Owner="farhan-sadik" Host="YOURUNIQUEHOSTNAME" Pid="151088" HostCore="16" HostMemory="13630976">
+    <Process Command="vivado" Owner="farhan-sadik" Host="YOURUNIQUEHOSTNAME" Pid="204796" HostCore="16" HostMemory="13630976">
     </Process>
 </ProcessHandle>

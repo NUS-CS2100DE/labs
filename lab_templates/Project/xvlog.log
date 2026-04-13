@@ -1,0 +1,20 @@
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/farhan-sadik/Desktop/labs/lab_templates/Project/Top_Test.sv" into library work
+INFO: [VRFC 10-311] analyzing module Top_Test
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/farhan-sadik/Desktop/labs/lab_templates/Project/Top_MMC.sv" into library work
+INFO: [VRFC 10-311] analyzing module Top_MMC
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/farhan-sadik/Desktop/labs/lab_templates/Project/RISCV_MMC.sv" into library work
+INFO: [VRFC 10-311] analyzing module RISCV_MMC
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/farhan-sadik/Desktop/labs/lab_templates/Project/ALU.sv" into library work
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/farhan-sadik/Desktop/labs/lab_templates/Project/Decoder.sv" into library work
+INFO: [VRFC 10-311] analyzing module Decoder
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/farhan-sadik/Desktop/labs/lab_templates/Project/Extend.sv" into library work
+INFO: [VRFC 10-311] analyzing module Extend
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/farhan-sadik/Desktop/labs/lab_templates/Project/ProgramCounter.sv" into library work
+INFO: [VRFC 10-311] analyzing module ProgramCounter
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/farhan-sadik/Desktop/labs/lab_templates/Project/PC_Logic.sv" into library work
+INFO: [VRFC 10-311] analyzing module PC_Logic
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/farhan-sadik/Desktop/labs/lab_templates/Project/RegFile.sv" into library work
+INFO: [VRFC 10-311] analyzing module RegFile
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/farhan-sadik/Desktop/labs/lab_templates/Project/SevenSegDecoder.sv" into library work
+INFO: [VRFC 10-311] analyzing module SevenSegDecoder
