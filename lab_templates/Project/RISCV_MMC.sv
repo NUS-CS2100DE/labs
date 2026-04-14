@@ -51,6 +51,7 @@ module RISCV_MMC(
     logic [4:0] rs2D;
     logic [4:0] rdD;
     logic [31:0] pcD;
+    logic [31:0] pcDNew;
     logic [2:0] funct3D;
     logic [2:0] ImmSrc;
 
@@ -108,8 +109,36 @@ module RISCV_MMC(
     assign mem_read = mem_to_regM;
     assign ResultM = mem_to_regM ? ReadDataM : alu_resultM;
     assign WD = mem_to_regW ? ReadDataW : alu_resultW;
+    
+    
+    // if MemtoRegE == 1, AluResultE== rs1D and is not LUI AUIPC or JAL, AluResultE== rs2D and is r-type store or branch
+    logic stall;
+    logic uses_rs1;
+    logic uses_rs2;
+    logic [5:0] opcodeD;
+    assign opcodeD = instrD[6:0];
+    assign uses_rs1 = !(opcodeD  == 5'b01101 ||  // LUI
+                    opcodeD == 5'b00101 ||  // AUIPC
+                    opcodeD == 5'b11011);   // JAL
+  
+    assign uses_rs2 = (opcodeD == 5'b01100) || // R-type (add, sub, etc.)
+                  (opcodeD == 5'b11000) || // B-type (beq, bne, etc.)
+                  (opcodeD == 5'b01000);   // S-type (sw, sb, etc.)
+                    
+                    
+                    
+    always@(*) begin
+        stall=0;
+        if (mem_to_regE) begin
+            if ((uses_rs1 && (rs1D == rdE)) || (uses_rs2 && (rs2D == rdE))) begin
+                stall = 1;
+            end
+        end
+    end
+    
+    
 
-    always @(*) begin
+    always @(*) begin // forwarding
         ForwardedRD1E = RD1E;
         if (reg_writeM && (rdM != 5'd0) && (rdM == rs1E)) begin
             ForwardedRD1E = ResultM;
@@ -119,7 +148,7 @@ module RISCV_MMC(
         end
     end
 
-    always @(*) begin
+    always @(*) begin // forwarding
         ForwardedRD2E = RD2E;
         if (reg_writeM && (rdM != 5'd0) && (rdM == rs2E)) begin
             ForwardedRD2E = ResultM;
@@ -136,16 +165,23 @@ module RISCV_MMC(
     assign WriteDataE = ForwardedRD2E;
 
     always @(*) begin
-        case (PC_src)
-            2'b00: pc_in = pcF + 32'd4;
-            2'b01: pc_in = pcE + ExtImmE;
-            2'b10: pc_in = pcE + ExtImmE;
-            2'b11: pc_in = ForwardedRD1E + ExtImmE;
-            default: pc_in = pcF + 32'd4;
-        endcase
+        if(stall) begin
+            pc_in = pcF;
+        end
+        else begin
+            case (PC_src)
+                2'b00: pc_in = pcF + 32'd4;
+                2'b01: pc_in = pcE + ExtImmE;
+                2'b10: pc_in = pcE + ExtImmE;
+                2'b11: pc_in = ForwardedRD1E + ExtImmE;
+                default: pc_in = pcF + 32'd4;
+            endcase
+        end
     end
 
     assign control_hazardE = (PC_src != 2'b00);
+    
+    assign pcDNew = control_hazardE? 32'b0:pcD; // flush
 
     initial begin
         instrD = NOP_INSTR;
@@ -211,17 +247,19 @@ module RISCV_MMC(
         end
         else begin
             // F to D
-            if (control_hazardE) begin
+            pcD <= pcF;
+            if (control_hazardE) begin // stalling
                 instrD <= NOP_INSTR;
-                pcD <= 32'd0;
+            end
+            else if(stall)begin
+                instrD <= instrD;
             end
             else begin
                 instrD <= instrF;
-                pcD <= pcF;
             end
 
             // D to E
-            if (control_hazardE) begin
+            if (control_hazardE||stall) begin // flush
                 funct3E <= 3'b000;
                 PCSE <= 2'b00;
                 reg_writeE <= 1'b0;
@@ -253,7 +291,7 @@ module RISCV_MMC(
                 rs1E <= rs1D;
                 rs2E <= rs2D;
                 rdE <= rdD;
-                pcE <= pcD;
+                pcE <= pcDNew;
             end
 
             // E to M
