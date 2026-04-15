@@ -25,7 +25,7 @@ module Decoder(
     output reg [1:0] PCS,
     output reg mem_to_reg,
     output reg mem_write,
-    output reg [3:0] alu_control,
+    output reg [4:0] alu_control,
     output reg [1:0] alu_src_a,
     output reg [1:0] alu_src_b,
     output reg [2:0] imm_src,
@@ -47,7 +47,7 @@ module Decoder(
         PCS          = 2'b00;
         mem_to_reg   = 1'b0;
         mem_write    = 1'b0;
-        alu_control  = 4'b0000;
+        alu_control  = 5'b00000;
         alu_src_a    = 2'b00;
         alu_src_b    = 2'b00;
         imm_src      = 3'b000;
@@ -55,15 +55,18 @@ module Decoder(
         ALUControl_0 = 1'b0;
 
         case(opcode)
-            7'h33:begin //DP Reg
+            7'h33:begin //DP Reg (base ISA) or M-extension (funct7==0x01)
                 PCS = 2'b00;
                 mem_to_reg = 0;
-                mem_write =0;
-                alu_control = {funct3,funct7[5]};
+                mem_write = 0;
                 alu_src_a = 2'b00;
                 alu_src_b = 2'b00;
                 imm_src = 3'b000;
                 reg_write = 1;
+                if (funct7 == 7'h01)
+                    alu_control = {1'b1, funct3, 1'b0}; // RV32M: MUL/MULH/MULHSU/MULHU/DIV/DIVU/REM/REMU
+                else
+                    alu_control = {1'b0, funct3, funct7[5]}; // Base R-type
             end
             7'h13:begin //DP Imm
                 if(funct3==3'h1)begin
@@ -77,7 +80,7 @@ module Decoder(
                 PCS = 2'b00;
                 mem_to_reg = 0;
                 mem_write =0;
-                alu_control = {funct3,ALUControl_0};
+                alu_control = {1'b0, funct3, ALUControl_0};
                 alu_src_a = 2'b00;
                 alu_src_b = 2'b11;
                 imm_src = 3'b011;
@@ -87,7 +90,7 @@ module Decoder(
                 PCS = 2'b00;
                 mem_to_reg = 1;
                 mem_write =0;
-                alu_control = 4'b0000;
+                alu_control = 5'b00000;
                 alu_src_a = 2'b00;
                 alu_src_b = 2'b11;
                 imm_src = 3'b011;
@@ -97,7 +100,7 @@ module Decoder(
                 PCS = 2'b00; // store
                 mem_to_reg = 1'b0;
                 mem_write =1;
-                alu_control = 4'b0000;
+                alu_control = 5'b00000;
                 alu_src_a = 2'b00;
                 alu_src_b = 2'b11;
                 imm_src = 3'b110;
@@ -107,7 +110,7 @@ module Decoder(
                 PCS = 2'b01;
                 mem_to_reg = 1'b0;
                 mem_write =0;
-                alu_control = 4'b0001;
+                alu_control = 5'b00001; // SUB — flags computed from subtraction
                 alu_src_a = 2'b00;
                 alu_src_b = 2'b00;
                 imm_src = 3'b111;
@@ -117,7 +120,7 @@ module Decoder(
                 PCS = 2'b10;
                 mem_to_reg = 1'b0;
                 mem_write =0;
-                alu_control = 4'b0000;
+                alu_control = 5'b00000;
                 alu_src_a = 2'b11;
                 alu_src_b = 2'b01;
                 imm_src = 3'b010;
@@ -127,7 +130,7 @@ module Decoder(
                 PCS = 2'b00;
                 mem_to_reg = 0;
                 mem_write =0;
-                alu_control = 4'b0000;
+                alu_control = 5'b00000;
                 alu_src_a = 2'b11;
                 alu_src_b = 2'b11;
                 imm_src = 3'b000;
@@ -137,7 +140,7 @@ module Decoder(
                 PCS = 2'b00;
                 mem_to_reg = 0;
                 mem_write =0;
-                alu_control = 4'b0000;
+                alu_control = 5'b00000;
                 alu_src_a = 2'b01;
                 alu_src_b = 2'b11;
                 imm_src = 3'b000;
@@ -147,7 +150,7 @@ module Decoder(
                 PCS = 2'b11;
                 mem_to_reg = 0;
                 mem_write =0;
-                alu_control = 4'b0000;
+                alu_control = 5'b00000;
                 alu_src_a = 2'b11;
                 alu_src_b = 2'b01;
                 imm_src = 3'b011;

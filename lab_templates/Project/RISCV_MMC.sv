@@ -28,6 +28,7 @@ module RISCV_MMC(
     input [31:0] ReadDataM,
     output mem_read,
     output reg mem_writeM,
+    output reg [2:0] mem_funct3M,
     output [31:0] pcF,
     output [31:0] alu_result,
     output reg [31:0] WriteDataM
@@ -41,7 +42,7 @@ module RISCV_MMC(
     logic reg_writeD;
     logic mem_to_regD;
     logic mem_writeD;
-    logic [3:0] alu_controlD;
+    logic [4:0] alu_controlD;
     logic [1:0] alu_src_aD;
     logic [1:0] alu_src_bD;
     logic [31:0] RD1D;
@@ -65,7 +66,7 @@ module RISCV_MMC(
     logic reg_writeE;
     logic mem_to_regE;
     logic mem_writeE;
-    logic [3:0] alu_controlE;
+    logic [4:0] alu_controlE;
     logic [1:0] alu_src_aE;
     logic [1:0] alu_src_bE;
     logic [31:0] RD1E;
@@ -115,15 +116,15 @@ module RISCV_MMC(
     logic stall;
     logic uses_rs1;
     logic uses_rs2;
-    logic [5:0] opcodeD;
+    logic [6:0] opcodeD;
     assign opcodeD = instrD[6:0];
-    assign uses_rs1 = !(opcodeD  == 5'b01101 ||  // LUI
-                    opcodeD == 5'b00101 ||  // AUIPC
-                    opcodeD == 5'b11011);   // JAL
+    assign uses_rs1 = !(opcodeD == 7'h37 ||  // LUI
+                        opcodeD == 7'h17 ||  // AUIPC
+                        opcodeD == 7'h6F);   // JAL
   
-    assign uses_rs2 = (opcodeD == 5'b01100) || // R-type (add, sub, etc.)
-                  (opcodeD == 5'b11000) || // B-type (beq, bne, etc.)
-                  (opcodeD == 5'b01000);   // S-type (sw, sb, etc.)
+    assign uses_rs2 = (opcodeD == 7'h33) || // R-type (add, sub, etc.)
+                      (opcodeD == 7'h63) || // B-type (beq, bne, etc.)
+                      (opcodeD == 7'h23);   // S-type (sw, sb, etc.)
                     
                     
                     
@@ -190,7 +191,7 @@ module RISCV_MMC(
         reg_writeE = 1'b0;
         mem_to_regE = 1'b0;
         mem_writeE = 1'b0;
-        alu_controlE = 4'b0000;
+        alu_controlE = 5'b00000;
         alu_src_aE = 2'b00;
         alu_src_bE = 2'b00;
         RD1E = 32'd0;
@@ -204,6 +205,7 @@ module RISCV_MMC(
         reg_writeM = 1'b0;
         mem_to_regM = 1'b0;
         mem_writeM = 1'b0;
+        mem_funct3M = 3'b000;
         alu_resultM = 32'd0;
         rdM = 5'd0;
         WriteDataM = 32'd0;
@@ -222,7 +224,7 @@ module RISCV_MMC(
             reg_writeE <= 1'b0;
             mem_to_regE <= 1'b0;
             mem_writeE <= 1'b0;
-            alu_controlE <= 4'b0000;
+            alu_controlE <= 5'b00000;
             alu_src_aE <= 2'b00;
             alu_src_bE <= 2'b00;
             RD1E <= 32'd0;
@@ -236,6 +238,7 @@ module RISCV_MMC(
             reg_writeM <= 1'b0;
             mem_to_regM <= 1'b0;
             mem_writeM <= 1'b0;
+            mem_funct3M <= 3'b000;
             alu_resultM <= 32'd0;
             rdM <= 5'd0;
             WriteDataM <= 32'd0;
@@ -247,14 +250,16 @@ module RISCV_MMC(
         end
         else begin
             // F to D
-            pcD <= pcF;
             if (control_hazardE) begin // stalling
+                pcD <= 32'd0;
                 instrD <= NOP_INSTR;
             end
             else if(stall)begin
+                pcD <= pcD;
                 instrD <= instrD;
             end
             else begin
+                pcD <= pcF;
                 instrD <= instrF;
             end
 
@@ -265,7 +270,7 @@ module RISCV_MMC(
                 reg_writeE <= 1'b0;
                 mem_to_regE <= 1'b0;
                 mem_writeE <= 1'b0;
-                alu_controlE <= 4'b0000;
+                alu_controlE <= 5'b00000;
                 alu_src_aE <= 2'b00;
                 alu_src_bE <= 2'b00;
                 RD1E <= 32'd0;
@@ -299,6 +304,7 @@ module RISCV_MMC(
             reg_writeM <= reg_writeE;
             mem_to_regM <= mem_to_regE;
             mem_writeM <= mem_writeE;
+            mem_funct3M <= funct3E;
             rdM <= rdE;
             alu_resultM <= alu_resultE;
 
