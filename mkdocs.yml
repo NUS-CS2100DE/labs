@@ -56,6 +56,7 @@ nav:
   - Home: index.md
   - How to use this website: howto.md
   - Grading: grading.md
+  - Animations: animations/animations.md
   - Preparing for labs:
     - Lab Prerequisites: guides/prerequisites.md
     - Getting to know your Nexys 4: guides/nexys4.md

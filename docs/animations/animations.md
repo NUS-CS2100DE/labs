@@ -1,0 +1,29 @@
+# Animations
+
+[Process Lifecycle](process_lifecycle.html)
+
+[Mutual Exclusion](mutual_exclusion.html)
+
+[Deadlock](deadlock.html)
+
+[Vectored and Non-Vectored Interrupts](vectored_nonvectored.html)
+
+<!-- markdownlint-disable MD033 -->
+
+## Process Lifecycle
+
+<iframe src="process_lifecycle.html" width="100%" height="930px"></iframe>
+
+## Mutual Exclusion
+
+<iframe src="mutual_exclusion.html" width="100%" height="1125px"></iframe>
+
+## Deadlock
+
+<iframe src="deadlock.html" width="100%" height="1210px"></iframe>
+
+## Vectored and Non-Vectored Interrupts
+
+<iframe src="vectored_nonvectored.html" width="100%" height="875x"></iframe>
+
+<!-- markdownlint-enable MD033 -->
