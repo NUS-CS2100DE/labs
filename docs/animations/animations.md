@@ -24,6 +24,6 @@
 
 ## Vectored and Non-Vectored Interrupts
 
-<iframe src="vectored_nonvectored.html" width="100%" height="875x"></iframe>
+<iframe src="vectored_nonvectored.html" width="100%" height="875px"></iframe>
 
 <!-- markdownlint-enable MD033 -->
