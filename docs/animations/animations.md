@@ -4,19 +4,19 @@
 
 ## Process Lifecycle
 
-<iframe src="process_lifecycle.html" width="100%" height="930px"></iframe>
+<iframe src="process_lifecycle.html" width="100%" height="870px"></iframe>
 
 ## Mutual Exclusion
 
-<iframe src="mutual_exclusion.html" width="100%" height="1125px"></iframe>
+<iframe src="mutual_exclusion.html" width="100%" height="1100px"></iframe>
 
 ## Deadlock
 
-<iframe src="deadlock.html" width="100%" height="1210px"></iframe>
+<iframe src="deadlock.html" width="100%" height="1100px"></iframe>
 
 ## Vectored and Non-Vectored Interrupts
 
-<iframe src="vectored_nonvectored.html" width="100%" height="875px"></iframe>
+<iframe src="vectored_nonvectored.html" width="100%" height="870px"></iframe>
 
 <!-- markdownlint-enable MD033 -->
 
