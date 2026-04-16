@@ -36,12 +36,23 @@ body{
 }
 .mode-btn:hover{border-color:#60a5fa;color:#60a5fa;background:rgba(96,165,250,.08)}
 .mode-btn.active{border-color:#60a5fa;background:rgba(96,165,250,.13);color:#60a5fa;box-shadow:0 0 15px rgba(96,165,250,.1)}
+.mode-btn.active.preemption{border-color:#f87171;background:rgba(248,113,113,.13);color:#f87171;box-shadow:0 0 15px rgba(248,113,113,.1)}
+.mode-btn.active.ioblocking{border-color:#34d399;background:rgba(52,211,153,.13);color:#34d399;box-shadow:0 0 15px rgba(52,211,153,.1)}
+.mode-btn.active.multitasking{border-color:#fbbf24;background:rgba(251,191,36,.13);color:#fbbf24;box-shadow:0 0 15px rgba(251,191,36,.1)}
 .mode-num{
   display:inline-block;width:18px;height:18px;line-height:18px;text-align:center;
   border-radius:4px;background:rgba(255,255,255,.06);font-size:10px;
   margin-right:4px;vertical-align:middle;
 }
 .mode-btn.active .mode-num{background:#60a5fa;color:#0a0e27}
+.mode-btn.active.preemption .mode-num{background:#f87171;color:#0a0e27}
+.mode-btn.active.ioblocking .mode-num{background:#34d399;color:#0a0e27}
+.mode-btn.active.multitasking .mode-num{background:#fbbf24;color:#0a0e27}
+
+/* Algorithm button active colours */
+.algo-btn.active.rr{border-color:#60a5fa;background:rgba(96,165,250,.13);color:#60a5fa}
+.algo-btn.active.fcfs{border-color:#f87171;background:rgba(248,113,113,.13);color:#f87171}
+.algo-btn.active.priority{border-color:#c084fc;background:rgba(192,132,252,.13);color:#c084fc}
 
 /* Algorithm sub-bar */
 .algo-bar{
@@ -476,7 +487,7 @@ const ALGO_DEFS = [
       { what: 'P2 (high priority) is dispatched.', why: 'Priority scheduling always picks the highest-priority ready process.', moves: [{ pid: 'P2', from: 'ready', to: 'running' }], arrow: 'dispatch', action: 'Dispatched' },
       { what: 'P2 requests I/O — moves to Blocked.', why: 'Even high-priority processes must wait for I/O. P2 voluntarily blocks.', moves: [{ pid: 'P2', from: 'running', to: 'blocked' }], arrow: 'ioreq', action: 'I/O Request', logExtra: '(Kernel I/O servicing not shown)' },
       { what: 'P3 (medium priority) is dispatched.', why: 'With P2 blocked, P3 is the highest-priority ready process.', moves: [{ pid: 'P3', from: 'ready', to: 'running' }], arrow: 'dispatch', action: 'Dispatched' },
-      { what: 'P2\'s I/O completes — P2 preempts P3!', why: 'P2 returns to Ready with higher priority than running P3. The OS immediately context-switches.', moves: [{ pid: 'P2', from: 'blocked', to: 'ready' }, { pid: 'P3', from: 'running', to: 'ready' }], arrow: 'iodone', action: 'Preempted' },
+      { what: 'P2\'s I/O completes — P2 preempts P3!', why: 'P2 returns to Ready with higher priority than running P3. The OS immediately context-switches.', moves: [{ pid: 'P2', from: 'blocked', to: 'ready' }, { pid: 'P3', from: 'running', to: 'ready' }], arrow: ['iodone', 'timeout'], action: 'Preempted' },
       { what: 'P2 is dispatched again.', why: 'P2 has the highest priority and is ready, so it gets the CPU immediately.', moves: [{ pid: 'P2', from: 'ready', to: 'running' }], arrow: 'dispatch', action: 'Dispatched' },
       { what: 'P2 finishes and exits.', why: 'The highest-priority process completes first. This is the strength of priority scheduling.', moves: [{ pid: 'P2', from: 'running', to: 'terminated' }], arrow: 'exit', action: 'Exited' },
       { what: 'P3 (medium) is dispatched.', why: 'P3 resumes. P1 (low) must keep waiting — this is the risk of starvation.', moves: [{ pid: 'P3', from: 'ready', to: 'running' }], arrow: 'dispatch', action: 'Dispatched' },
@@ -519,20 +530,39 @@ function createSVGElement(tag, attrs) {
   return el;
 }
 
+function mkTxt(x,y,s,f,sz,a,p){const t=createSVGElement('text',{x,y,'text-anchor':'middle','dominant-baseline':'middle',fill:f,'font-size':sz,'font-family':"'Segoe UI',system-ui,-apple-system,sans-serif",...(a||{})});t.textContent=s;p.appendChild(t);return t}
+
 function drawStateNodes() {
   const g = document.getElementById('stateNodes');
   g.innerHTML = '';
+  
+  // State icons
+  const stateIcons = {
+    new: '✨',
+    ready: '⏳',
+    running: '⚡',
+    blocked: '💤',
+    terminated: '✅'
+  };
+
   for (const [key, s] of Object.entries(STATES)) {
     const color = COLORS[key];
+
+    // Gradient background fill like mutual_exclusion
+    const gradient = createSVGElement('linearGradient', {
+      id: `g${key}`,
+      x1: '0%', y1: '0%', x2: '100%', y2: '100%'
+    });
+    gradient.innerHTML = `<stop offset="0%" stop-color="${color}" stop-opacity=".16"/><stop offset="100%" stop-color="${color}" stop-opacity=".04"/>`;
+    document.querySelector('defs').appendChild(gradient);
 
     const rect = createSVGElement('rect', {
       x: s.x - s.w/2, y: s.y - s.h/2,
       width: s.w, height: s.h,
       rx: 12, ry: 12,
-      fill: 'rgba(15,19,54,0.9)',
+      fill: `url(#g${key})`,
       stroke: color,
-      'stroke-width': key === 'running' ? 2 : 1.2,
-      'stroke-opacity': key === 'running' ? 0.7 : 0.35,
+      'stroke-width': key === 'running' ? 2.5 : 1.8,
       class: 'state-node'
     });
     g.appendChild(rect);
@@ -549,24 +579,10 @@ function drawStateNodes() {
       g.appendChild(glow);
     }
 
-    // Bumped font sizes for better mobile readability
-    const labelSize = key === 'running' ? '16' : '15';
-    const label = createSVGElement('text', {
-      x: s.x, y: s.y - 10,
-      class: 'state-label',
-      'font-size': labelSize,
-      fill: color
-    });
-    label.textContent = s.label;
-    g.appendChild(label);
-
-    const sub = createSVGElement('text', {
-      x: s.x, y: s.y + 8,
-      class: 'state-sublabel',
-      'font-size': '13'
-    });
-    sub.textContent = s.sub;
-    g.appendChild(sub);
+    // Label + Icon layout
+    mkTxt(s.x, s.y - 16, s.label, color, '15px', {'font-weight':'700'}, g);
+    mkTxt(s.x, s.y + 4, stateIcons[key], '#fff', '14px', {}, g);
+    mkTxt(s.x, s.y + 20, s.sub, '#8888aa', '11px', {}, g);
   }
 }
 
@@ -712,18 +728,21 @@ function renderTokens() {
   }
 }
 
-function highlightArrow(arrowId) {
+function highlightArrow(arrowIds) {
   document.querySelectorAll('.arrow-path').forEach(p => {
     p.classList.remove('active', 'active-admit', 'active-dispatch', 'active-timeout', 'active-ioreq', 'active-iodone', 'active-exit', 'flash-overlay');
     p.setAttribute('marker-end', 'url(#arrowhead)');
   });
-  if (!arrowId) return;
-  const el = document.getElementById('arrow-' + arrowId);
-  if (el) {
-    el.classList.add('active', 'active-' + arrowId, 'flash-overlay');
-    el.setAttribute('marker-end', 'url(#arrowhead-active)');
-    setTimeout(() => el.classList.remove('flash-overlay'), 800);
-  }
+  if (!arrowIds) return;
+  const ids = Array.isArray(arrowIds) ? arrowIds : [arrowIds];
+  ids.forEach(arrowId => {
+    const el = document.getElementById('arrow-' + arrowId);
+    if (el) {
+      el.classList.add('active', 'active-' + arrowId, 'flash-overlay');
+      el.setAttribute('marker-end', 'url(#arrowhead-active)');
+      setTimeout(() => el.classList.remove('flash-overlay'), 800);
+    }
+  });
 }
 
 function updateDescription(step) {
@@ -873,7 +892,13 @@ function loadMode(index) {
   currentMode = index;
   resetScenario();
   document.querySelectorAll('.mode-btn').forEach((btn, i) => {
-    btn.classList.toggle('active', i === index);
+    btn.classList.remove('active','preemption','ioblocking','multitasking');
+    if(i === index){
+      btn.classList.add('active');
+      if(i === 1) btn.classList.add('preemption');
+      if(i === 2) btn.classList.add('ioblocking');
+      if(i === 3) btn.classList.add('multitasking');
+    }
   });
   const algoBar = document.getElementById('algoBar');
   if (index === 3) {
@@ -888,7 +913,13 @@ function loadAlgo(index) {
   rebuildScenarios();
   resetScenario();
   document.querySelectorAll('.algo-btn').forEach((btn, i) => {
-    btn.classList.toggle('active', i === index);
+    btn.classList.remove('active','rr','fcfs','priority');
+    if(i === index) {
+      btn.classList.add('active');
+      if(i === 0) btn.classList.add('rr');
+      if(i === 1) btn.classList.add('fcfs');
+      if(i === 2) btn.classList.add('priority');
+    }
   });
 }
 
