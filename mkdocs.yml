@@ -1,5 +1,7 @@
 site_name: CS2100DE Labs
 site_url: https://nus-cs2100de.github.io/labs
+use_directory_urls: false
+
 theme:
   name: material
   palette: nus
@@ -23,6 +25,17 @@ theme:
     text: Merriweather
   icon:
     annotation: material/information-variant-circle-outline
+  allow_html: true
+  features:
+    - content.code.annotate
+    - content.iframe
+  policies:
+    script-src:
+      - "'self'"
+    child-src:
+      - "'self'"
+    frame-src:
+      - "'self'"
 extra_css:
   - stylesheets/extra.css
 markdown_extensions:
