@@ -1,12 +1,12 @@
 # Animations
 
-[Process Lifecycle](process_lifecycle.html)
+[🤹‍♂️👩‍💻 Process Lifecycle](process_lifecycle.html)
 
-[Mutual Exclusion](mutual_exclusion.html)
+[🔁🔒 Mutual Exclusion](mutual_exclusion.html)
 
-[Deadlock](deadlock.html)
+[☠🙅 Deadlock](deadlock.html)
 
-[Vectored and Non-Vectored Interrupts](vectored_nonvectored.html)
+[🎯⏳ Vectored and Non-Vectored Interrupts](vectored_nonvectored.html)
 
 <!-- markdownlint-disable MD033 -->
 <!-- 
