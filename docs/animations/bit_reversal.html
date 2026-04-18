@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Bit Reversal Visualizer</title>
+<style>
+  :root {
+    --color-background-primary: #1a1f2e;
+    --color-background-secondary: #222838;
+    --color-background-tertiary: #2c3347;
+    --color-background-info: rgba(55, 138, 221, 0.18);
+    --color-text-primary: #e8ecf4;
+    --color-text-secondary: #a8b2c7;
+    --color-text-tertiary: #6b7590;
+    --color-text-info: #85B7EB;
+    --color-border-tertiary: rgba(255,255,255,0.12);
+    --color-border-secondary: rgba(255,255,255,0.22);
+    --color-border-info: #378ADD;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+    --font-sans: system-ui, -apple-system, sans-serif;
+    --font-mono: 'SF Mono', Monaco, 'Courier New', monospace;
+  }
+  body { background: #0f1419; color: var(--color-text-primary); font-family: var(--font-sans); padding: 20px; max-width: 900px; margin: 0 auto; }
+  button { background: transparent; color: var(--color-text-primary); border: 0.5px solid var(--color-border-secondary); padding: 6px 12px; border-radius: var(--border-radius-md); cursor: pointer; font-family: inherit; }
+  button:hover { background: var(--color-background-tertiary); }
+  button:active { transform: scale(0.98); }
+  input[type="text"] { background: var(--color-background-primary); color: var(--color-text-primary); border: 0.5px solid var(--color-border-secondary); padding: 6px 10px; border-radius: var(--border-radius-md); font-family: var(--font-mono); }
+  input[type="range"] { accent-color: var(--color-text-info); }
+
+  .bvz-wrap { padding: 0; }
+  .bvz-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+  @media (min-width: 780px) { .bvz-grid { grid-template-columns: 1.15fr 1fr; } }
+  .bvz-card { background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 1rem 1.1rem; }
+  .bvz-section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); margin: 0 0 10px; font-weight: 500; }
+  .bvz-input-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .bvz-input-row input[type="text"] { flex: 1; min-width: 140px; font-size: 14px; }
+  .bvz-presets { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .bvz-preset { font-family: var(--font-mono); font-size: 12px; padding: 4px 10px; }
+
+  .bvz-stage-area { margin: 12px 0 6px; min-height: 180px; }
+  .bvz-op-row { display: flex; align-items: center; gap: 8px; margin: 3px 0; }
+  .bvz-op-label { font-family: var(--font-mono); font-size: 11px; color: var(--color-text-tertiary); width: 84px; flex-shrink: 0; text-align: right; }
+  .bvz-op-sym { font-family: var(--font-mono); font-size: 18px; font-weight: 500; width: 18px; flex-shrink: 0; text-align: center; color: var(--color-text-primary); }
+  .bvz-op-sym.amber { color: #EF9F27; }
+  .bvz-op-sym.rose { color: #D4537E; }
+  .bvz-op-sym.blue { color: var(--color-text-info); }
+  .bvz-bits-inline { display: flex; gap: 3px; }
+  .bvz-divider { border-top: 1px solid var(--color-border-tertiary); margin: 4px 0 4px calc(84px + 8px + 18px + 8px); height: 0; }
+
+  .bvz-bit { width: 28px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 15px; font-weight: 500; background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); position: relative; flex-shrink: 0; }
+  .bvz-bit.anim { transition: transform 750ms cubic-bezier(.45,.05,.3,1); }
+  .bvz-bit .idx { position: absolute; top: -13px; font-size: 9px; color: var(--color-text-tertiary); font-weight: 400; }
+  .bvz-bit.one { background: rgba(55, 138, 221, 0.25); color: #85B7EB; }
+  .bvz-bit.zero { color: var(--color-text-tertiary); }
+  .bvz-bit.dim { opacity: 0.28; }
+  .bvz-bit.mask-a { box-shadow: 0 0 0 2px #EF9F27; }
+  .bvz-bit.mask-b { box-shadow: 0 0 0 2px #D4537E; }
+  .bvz-bit.tag-a { background: rgba(239, 159, 39, 0.22); color: #F0B84A; }
+  .bvz-bit.tag-b { background: rgba(212, 83, 126, 0.22); color: #ED93B1; }
+
+  .bvz-readout { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; font-family: var(--font-mono); font-size: 12px; margin-top: 12px; }
+  .bvz-readout span { color: var(--color-text-secondary); }
+  .bvz-readout b { color: var(--color-text-primary); font-weight: 500; margin-left: 3px; }
+
+  .bvz-stages { display: flex; gap: 6px; justify-content: center; margin: 12px 0 6px; flex-wrap: wrap; }
+  .bvz-pill { font-size: 12px; padding: 4px 10px; border-radius: 999px; background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); color: var(--color-text-secondary); }
+  .bvz-pill.active { background: var(--color-background-info); color: var(--color-text-info); border-color: var(--color-border-info); }
+  .bvz-pill.done { color: var(--color-text-tertiary); }
+
+  .bvz-phase-bar { display: flex; gap: 4px; justify-content: center; margin: 8px 0 4px; }
+  .bvz-phase-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-border-tertiary); transition: background 200ms, transform 200ms; }
+  .bvz-phase-dot.active { background: var(--color-text-info); transform: scale(1.4); }
+  .bvz-phase-dot.done { background: var(--color-text-tertiary); }
+
+  .bvz-status { text-align: center; font-size: 13px; color: var(--color-text-secondary); min-height: 52px; margin-top: 6px; line-height: 1.45; padding: 0 6px; }
+  .bvz-status b { color: var(--color-text-primary); font-weight: 500; }
+  .bvz-status code { font-family: var(--font-mono); font-size: 12px; background: var(--color-background-primary); padding: 1px 5px; border-radius: 4px; color: var(--color-text-primary); }
+
+  .bvz-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 10px; }
+  .bvz-controls button { font-size: 13px; }
+  .bvz-controls .spd { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 140px; font-size: 12px; color: var(--color-text-secondary); }
+  .bvz-controls .spd input { flex: 1; }
+
+  .bvz-code { font-family: var(--font-mono); font-size: 12.5px; line-height: 1.7; background: var(--color-background-primary); border-radius: var(--border-radius-md); padding: 12px 14px; border: 0.5px solid var(--color-border-tertiary); overflow-x: auto; }
+  .bvz-code .line { display: block; padding: 4px 6px; border-radius: 4px; border-left: 2px solid transparent; transition: opacity 220ms; }
+  .bvz-code .line.active { border-left-color: var(--color-border-info); }
+  .bvz-code .line.done { opacity: 0.45; }
+  .bvz-code .cmt { color: var(--color-text-tertiary); font-style: italic; display: block; margin-bottom: 2px; }
+  .bvz-code .tok-var { color: var(--color-text-primary); }
+  .bvz-code .tok-op { color: #D4537E; }
+  .bvz-code .tok-num { color: #97C459; }
+  .bvz-code .tok { transition: background 250ms, outline-color 250ms, color 250ms; padding: 1px 2px; border-radius: 3px; outline: 1.5px solid transparent; }
+  .bvz-code .tok.hi-a { background: rgba(239, 159, 39, 0.22); outline-color: #EF9F27; }
+  .bvz-code .tok.hi-b { background: rgba(212, 83, 126, 0.22); outline-color: #D4537E; }
+  .bvz-code .tok.hi-or { background: rgba(55, 138, 221, 0.25); outline-color: var(--color-border-info); }
+  .bvz-code .tok.hi-shift-a { background: rgba(239, 159, 39, 0.22); outline-color: #EF9F27; color: #F0B84A !important; }
+  .bvz-code .tok.hi-shift-b { background: rgba(212, 83, 126, 0.22); outline-color: #D4537E; color: #ED93B1 !important; }
+
+  .bvz-kbd { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; font-size: 11px; color: var(--color-text-tertiary); margin-top: 10px; }
+  .bvz-kbd kbd { font-family: var(--font-mono); font-size: 10.5px; padding: 2px 6px; background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: 4px; color: var(--color-text-secondary); }
+
+  .bvz-shift-hint { font-size: 11px; color: var(--color-text-tertiary); text-align: center; margin-bottom: 6px; }
+  .bvz-shift-hint b { font-weight: 500; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bvz-bit.anim { transition: none; }
+  }
+  @media (max-width: 420px) {
+    .bvz-op-label { width: 62px; font-size: 10px; }
+    .bvz-bit { width: 26px; height: 32px; font-size: 14px; }
+    .bvz-bits-inline { gap: 2px; }
+    .bvz-divider { margin-left: calc(62px + 8px + 18px + 8px); }
+  }
+</style>
+</head>
+<body>
+
+<div class="bvz-wrap">
+  <div class="bvz-card" style="margin-bottom: 1rem;">
+    <div class="bvz-section-label">Input</div>
+    <div class="bvz-input-row">
+      <input type="text" id="bvz-in" value="0b11010010" spellcheck="false">
+      <button id="bvz-apply">Apply</button>
+    </div>
+    <div class="bvz-presets">
+      <button class="bvz-preset" data-preset="0b11010010">0b11010010</button>
+      <button class="bvz-preset" data-preset="0xFF">0xFF</button>
+      <button class="bvz-preset" data-preset="0x01">0x01</button>
+      <button class="bvz-preset" data-preset="0xA5">0xA5</button>
+      <button class="bvz-preset" id="bvz-rand">Random</button>
+    </div>
+  </div>
+
+  <div class="bvz-grid">
+    <div class="bvz-card">
+      <div class="bvz-section-label">Working bits</div>
+      <div class="bvz-stage-area" id="bvz-area"></div>
+      <div class="bvz-readout" id="bvz-readout"></div>
+      <div class="bvz-stages" id="bvz-stages">
+        <span class="bvz-pill" data-stage="0">Nibbles</span>
+        <span class="bvz-pill" data-stage="1">Crumbs</span>
+        <span class="bvz-pill" data-stage="2">Bits</span>
+      </div>
+      <div class="bvz-phase-bar" id="bvz-phase-bar"></div>
+      <div class="bvz-status" id="bvz-status">Ready. Press <b>Next</b> or <b>→</b> to begin.</div>
+      <div class="bvz-controls">
+        <button id="bvz-prev">‹ Prev</button>
+        <button id="bvz-play">▶ Play</button>
+        <button id="bvz-next">Next ›</button>
+        <button id="bvz-reset">Reset</button>
+      </div>
+      <div class="bvz-controls" style="margin-top: 6px;">
+        <div class="spd">
+          <span>Autoplay</span>
+          <input type="range" id="bvz-speed" min="800" max="2600" value="1600" step="100">
+          <span id="bvz-speed-out" style="font-family: var(--font-mono); min-width: 56px; text-align: right;">1600ms</span>
+        </div>
+      </div>
+      <div class="bvz-kbd">
+        <span><kbd>Space</kbd> play</span>
+        <span><kbd>→</kbd> next</span>
+        <span><kbd>←</kbd> prev</span>
+        <span><kbd>R</kbd> reset</span>
+        <span><kbd>+</kbd> <kbd>−</kbd> speed</span>
+      </div>
+    </div>
+
+    <div class="bvz-card">
+      <div class="bvz-section-label">Code</div>
+      <div class="bvz-code" id="bvz-code"></div>
+      <div style="font-size: 11px; color: var(--color-text-tertiary); margin-top: 10px; line-height: 1.55;">
+        <b style="color: var(--color-text-secondary); font-weight: 500;">Each stage = 4 micro-steps:</b><br>
+        1. <b style="color: var(--color-text-secondary); font-weight: 500;">AND</b> with mask A — keeps the left half.<br>
+        2. <b style="color: var(--color-text-secondary); font-weight: 500;">AND</b> with mask B — keeps the right half.<br>
+        3. <b style="color: var(--color-text-secondary); font-weight: 500;">Shift</b> — bits slide to their new positions.<br>
+        4. <b style="color: var(--color-text-secondary); font-weight: 500;">OR</b> — merges the two shifted halves.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const STAGES = [
+    { name: 'Nibbles', maskA: 0b11110000, maskB: 0b00001111, shift: 4, maskABin: '0b11110000', maskBBin: '0b00001111' },
+    { name: 'Crumbs',  maskA: 0b11001100, maskB: 0b00110011, shift: 2, maskABin: '0b11001100', maskBBin: '0b00110011' },
+    { name: 'Bits',    maskA: 0b10101010, maskB: 0b01010101, shift: 1, maskABin: '0b10101010', maskBBin: '0b01010101' }
+  ];
+  const BEATS_PER_STAGE = 4;
+  const TOTAL_BEATS = STAGES.length * BEATS_PER_STAGE;
+
+  const area = document.getElementById('bvz-area');
+  const readoutEl = document.getElementById('bvz-readout');
+  const statusEl = document.getElementById('bvz-status');
+  const stagesEl = document.getElementById('bvz-stages');
+  const phaseBar = document.getElementById('bvz-phase-bar');
+  const codeEl = document.getElementById('bvz-code');
+  const playBtn = document.getElementById('bvz-play');
+  const nextBtn = document.getElementById('bvz-next');
+  const prevBtn = document.getElementById('bvz-prev');
+  const resetBtn = document.getElementById('bvz-reset');
+  const speedEl = document.getElementById('bvz-speed');
+  const speedOut = document.getElementById('bvz-speed-out');
+  const inputEl = document.getElementById('bvz-in');
+  const applyBtn = document.getElementById('bvz-apply');
+  const randBtn = document.getElementById('bvz-rand');
+
+  let original = 0xD2;
+  let byteVal = original;
+  let beatIdx = -1;
+  let playing = false;
+  let playTimer = null;
+
+  // --- Code rendering with tagged sub-expressions ---
+  // For each stage line, we render tokens with data-tag attributes:
+  //   andA = "toswap & maskA"
+  //   andB = "toswap & maskB"
+  //   shiftA = ">> shift"
+  //   shiftB = "<< shift"
+  //   orOp = "|"
+  // So we can highlight precisely per beat.
+
+  function renderCodeLine(stageIdx, assignVar) {
+    const s = STAGES[stageIdx];
+    const line = document.createElement('div');
+    line.className = 'line';
+    line.dataset.stage = stageIdx;
+
+    const cmt = document.createElement('span');
+    cmt.className = 'cmt';
+    cmt.textContent = '// ' + ['swap nibbles — 4 bit groups', 'swap crumbs — 2 bit groups', 'swap individual bits'][stageIdx];
+    line.appendChild(cmt);
+
+    const code = document.createElement('span');
+    const v = '<span class="tok-var">' + assignVar + '</span>';
+    const eq = ' <span class="tok-op">=</span> ';
+    const and = '<span class="tok-op">&amp;</span>';
+    const or  = '<span class="tok-op">|</span>';
+    const shr = '<span class="tok-op">&gt;&gt;</span>';
+    const shl = '<span class="tok-op">&lt;&lt;</span>';
+    const n = (x) => '<span class="tok-num">' + x + '</span>';
+    const toswap = '<span class="tok-var">toswap</span>';
+    const shiftNum = n(s.shift);
+
+    code.innerHTML =
+      v + eq +
+      '<span class="tok" data-tag="andA">(' + toswap + ' ' + and + ' ' + n(s.maskABin) + ')</span>' +
+      '<span class="tok" data-tag="shiftA">' + shr + shiftNum + '</span>' +
+      ' <span class="tok" data-tag="orOp">' + or + '</span> ' +
+      '<span class="tok" data-tag="andB">(' + toswap + ' ' + and + ' ' + n(s.maskBBin) + ')</span>' +
+      '<span class="tok" data-tag="shiftB">' + shl + shiftNum + '</span>' +
+      ';';
+    line.appendChild(code);
+    return line;
+  }
+
+  function buildCode() {
+    codeEl.innerHTML = '';
+    codeEl.appendChild(renderCodeLine(0, 'toswap'));
+    codeEl.appendChild(renderCodeLine(1, 'toswap'));
+    codeEl.appendChild(renderCodeLine(2, 'swapped'));
+  }
+
+  // Highlight specific sub-expressions for a given beat within a stage
+  function highlightCode(stageIdx, beat) {
+    // Clear all highlights
+    codeEl.querySelectorAll('.tok').forEach(t => {
+      t.classList.remove('hi-a', 'hi-b', 'hi-or', 'hi-shift-a', 'hi-shift-b');
+    });
+    codeEl.querySelectorAll('.line').forEach(l => l.classList.remove('active', 'done'));
+    if (stageIdx < 0) return;
+
+    codeEl.querySelectorAll('.line').forEach((l, i) => {
+      if (i < stageIdx) l.classList.add('done');
+      else if (i === stageIdx && beatIdx < TOTAL_BEATS) l.classList.add('active');
+      else if (beatIdx >= TOTAL_BEATS) l.classList.add('done');
+    });
+    if (stageIdx >= STAGES.length) return;
+
+    const line = codeEl.querySelectorAll('.line')[stageIdx];
+    if (!line) return;
+    const tok = (tag) => line.querySelector('[data-tag="' + tag + '"]');
+
+    if (beat === 0) {
+      // AND with mask A
+      if (tok('andA')) tok('andA').classList.add('hi-a');
+    } else if (beat === 1) {
+      // AND with mask B
+      if (tok('andB')) tok('andB').classList.add('hi-b');
+    } else if (beat === 2) {
+      // Shift both: highlight the shift operators AND the preceding AND groups in same color
+      if (tok('andA')) tok('andA').classList.add('hi-a');
+      if (tok('shiftA')) tok('shiftA').classList.add('hi-shift-a');
+      if (tok('andB')) tok('andB').classList.add('hi-b');
+      if (tok('shiftB')) tok('shiftB').classList.add('hi-shift-b');
+    } else if (beat === 3) {
+      // OR combine: highlight OR operator + both shifted halves
+      if (tok('andA')) tok('andA').classList.add('hi-a');
+      if (tok('shiftA')) tok('shiftA').classList.add('hi-shift-a');
+      if (tok('andB')) tok('andB').classList.add('hi-b');
+      if (tok('shiftB')) tok('shiftB').classList.add('hi-shift-b');
+      if (tok('orOp')) tok('orOp').classList.add('hi-or');
+    }
+  }
+
+  function buildPhaseBar() {
+    phaseBar.innerHTML = '';
+    for (let s = 0; s < STAGES.length; s++) {
+      for (let b = 0; b < BEATS_PER_STAGE; b++) {
+        const d = document.createElement('div');
+        d.className = 'bvz-phase-dot';
+        if (b === BEATS_PER_STAGE - 1 && s < STAGES.length - 1) d.style.marginRight = '10px';
+        phaseBar.appendChild(d);
+      }
+    }
+  }
+
+  function parseInput(s) {
+    s = (s || '').trim();
+    if (!s) return null;
+    let v;
+    if (/^0b[01]+$/i.test(s)) v = parseInt(s.slice(2), 2);
+    else if (/^0x[0-9a-f]+$/i.test(s)) v = parseInt(s.slice(2), 16);
+    else if (/^[01]{8}$/.test(s)) v = parseInt(s, 2);
+    else if (/^\d+$/.test(s)) v = parseInt(s, 10);
+    else return null;
+    if (isNaN(v) || v < 0 || v > 255) return null;
+    return v;
+  }
+  function fmtBin(v) { return '0b' + (v & 0xFF).toString(2).padStart(8, '0'); }
+  function fmtHex(v) { return '0x' + (v & 0xFF).toString(16).toUpperCase().padStart(2, '0'); }
+
+  function makeBit(bitVal, pos, opts) {
+    opts = opts || {};
+    const d = document.createElement('div');
+    d.className = 'bvz-bit ' + (bitVal ? 'one' : 'zero');
+    if (opts.cls) d.classList.add(opts.cls);
+    if (opts.dim) d.classList.add('dim');
+    const idx = document.createElement('span');
+    idx.className = 'idx';
+    idx.textContent = pos;
+    d.appendChild(idx);
+    const span = document.createElement('span');
+    span.textContent = bitVal;
+    d.appendChild(span);
+    return d;
+  }
+
+  function makeRow(v, opts) {
+    opts = opts || {};
+    const row = document.createElement('div');
+    row.className = 'bvz-bits-inline';
+    for (let i = 7; i >= 0; i--) {
+      const b = (v >> i) & 1;
+      const cellOpts = {};
+      if (opts.highlightMask && (opts.highlightMask & (1 << i))) cellOpts.cls = opts.highlightClass;
+      if (opts.tagMask && (opts.tagMask & (1 << i))) cellOpts.cls = opts.tagClass;
+      if (opts.dimZeros && b === 0) cellOpts.dim = true;
+      row.appendChild(makeBit(b, i, cellOpts));
+    }
+    return row;
+  }
+
+  function makeOpRow(labelText, bitsRow, symText, symClass) {
+    const row = document.createElement('div');
+    row.className = 'bvz-op-row';
+    const lab = document.createElement('div');
+    lab.className = 'bvz-op-label';
+    lab.textContent = labelText;
+    const sym = document.createElement('div');
+    sym.className = 'bvz-op-sym' + (symClass ? ' ' + symClass : '');
+    sym.textContent = symText || '';
+    row.appendChild(lab);
+    row.appendChild(sym);
+    row.appendChild(bitsRow);
+    return row;
+  }
+
+  function makeDivider() {
+    const d = document.createElement('div');
+    d.className = 'bvz-divider';
+    return d;
+  }
+
+  function renderReadout(v) {
+    readoutEl.innerHTML =
+      '<span>bin<b>' + fmtBin(v) + '</b></span>' +
+      '<span>hex<b>' + fmtHex(v) + '</b></span>' +
+      '<span>dec<b>' + (v & 0xFF) + '</b></span>';
+  }
+
+  function updateStages(stageIdx) {
+    stagesEl.querySelectorAll('.bvz-pill').forEach((p, i) => {
+      p.classList.remove('active', 'done');
+      if (beatIdx >= TOTAL_BEATS) { p.classList.add('done'); return; }
+      if (i < stageIdx) p.classList.add('done');
+      else if (i === stageIdx) p.classList.add('active');
+    });
+  }
+
+  function updatePhaseBar() {
+    const dots = phaseBar.querySelectorAll('.bvz-phase-dot');
+    dots.forEach((d, i) => {
+      d.classList.remove('active', 'done');
+      if (beatIdx >= TOTAL_BEATS) { d.classList.add('done'); return; }
+      if (beatIdx < 0) return;
+      if (i < beatIdx) d.classList.add('done');
+      else if (i === beatIdx) d.classList.add('active');
+    });
+  }
+
+  function setStatus(html) { statusEl.innerHTML = html; }
+
+  // --- FLIP-style shift animation ---
+  // Render the post-shift positions, then on next frame apply an inverting
+  // transform based on measured delta, then on next frame remove the transform
+  // so CSS transitions the bits smoothly into their final positions.
+  function animateShiftRow(row, fromVal, toVal, tagClass) {
+    // First, render target state (post-shift) with the tag color
+    row.innerHTML = '';
+    const target = makeRow(toVal, { dimZeros: true, tagMask: toVal, tagClass: tagClass });
+    while (target.firstChild) row.appendChild(target.firstChild);
+
+    // Measure target cell centers
+    const cells = row.querySelectorAll('.bvz-bit');
+    const targetCenters = [];
+    cells.forEach(c => {
+      const r = c.getBoundingClientRect();
+      targetCenters.push(r.left + r.width / 2);
+    });
+
+    // Build a temporary row representing fromVal to measure source centers
+    const tmp = makeRow(fromVal, { dimZeros: true, tagMask: fromVal, tagClass: tagClass });
+    tmp.style.position = 'absolute';
+    tmp.style.visibility = 'hidden';
+    tmp.style.left = '0';
+    tmp.style.top = '0';
+    row.parentElement.appendChild(tmp);
+    const fromCells = tmp.querySelectorAll('.bvz-bit');
+    const fromCenters = [];
+    fromCells.forEach(c => {
+      const r = c.getBoundingClientRect();
+      fromCenters.push(r.left + r.width / 2);
+    });
+    row.parentElement.removeChild(tmp);
+
+    // For each target cell that has content (bit==1), find matching source position.
+    // The shift is uniform, so we can just use the cell stride * shift.
+    // Actually: for each target bit at position p with value 1, the source bit came
+    // from position (p + shift) if right shift, or (p - shift) if left shift.
+    // We determine shift direction from toVal relative to fromVal. But since the
+    // bit-row displays index 7 on the LEFT, shifting the *value* right (>>) moves
+    // bits to LOWER indices = RIGHT on screen. For our animation:
+    //   - If the target is the result of fromVal >> shiftAmount, bits moved right.
+    //   - If <<, bits moved left.
+    // Simpler: compute the delta between a cell with value 1 in target and the
+    // corresponding cell in fromVal. Use bit-position math directly.
+
+    // Find shift amount by comparing (value shift). We know fromVal and toVal
+    // are related by either >> or <<. Detect which by checking.
+    let shiftAmount = 0;
+    let direction = 0; // +1 means bits moved right on screen (value >> shift), -1 for left
+    for (let s = 1; s <= 7; s++) {
+      if (((fromVal >> s) & 0xFF) === toVal) { shiftAmount = s; direction = 1; break; }
+      if (((fromVal << s) & 0xFF) === toVal) { shiftAmount = s; direction = -1; break; }
+    }
+
+    // Apply FLIP: for each cell in the rendered (target) row, offset it by -delta
+    // so it appears at its source position, then transition to 0.
+    // direction +1 (>>) means value moved to lower bit positions = RIGHT on screen
+    // so target cells should start to the LEFT of where they ended up (came from left).
+    // Screen: index 7 on left, 0 on right. Cell stride = distance between adjacent cells.
+    if (cells.length < 2) return;
+    const stride = targetCenters[1] - targetCenters[0]; // positive
+    // For >> : target cell at display-index i corresponds to source at display-index (i - shift)
+    //   meaning the cell has moved RIGHT by shift * stride. To reverse, we offset LEFT by that amount.
+    //   So initial transform = translateX(-shift * stride).
+    // For << : cell has moved LEFT. Initial transform = translateX(+shift * stride).
+    const initialX = direction === 1 ? -(shiftAmount * stride) : (shiftAmount * stride);
+
+    cells.forEach(c => {
+      // Only animate cells that have a 1 bit (they're the ones that "moved")
+      const bitSpan = c.querySelectorAll('span')[1];
+      if (bitSpan && bitSpan.textContent === '1') {
+        // Disable transition, apply initial offset
+        c.style.transition = 'none';
+        c.style.transform = 'translateX(' + initialX + 'px)';
+      }
+    });
+
+    // Force reflow, then re-enable transition and clear transform
+    void row.offsetWidth;
+    requestAnimationFrame(() => {
+      cells.forEach(c => {
+        const bitSpan = c.querySelectorAll('span')[1];
+        if (bitSpan && bitSpan.textContent === '1') {
+          c.style.transition = '';
+          c.classList.add('anim');
+          c.style.transform = '';
+        }
+      });
+    });
+  }
+
+  function render() {
+    area.innerHTML = '';
+
+    if (beatIdx < 0) {
+      area.appendChild(makeOpRow('toswap', makeRow(byteVal), '', ''));
+      renderReadout(byteVal);
+      updateStages(-1);
+      highlightCode(-1, 0);
+      updatePhaseBar();
+      return;
+    }
+
+    if (beatIdx >= TOTAL_BEATS) {
+      area.appendChild(makeOpRow('swapped', makeRow(byteVal), '', ''));
+      renderReadout(byteVal);
+      updateStages(STAGES.length);
+      // Mark all lines done
+      codeEl.querySelectorAll('.line').forEach(l => { l.classList.remove('active'); l.classList.add('done'); });
+      codeEl.querySelectorAll('.tok').forEach(t => t.classList.remove('hi-a','hi-b','hi-or','hi-shift-a','hi-shift-b'));
+      updatePhaseBar();
+      return;
+    }
+
+    const stageIdx = Math.floor(beatIdx / BEATS_PER_STAGE);
+    const beat = beatIdx % BEATS_PER_STAGE;
+    const s = STAGES[stageIdx];
+    updateStages(stageIdx);
+    updatePhaseBar();
+    highlightCode(stageIdx, beat);
+
+    const aRaw = byteVal & s.maskA;
+    const bRaw = byteVal & s.maskB;
+    const aShifted = (aRaw >> s.shift) & 0xFF;
+    const bShifted = (bRaw << s.shift) & 0xFF;
+    const combined = (aShifted | bShifted) & 0xFF;
+
+    if (beat === 0) {
+      area.appendChild(makeOpRow('toswap', makeRow(byteVal, { highlightMask: s.maskA, highlightClass: 'mask-a' }), '', ''));
+      area.appendChild(makeOpRow('mask A', makeRow(s.maskA, { dimZeros: true }), '&', 'amber'));
+      area.appendChild(makeDivider());
+      area.appendChild(makeOpRow('= left', makeRow(aRaw, { dimZeros: true, tagMask: s.maskA, tagClass: 'tag-a' }), '', ''));
+      renderReadout(byteVal);
+      setStatus('<b>Step ' + (beatIdx+1) + '/12 — AND with mask A.</b> At every position where mask A is <code>1</code>, the bit passes through. Where it\'s <code>0</code>, the result is <code>0</code>. This keeps only the left half.');
+    } else if (beat === 1) {
+      area.appendChild(makeOpRow('toswap', makeRow(byteVal, { highlightMask: s.maskB, highlightClass: 'mask-b' }), '', ''));
+      area.appendChild(makeOpRow('mask B', makeRow(s.maskB, { dimZeros: true }), '&', 'rose'));
+      area.appendChild(makeDivider());
+      area.appendChild(makeOpRow('= right', makeRow(bRaw, { dimZeros: true, tagMask: s.maskB, tagClass: 'tag-b' }), '', ''));
+      const echo = document.createElement('div');
+      echo.style.marginTop = '10px';
+      echo.style.fontSize = '11px';
+      echo.style.color = 'var(--color-text-tertiary)';
+      echo.style.textAlign = 'center';
+      echo.textContent = '(left half from previous step: ' + fmtBin(aRaw) + ')';
+      area.appendChild(echo);
+      renderReadout(byteVal);
+      setStatus('<b>Step ' + (beatIdx+1) + '/12 — AND with mask B.</b> Same operation, different mask. Now we have two isolated halves, each with zeros where the other has bits.');
+    } else if (beat === 2) {
+      const hint = document.createElement('div');
+      hint.className = 'bvz-shift-hint';
+      hint.innerHTML = 'Left shifts <b style="color:#F0B84A;">right by ' + s.shift + '</b> &nbsp;·&nbsp; right shifts <b style="color:#ED93B1;">left by ' + s.shift + '</b>';
+      area.appendChild(hint);
+
+      const leftRowHolder = document.createElement('div');
+      leftRowHolder.className = 'bvz-bits-inline';
+      const rightRowHolder = document.createElement('div');
+      rightRowHolder.className = 'bvz-bits-inline';
+      area.appendChild(makeOpRow('left >>' + s.shift, leftRowHolder, '', ''));
+      area.appendChild(makeOpRow('right <<' + s.shift, rightRowHolder, '', ''));
+
+      // Start with pre-shift values
+      const preLeft = makeRow(aRaw, { dimZeros: true, tagMask: s.maskA, tagClass: 'tag-a' });
+      while (preLeft.firstChild) leftRowHolder.appendChild(preLeft.firstChild);
+      const preRight = makeRow(bRaw, { dimZeros: true, tagMask: s.maskB, tagClass: 'tag-b' });
+      while (preRight.firstChild) rightRowHolder.appendChild(preRight.firstChild);
+
+      // After a brief pause, animate
+      setTimeout(() => {
+        animateShiftRow(leftRowHolder, aRaw, aShifted, 'tag-a');
+        animateShiftRow(rightRowHolder, bRaw, bShifted, 'tag-b');
+      }, 250);
+
+      renderReadout(byteVal);
+      setStatus('<b>Step ' + (beatIdx+1) + '/12 — shift.</b> Watch the bits slide: left half moves right by ' + s.shift + ', right half moves left by ' + s.shift + '. The two halves are now in each other\'s old positions.');
+    } else if (beat === 3) {
+      area.appendChild(makeOpRow('left', makeRow(aShifted, { dimZeros: true, tagMask: aShifted, tagClass: 'tag-a' }), '', ''));
+      area.appendChild(makeOpRow('right', makeRow(bShifted, { dimZeros: true, tagMask: bShifted, tagClass: 'tag-b' }), '|', 'blue'));
+      area.appendChild(makeDivider());
+      area.appendChild(makeOpRow('= combined', makeRow(combined), '', ''));
+      renderReadout(combined);
+      setStatus('<b>Step ' + (beatIdx+1) + '/12 — OR combine.</b> At every position, one operand is <code>0</code> and the other has the bit we want. OR passes the non-zero bit through. Stage ' + (stageIdx+1) + ' (' + s.name.toLowerCase() + ') done.');
+      byteVal = combined;
+    }
+  }
+
+  function stepForward() {
+    if (beatIdx >= TOTAL_BEATS) { stopPlay(); setStatus('<b>Done.</b> Byte fully reversed. Press <b>Reset</b> to start over.'); return; }
+    beatIdx++;
+    render();
+    if (beatIdx >= TOTAL_BEATS) setStatus('<b>Done.</b> Final value shown above. Byte fully reversed.');
+  }
+
+  function stepBack() {
+    stopPlay();
+    if (beatIdx < 0) return;
+    beatIdx--;
+    byteVal = original;
+    if (beatIdx < 0) { render(); setStatus('Back to the original input.'); return; }
+    const targetStage = Math.floor(beatIdx / BEATS_PER_STAGE);
+    for (let i = 0; i < targetStage; i++) {
+      const s = STAGES[i];
+      byteVal = (((byteVal & s.maskA) >> s.shift) | ((byteVal & s.maskB) << s.shift)) & 0xFF;
+    }
+    render();
+    setStatus('Stepped back to step ' + (beatIdx+1) + '/12.');
+  }
+
+  function togglePlay() {
+    if (playing) { stopPlay(); return; }
+    if (beatIdx >= TOTAL_BEATS) resetAll();
+    playing = true;
+    playBtn.textContent = '❚❚ Pause';
+    tickPlay();
+  }
+  function tickPlay() {
+    stepForward();
+    if (!playing) return;
+    if (beatIdx >= TOTAL_BEATS) { stopPlay(); return; }
+    playTimer = setTimeout(tickPlay, parseInt(speedEl.value, 10));
+  }
+  function stopPlay() {
+    playing = false;
+    if (playTimer) { clearTimeout(playTimer); playTimer = null; }
+    playBtn.textContent = '▶ Play';
+  }
+
+  function resetAll() {
+    stopPlay();
+    byteVal = original;
+    beatIdx = -1;
+    render();
+    setStatus('Ready. Press <b>Next</b> or <b>→</b> to begin.');
+  }
+
+  function applyInput() {
+    const v = parseInput(inputEl.value);
+    if (v === null) { setStatus('<b>Invalid input.</b> Try <code>0b11010010</code>, <code>0xA5</code>, or a number 0–255.'); return; }
+    original = v;
+    resetAll();
+  }
+
+  applyBtn.addEventListener('click', applyInput);
+  inputEl.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); applyInput(); } });
+  document.querySelectorAll('.bvz-preset[data-preset]').forEach(b => {
+    b.addEventListener('click', () => { inputEl.value = b.dataset.preset; applyInput(); });
+  });
+  randBtn.addEventListener('click', () => {
+    const r = Math.floor(Math.random() * 256);
+    inputEl.value = '0b' + r.toString(2).padStart(8, '0');
+    applyInput();
+  });
+  playBtn.addEventListener('click', togglePlay);
+  nextBtn.addEventListener('click', () => { stopPlay(); stepForward(); });
+  prevBtn.addEventListener('click', stepBack);
+  resetBtn.addEventListener('click', resetAll);
+  speedEl.addEventListener('input', () => { speedOut.textContent = speedEl.value + 'ms'; });
+
+  document.addEventListener('keydown', e => {
+    if (e.target === inputEl) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    const k = e.key;
+    if (k === ' ') { e.preventDefault(); togglePlay(); }
+    else if (k === 'ArrowRight' || k === 'n' || k === 'N') { e.preventDefault(); stopPlay(); stepForward(); }
+    else if (k === 'ArrowLeft' || k === 'p' || k === 'P') { e.preventDefault(); stepBack(); }
+    else if (k === 'r' || k === 'R') { e.preventDefault(); resetAll(); }
+    else if (k === '+' || k === '=') {
+      e.preventDefault();
+      speedEl.value = Math.max(parseInt(speedEl.min,10), parseInt(speedEl.value,10) - 100);
+      speedOut.textContent = speedEl.value + 'ms';
+    }
+    else if (k === '-' || k === '_') {
+      e.preventDefault();
+      speedEl.value = Math.min(parseInt(speedEl.max,10), parseInt(speedEl.value,10) + 100);
+      speedOut.textContent = speedEl.value + 'ms';
+    }
+  });
+
+  buildCode();
+  buildPhaseBar();
+  render();
+})();
+</script>
+
+</body>
+</html>

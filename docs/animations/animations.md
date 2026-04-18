@@ -8,6 +8,8 @@
 
 [🎯⏳ Vectored and Non-Vectored Interrupts](vectored_nonvectored.html)
 
+[🔟⇄ Bit Reversal (Tutorial 12 Q.3)](bit_reversal.html)
+
 <!-- markdownlint-disable MD033 -->
 <!-- 
 ## Process Lifecycle
