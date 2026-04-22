@@ -2,37 +2,41 @@
 <html>
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bit Reversal Visualizer</title>
 <style>
   :root {
-    --color-background-primary: #1a1f2e;
-    --color-background-secondary: #222838;
-    --color-background-tertiary: #2c3347;
-    --color-background-info: rgba(55, 138, 221, 0.18);
-    --color-text-primary: #e8ecf4;
-    --color-text-secondary: #a8b2c7;
-    --color-text-tertiary: #6b7590;
-    --color-text-info: #85B7EB;
-    --color-border-tertiary: rgba(255,255,255,0.12);
-    --color-border-secondary: rgba(255,255,255,0.22);
-    --color-border-info: #378ADD;
+    /* Palette aligned with the mutual-exclusion visualizer */
+    --color-background-primary: #0a0e27;      /* page base */
+    --color-background-secondary: #0d1130;    /* card base */
+    --color-background-tertiary: #1a1e47;     /* hover / inner */
+    --color-background-info: rgba(96, 165, 250, 0.13);
+    --color-text-primary: #e0e0e0;
+    --color-text-secondary: #c0c4d8;
+    --color-text-tertiary: #8888aa;
+    --color-text-info: #60a5fa;
+    --color-border-tertiary: #2a2e57;
+    --color-border-secondary: #3a3e67;
+    --color-border-info: #60a5fa;
+    --card-gradient: linear-gradient(145deg, #0d1130, #111540);
     --border-radius-md: 8px;
-    --border-radius-lg: 12px;
-    --font-sans: system-ui, -apple-system, sans-serif;
-    --font-mono: 'SF Mono', Monaco, 'Courier New', monospace;
+    --border-radius-lg: 10px;
+    --font-sans: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --font-mono: 'Fira Code', 'Cascadia Code', 'JetBrains Mono', 'SF Mono', Monaco, 'Courier New', monospace;
   }
-  body { background: #0f1419; color: var(--color-text-primary); font-family: var(--font-sans); padding: 20px; max-width: 900px; margin: 0 auto; }
-  button { background: transparent; color: var(--color-text-primary); border: 0.5px solid var(--color-border-secondary); padding: 6px 12px; border-radius: var(--border-radius-md); cursor: pointer; font-family: inherit; }
-  button:hover { background: var(--color-background-tertiary); }
+  * { box-sizing: border-box; }
+  body { background: #0a0e27; color: var(--color-text-primary); font-family: var(--font-sans); padding: 20px; max-width: 900px; margin: 0 auto; }
+  button { background: rgba(255,255,255,0.03); color: #ccc; border: 2px solid var(--color-border-secondary); padding: 6px 14px; border-radius: 30px; cursor: pointer; font-family: inherit; font-weight: 600; transition: all .2s; }
+  button:hover { border-color: var(--color-text-info); color: var(--color-text-info); background: rgba(96,165,250,0.08); }
   button:active { transform: scale(0.98); }
-  input[type="text"] { background: var(--color-background-primary); color: var(--color-text-primary); border: 0.5px solid var(--color-border-secondary); padding: 6px 10px; border-radius: var(--border-radius-md); font-family: var(--font-mono); }
+  input[type="text"] { background: var(--color-background-primary); color: var(--color-text-primary); border: 1px solid var(--color-border-tertiary); padding: 6px 10px; border-radius: var(--border-radius-md); font-family: var(--font-mono); }
   input[type="range"] { accent-color: var(--color-text-info); }
 
   .bvz-wrap { padding: 0; }
   .bvz-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
-  @media (min-width: 780px) { .bvz-grid { grid-template-columns: 1.15fr 1fr; } }
-  .bvz-card { background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 1rem 1.1rem; }
-  .bvz-section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); margin: 0 0 10px; font-weight: 500; }
+  @media (min-width: 1000px) { .bvz-grid { grid-template-columns: 1fr 1.15fr; } }
+  .bvz-card { background: var(--card-gradient); border: 1px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.1rem; }
+  .bvz-section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-info); margin: 0 0 10px; font-weight: 700; }
   .bvz-input-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
   .bvz-input-row input[type="text"] { flex: 1; min-width: 140px; font-size: 14px; }
   .bvz-presets { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
@@ -48,10 +52,10 @@
   .bvz-bits-inline { display: flex; gap: 3px; }
   .bvz-divider { border-top: 1px solid var(--color-border-tertiary); margin: 4px 0 4px calc(84px + 8px + 18px + 8px); height: 0; }
 
-  .bvz-bit { width: 28px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 15px; font-weight: 500; background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); position: relative; flex-shrink: 0; }
+  .bvz-bit { width: 28px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 15px; font-weight: 500; background: var(--color-background-primary); border: 1px solid var(--color-border-tertiary); position: relative; flex-shrink: 0; }
   .bvz-bit.anim { transition: transform 750ms cubic-bezier(.45,.05,.3,1); }
   .bvz-bit .idx { position: absolute; top: -13px; font-size: 9px; color: var(--color-text-tertiary); font-weight: 400; }
-  .bvz-bit.one { background: rgba(55, 138, 221, 0.25); color: #85B7EB; }
+  .bvz-bit.one { background: rgba(96, 165, 250, 0.18); color: #93c5fd; }
   .bvz-bit.zero { color: var(--color-text-tertiary); }
   .bvz-bit.dim { opacity: 0.28; }
   .bvz-bit.mask-a { box-shadow: 0 0 0 2px #EF9F27; }
@@ -64,8 +68,8 @@
   .bvz-readout b { color: var(--color-text-primary); font-weight: 500; margin-left: 3px; }
 
   .bvz-stages { display: flex; gap: 6px; justify-content: center; margin: 12px 0 6px; flex-wrap: wrap; }
-  .bvz-pill { font-size: 12px; padding: 4px 10px; border-radius: 999px; background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); color: var(--color-text-secondary); }
-  .bvz-pill.active { background: var(--color-background-info); color: var(--color-text-info); border-color: var(--color-border-info); }
+  .bvz-pill { font-size: 12px; padding: 4px 12px; border-radius: 999px; background: var(--color-background-primary); border: 1px solid var(--color-border-tertiary); color: var(--color-text-secondary); font-weight: 600; }
+  .bvz-pill.active { background: var(--color-background-info); color: var(--color-text-info); border-color: var(--color-border-info); box-shadow: 0 0 15px rgba(96,165,250,.1); }
   .bvz-pill.done { color: var(--color-text-tertiary); }
 
   .bvz-phase-bar { display: flex; gap: 4px; justify-content: center; margin: 8px 0 4px; }
@@ -75,21 +79,21 @@
 
   .bvz-status { text-align: center; font-size: 13px; color: var(--color-text-secondary); min-height: 52px; margin-top: 6px; line-height: 1.45; padding: 0 6px; }
   .bvz-status b { color: var(--color-text-primary); font-weight: 500; }
-  .bvz-status code { font-family: var(--font-mono); font-size: 12px; background: var(--color-background-primary); padding: 1px 5px; border-radius: 4px; color: var(--color-text-primary); }
+  .bvz-status code { font-family: var(--font-mono); font-size: 12px; background: var(--color-background-primary); padding: 1px 5px; border-radius: 4px; color: var(--color-text-primary); border: 1px solid var(--color-border-tertiary); }
 
   .bvz-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 10px; }
   .bvz-controls button { font-size: 13px; }
   .bvz-controls .spd { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 140px; font-size: 12px; color: var(--color-text-secondary); }
   .bvz-controls .spd input { flex: 1; }
 
-  .bvz-code { font-family: var(--font-mono); font-size: 12.5px; line-height: 1.7; background: var(--color-background-primary); border-radius: var(--border-radius-md); padding: 12px 14px; border: 0.5px solid var(--color-border-tertiary); overflow-x: auto; }
+  .bvz-code { font-family: var(--font-mono); font-size: 12.5px; line-height: 1.7; background: var(--color-background-primary); border-radius: var(--border-radius-md); padding: 12px 14px; border: 1px solid var(--color-border-tertiary); overflow-x: auto; color: #7a7a9a; }
   .bvz-code .line { display: block; padding: 4px 6px; border-radius: 4px; border-left: 2px solid transparent; transition: opacity 220ms; }
-  .bvz-code .line.active { border-left-color: var(--color-border-info); }
+  .bvz-code .line.active { background: rgba(96,165,250,.08); border-left-color: var(--color-border-info); color: #93c5fd; }
   .bvz-code .line.done { opacity: 0.45; }
-  .bvz-code .cmt { color: var(--color-text-tertiary); font-style: italic; display: block; margin-bottom: 2px; }
+  .bvz-code .cmt { color: #4a4a6a; font-style: italic; display: block; margin-bottom: 2px; }
   .bvz-code .tok-var { color: var(--color-text-primary); }
   .bvz-code .tok-op { color: #D4537E; }
-  .bvz-code .tok-num { color: #97C459; }
+  .bvz-code .tok-num { color: #fbbf24; }
   .bvz-code .tok { transition: background 250ms, outline-color 250ms, color 250ms; padding: 1px 2px; border-radius: 3px; outline: 1.5px solid transparent; }
   .bvz-code .tok.hi-a { background: rgba(239, 159, 39, 0.22); outline-color: #EF9F27; }
   .bvz-code .tok.hi-b { background: rgba(212, 83, 126, 0.22); outline-color: #D4537E; }
@@ -98,7 +102,7 @@
   .bvz-code .tok.hi-shift-b { background: rgba(212, 83, 126, 0.22); outline-color: #D4537E; color: #ED93B1 !important; }
 
   .bvz-kbd { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; font-size: 11px; color: var(--color-text-tertiary); margin-top: 10px; }
-  .bvz-kbd kbd { font-family: var(--font-mono); font-size: 10.5px; padding: 2px 6px; background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: 4px; color: var(--color-text-secondary); }
+  .bvz-kbd kbd { font-family: var(--font-mono); font-size: 10.5px; padding: 2px 6px; background: var(--color-background-tertiary); border: 1px solid var(--color-border-secondary); border-radius: 4px; color: var(--color-text-tertiary); }
 
   .bvz-shift-hint { font-size: 11px; color: var(--color-text-tertiary); text-align: center; margin-bottom: 6px; }
   .bvz-shift-hint b { font-weight: 500; }
@@ -106,11 +110,43 @@
   @media (prefers-reduced-motion: reduce) {
     .bvz-bit.anim { transition: none; }
   }
+
+  /* ---- Mobile: bigger fonts/buttons, prevent wide Working-bits box ---- */
+  /* Below 1000px, the grid stacks to 1 column (Code above Working bits). */
+  @media (max-width: 1000px) {
+    body { padding: 12px; }
+    button { font-size: 15px; padding: 9px 16px; }
+    input[type="text"] { font-size: 16px; padding: 9px 12px; }
+    .bvz-section-label { font-size: 13px; }
+    .bvz-preset { font-size: 14px; padding: 7px 12px; }
+    .bvz-controls button { font-size: 15px; }
+    .bvz-controls .spd { font-size: 14px; min-width: 0; }
+    /* Shorter autoplay slider so the Working-bits card doesn't stretch too wide */
+    .bvz-controls .spd input[type="range"] { flex: 0 1 140px; min-width: 0; max-width: 140px; }
+    .bvz-pill { font-size: 14px; padding: 6px 14px; }
+    .bvz-status { font-size: 15px; line-height: 1.5; }
+    .bvz-status code { font-size: 14px; }
+    .bvz-kbd { font-size: 13px; gap: 12px; }
+    .bvz-kbd kbd { font-size: 12.5px; padding: 3px 8px; }
+    .bvz-readout { font-size: 14px; }
+    .bvz-code { font-size: 14px; }
+    .bvz-op-label { font-size: 12px; }
+    .bvz-shift-hint { font-size: 13px; }
+    /* Vertically compact the Code card on mobile — no extra space below the C code
+       so it stacks neatly with Working bits below it. */
+    .bvz-card-code { padding-bottom: 0.7rem; }
+  }
+
   @media (max-width: 420px) {
-    .bvz-op-label { width: 62px; font-size: 10px; }
-    .bvz-bit { width: 26px; height: 32px; font-size: 14px; }
+    .bvz-op-label { width: 58px; font-size: 11px; }
+    .bvz-op-sym { width: 14px; font-size: 16px; }
+    .bvz-bit { width: 24px; height: 30px; font-size: 13px; border-radius: 5px; }
     .bvz-bits-inline { gap: 2px; }
-    .bvz-divider { margin-left: calc(62px + 8px + 18px + 8px); }
+    .bvz-divider { margin-left: calc(58px + 6px + 14px + 6px); }
+    .bvz-op-row { gap: 6px; }
+    .bvz-card { padding: 0.85rem 0.7rem; }
+    /* Even shorter slider on very narrow screens */
+    .bvz-controls .spd input[type="range"] { max-width: 110px; }
   }
 </style>
 </head>
@@ -133,6 +169,11 @@
   </div>
 
   <div class="bvz-grid">
+    <div class="bvz-card bvz-card-code">
+      <div class="bvz-section-label">Code</div>
+      <div class="bvz-code" id="bvz-code"></div>
+    </div>
+
     <div class="bvz-card">
       <div class="bvz-section-label">Working bits</div>
       <div class="bvz-stage-area" id="bvz-area"></div>
@@ -164,13 +205,8 @@
         <span><kbd>R</kbd> reset</span>
         <span><kbd>+</kbd> <kbd>−</kbd> speed</span>
       </div>
-    </div>
-
-    <div class="bvz-card">
-      <div class="bvz-section-label">Code</div>
-      <div class="bvz-code" id="bvz-code"></div>
-      <div style="font-size: 11px; color: var(--color-text-tertiary); margin-top: 10px; line-height: 1.55;">
-        <b style="color: var(--color-text-secondary); font-weight: 500;">Each stage = 4 micro-steps:</b><br>
+      <div style="font-size: 11px; color: var(--color-text-tertiary); margin-top: 22px; line-height: 1.55;">
+        <b style="color: var(--color-text-secondary); font-weight: 500;">Each stage (nibbles, crumbs, bits) = 4 micro-steps:</b><br>
         1. <b style="color: var(--color-text-secondary); font-weight: 500;">AND</b> with mask A — keeps the left half.<br>
         2. <b style="color: var(--color-text-secondary); font-weight: 500;">AND</b> with mask B — keeps the right half.<br>
         3. <b style="color: var(--color-text-secondary); font-weight: 500;">Shift</b> — bits slide to their new positions.<br>
